@@ -1,0 +1,36 @@
+.ant-page-header {
+  padding: 2px;
+}
+.ant-breadcrumb {
+  font-size: large;
+}
+.ant-page-header.has-breadcrumb {
+  padding-top: 1px;
+}
+
+.dynamic-delete-button {
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  font-size: 24px;
+  color: #999;
+  transition: all 0.3s;
+}
+
+.dynamic-delete-button:hover {
+  color: #777;
+}
+
+.passenger-input {
+  width: 84%;
+  margin-right: 8px;
+}
+
+.add-button {
+  width: 100%;
+}
+
+nz-form-item {
+  margin-bottom: 16px;
+}
+

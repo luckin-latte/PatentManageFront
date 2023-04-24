@@ -1,0 +1,19 @@
+<nz-table #myProposalTable nzBordered nzSize="small" [nzData]="dataSet">
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>提案名称</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of myProposalTable.data">
+      <td>{{ data.number }}</td>
+      <td>{{ data.proposalName }}</td>
+      <td>
+        <button nz-button (click)="preview()">预览</button>
+        <button nz-button (click)="download()" style="margin-left: 8px;">下载</button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

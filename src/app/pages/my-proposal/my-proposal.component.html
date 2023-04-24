@@ -1,0 +1,131 @@
+<nz-page-header class="site-page-header">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>技术提案</nz-breadcrumb-item>
+    <nz-breadcrumb-item><a>我的提案</a></nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<form nz-form [formGroup]="searchForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">提案名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="proposalName"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">提案编号</nz-form-label>
+        <nz-form-control>
+          <input nz-input  formControlName="proposalCode"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">提案类型</nz-form-label>
+        <nz-form-control>
+          <nz-select id="proposalType" nzAllowClear formControlName="proposalType">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
+            <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
+            <nz-option nzValue="3" nzLabel="外观设计专利"></nz-option>
+            <nz-option nzValue="4" nzLabel="软著"></nz-option>
+            <nz-option nzValue="5" nzLabel="商标"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">发明人</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="inventorName"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">发明人工号</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="inventorCode"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">提案状态</nz-form-label>
+        <nz-form-control>
+          <nz-select id="proposalStatus" nzAllowClear formControlName="proposalStatus">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option nzValue="1" nzLabel="在审"></nz-option>
+            <nz-option nzValue="2" nzLabel="通过"></nz-option>
+            <nz-option nzValue="3" nzLabel="不通过"></nz-option>
+            <nz-option nzValue="4" nzLabel="补充文件"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">提案日期</nz-form-label>
+        <nz-form-control>
+          <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onChange($event)"
+            formControlName="dateRangePicker" style="width: 100%;"></nz-range-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzSpan]="16" class="search-area">
+      <button nz-button (click)="resetForm()">重置</button>
+      <button nz-button [nzType]="'primary'" style="margin-left: 8px;" (click)="search()">搜索</button>
+    </div>
+  </div>
+</form>
+
+<nz-table #myProposalTable nzBordered nzSize="small"
+  nzShowPagination nzShowSizeChanger [nzData]="myProposalSet">
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>提案编号</th>
+      <th>提案名称</th>
+      <th>提案日期</th>
+      <th>发明人</th>
+      <th>评审状态</th>
+      <th>提案类型</th>
+      <th>审批流程</th>
+      <th>相关文件</th>
+      <th>补充文件</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of myProposalTable.data">
+      <td>{{ data.number }}</td>
+      <td>{{ data.code }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.date}}</td>
+      <td>{{ data.inventor}}</td>
+      <td>{{ data.status}}</td>
+      <td>{{ data.type}}</td>
+      <td>
+        <button nz-button (click)="openReviewDetail()">详情</button>
+      </td>
+      <td>
+        <button nz-button (click)="openFileDetail()">详情</button>
+      </td>
+      <td>
+        <nz-upload nzAction="https://www.mocky.io/v2/5cc8019d300000980a055e76">
+          <button nz-button><i nz-icon nzType="upload"></i>选择文件</button>
+        </nz-upload>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

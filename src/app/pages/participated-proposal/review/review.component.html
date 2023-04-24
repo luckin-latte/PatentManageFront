@@ -1,0 +1,20 @@
+<nz-table #myProposalTable nzBordered nzSize="small" [nzData]="dataSet">
+  <thead>
+    <tr>
+      <th>序号</th>
+      <th>审批人</th>
+      <th>负责流程</th>
+      <th>审批时间</th>
+      <th>审批意见</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of myProposalTable.data">
+      <td>{{ data.number }}</td>
+      <td>{{ data.approver }}</td>
+      <td>{{ data.process }}</td>
+      <td>{{ data.date}}</td>
+      <td>{{ data.result}}</td>
+    </tr>
+  </tbody>
+</nz-table>

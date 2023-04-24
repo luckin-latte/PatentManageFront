@@ -1,0 +1,148 @@
+<nz-page-header class="site-page-header">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>知识产权管理</nz-breadcrumb-item>
+    <nz-breadcrumb-item><a>部门商标</a></nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<form nz-form [formGroup]="searchForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">商标编号</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="trademarkCode"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">商标名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input  formControlName="trademarkName"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">发明人</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="inventorName"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">商标权人</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="owner"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">商标版权号</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="copyrightNo"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">商标种类</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="trademarkType"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">当前状态</nz-form-label>
+        <nz-form-control>
+          <nz-select id="status" nzAllowClear formControlName="status">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option nzValue="1" nzLabel="申请中"></nz-option>
+            <nz-option nzValue="2" nzLabel="生效"></nz-option>
+            <nz-option nzValue="3" nzLabel="无效"></nz-option>
+            <nz-option nzValue="4" nzLabel="放弃"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">权力状态</nz-form-label>
+        <nz-form-control>
+          <nz-select id="powerStatus" nzAllowClear formControlName="powerStatus">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option nzValue="1" nzLabel="待交"></nz-option>
+            <nz-option nzValue="2" nzLabel="在审"></nz-option>
+            <nz-option nzValue="3" nzLabel="有权"></nz-option>
+            <nz-option nzValue="4" nzLabel="无权"></nz-option>
+            <nz-option nzValue="5" nzLabel="进国家"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8">代理机构</nz-form-label>
+        <nz-form-control>
+          <nz-select id="agency" nzAllowClear formControlName="agency">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="24" class="operate-area">
+      <button nz-button (click)="resetForm()">重置</button>
+      <button nz-button [nzType]="'primary'" style="margin-left: 8px;" (click)="search()">搜索</button>
+    </div>
+  </div>
+</form>
+
+<nz-table #myProposalTable nzBordered nzSize="small"
+  nzShowPagination nzShowSizeChanger [nzData]="myTrademarkSet">
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>商标编号</th>
+      <th>商标名称</th>
+      <th>发明人</th>
+      <th>商标权人</th>
+      <th>商标版权号</th>
+      <th>商标种类</th>
+      <th>权力状态</th>
+      <th>当前状态</th>
+      <th>商标奖金</th>
+      <th>相关文件</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of myProposalTable.data">
+      <td>{{ data.number }}</td>
+      <td>{{ data.code }}</td>
+      <td>{{ data.name }}</td>
+      <td>{{ data.inventor}}</td>
+      <td>{{ data.owner }}</td>
+      <td>{{ data.copyrightNo }}</td>
+      <td>{{ data.type }}</td>
+      <td>{{ data.powerStatus }}</td>
+      <td>{{ data.status }}</td>
+      <td>
+        <button nz-button  (click)="openBonusDetail()">详情</button>
+      </td>
+      <td>
+        <button nz-button  (click)="openFileDetail()">详情</button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

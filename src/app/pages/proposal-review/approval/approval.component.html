@@ -1,0 +1,122 @@
+<nz-tabset>
+  <nz-tab nzTitle="提案信息">
+    <form nz-form [formGroup]="InfoForm">
+      
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">提案编号</nz-form-label>
+            <nz-form-control>
+              <input nz-input />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+          
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">提案名称</nz-form-label>
+            <nz-form-control>
+              <input nz-input />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+          
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">提案人</nz-form-label>
+            <nz-form-control>
+              <input nz-input />
+            </nz-form-control>
+          </nz-form-item>
+          </div>
+        </div>
+
+            
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">提案日期</nz-form-label>
+            <nz-form-control>
+              <input nz-input />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+          
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">知识产权类型</nz-form-label>
+            <nz-form-control>
+              <input nz-input />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+          
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">技术方案实质内容</nz-form-label>
+            <nz-form-control>
+              <input nz-input />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+          
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">附件</nz-form-label>
+            <nz-form-control>
+              <button nz-button>查看</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+    </form>
+  </nz-tab>
+</nz-tabset>
+
+<nz-tabset>
+  <nz-tab nzTitle="审批">
+    <form nz-form [formGroup]="ApprovalForm">
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">审批意见</nz-form-label>
+            <nz-form-control>
+              <input nz-input />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">审批结论</nz-form-label>
+            <nz-form-control>
+              <input nz-input />
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzSpan]="16" class="save-area">
+          <button nz-button>取消</button>
+          <button nz-button (click)="submit()" [nzType]="'primary'" style="margin-left: 8px;">提交</button>
+        </div>
+      </div>
+    </form>
+  </nz-tab>
+</nz-tabset>

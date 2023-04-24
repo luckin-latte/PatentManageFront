@@ -1,0 +1,197 @@
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar"
+            nzCollapsible
+            nzWidth="200px"
+            nzBreakpoint="md"
+            [(nzCollapsed)]="isCollapsed"
+            [nzTrigger]="null">
+    <div class="sidebar-logo">
+        <nz-avatar nzIcon="user" style="background-color:cadetblue;"></nz-avatar>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-submenu nzOpen nzTitle="首页" nzIcon="dashboard">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="indexProposal">提案人</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="indexApartment">部门主管/评审委员会</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="indexAdministrator">知识产权管理员</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="技术提案" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="newProposal">新提案</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="myProposal">我的提案</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="participatedProposal">我参与的提案</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="proposalReview">提案评审</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="departmentProposal">部门提案</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="知识产权管理" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="myPatentAdd">新增我的专利</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="mySoftwareAdd">新增我的软著</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="myTrademarkadd">新增我的商标</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="myPatent">我的专利</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="mySoftware">我的软著</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="myTrademark">我的商标</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="departmentPatent">部门专利</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="departmentSoftware">部门软著</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="departmentTrademark">部门商标</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="文件管理" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="proposalFiles">提案文件</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="patentReceiveFile">专利来文</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="patentPostFile">专利发文</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="softwareReceiveFile">软著来文</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="softwarePostFile">软著发文</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="trademarkReceiveFile">商标来文</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="trademarkPostFile">商标发文</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="费用管理" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="pantentOfficialFee">专利官费</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="pantentAnnualFee">专利年费</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="patentBonus">专利奖金</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="trademarkOfficialFee">商标官费</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="trademarkBonus">商标奖金</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="softwareOfficialFee">软著官费</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="softwareBonus">软著奖金</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="bill">奖金</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="代理机构管理" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="agenc">代理机构</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="用户权限配置" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="userManagement">用户管理</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="roleManagement">角色管理</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="统计分析" nzIcon="form">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="proposalStatistics">提案统计</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="patentStatistics">专利统计</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="softwareStatistics">软著统计</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="trademarkStatistics">商标统计</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="billStatistics">账单统计</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="bonusStatistics">奖金统计</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-layout>
+    <nz-header>
+      <div nz-row [nzGutter]="16" class="app-header">
+        <div nz-col [nzMd]="16" [nzLg]="18" [nzXl]="20">
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger" nz-icon
+              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+          </span>
+        </div>
+
+        <div nz-col  [nzMd]="8" [nzLg]="6" [nzXl]="4">
+          <span class="header-logout">
+            <i nz-icon nzType="logout" nzTheme="outline" style="margin-right: 8px;"></i>
+            <a style="color:rgb(66, 66, 66); font-family:Segoe UI">注销</a>
+          </span>
+        </div>
+      </div>
+    </nz-header>
+    <nz-content>
+      <!-- <nz-breadcrumb [nzAutoGenerate]="true">Breadcrumb面包屑</nz-breadcrumb> -->
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+    <!-- <nz-footer style="text-align: center;">Zhang Wanyu ©2023 Implement By Angular</nz-footer> -->
+  </nz-layout>
+</nz-layout>
