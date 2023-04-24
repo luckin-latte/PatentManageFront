@@ -1,0 +1,35 @@
+
+<div>
+  <button nz-button nzType="primary" (click)="openCreate()" style="margin-top: 8px;">
+    新增年费</button>
+</div>
+
+<nz-table #myProposalTable nzBordered nzSize="small"
+  [nzData]="pantentAnnualFeeSet">
+  <thead>
+    <tr>
+      <th>编号</th>
+      <th>缴费状态</th>
+      <th>年度</th>
+      <th>应缴金额</th>
+      <th>应缴日期</th>
+      <th>实缴金额</th>
+      <th>实缴日期</th>
+      <th>发票</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of myProposalTable.data">
+      <td>{{ data.number }}</td>
+      <td>{{ data.tatus }}</td>
+      <td>{{ data.annual }}</td>
+      <td>{{ data.amount }}</td>
+      <td>{{ data.date }}</td>
+      <td>{{ data.actualPay }}</td>
+      <td>{{ data.payDate }}</td>
+      <td>
+        <button nz-button (click)="openInvoice()">查看</button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
