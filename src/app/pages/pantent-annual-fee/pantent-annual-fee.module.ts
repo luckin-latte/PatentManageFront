@@ -20,14 +20,12 @@ import { PantentAnnualFeeRoutingModule } from './pantent-annual-fee-routing.modu
 import { PantentAnnualFeeComponent } from './pantent-annual-fee.component';
 import { CreateComponent } from './create/create.component';
 import { DetailComponent } from './detail/detail.component';
-import { InvoiceComponent } from './invoice/invoice.component';
 
 @NgModule({
   declarations: [
     PantentAnnualFeeComponent,
     CreateComponent,
-    DetailComponent,
-    InvoiceComponent
+    DetailComponent
   ],
   imports: [
     CommonModule,

@@ -48,9 +48,9 @@ export class PantentAnnualFeeComponent implements OnInit {
 
   }
 
-  public openDetail() {
+  public showDetail() {
     this.drawerRef = this.nzDrawerService.create({
-      nzTitle: '专利官费详情',
+      nzTitle: '专利年费详情',
       nzContent: DetailComponent,
       nzContentParams: {
         name: 'This is a param from child'

@@ -4,6 +4,7 @@ import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import { CreateComponent } from '../create/create.component';
+import { EditComponent } from '../edit/edit.component';
 import { InvoiceComponent } from 'src/app/shared/component/invoice/invoice.component';
 
 @Component({
@@ -16,12 +17,13 @@ export class DetailComponent implements OnInit {
   pantentAnnualFeeSet = [
     {
       number: '1',
+      name: '申请费',
       status: '已缴费',
-      annual: '2012',
       amount: '2000',
       date: '2021-04-05',
       actualPay: '2000',
-      payDate: '2021-04-01'
+      payDate: '2021-04-01',
+      remark: '备注'
     }
   ];
 
@@ -39,12 +41,12 @@ export class DetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public showCreate() {
+  showCreate() {
     this.drawerRef = this.drawerService.create({
-      nzTitle: '新增专利年费',
+      nzTitle: '新增专利官费',
       nzContent: CreateComponent,
       nzContentParams: {
-        name: 'This is a param from child'
+        name: 'CreateComponent'
       },
       nzClosable: true,
       nzMask: true,
@@ -58,7 +60,7 @@ export class DetailComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('新增专利年费');
+      console.log('新增专利官费');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
@@ -87,6 +89,44 @@ export class DetailComponent implements OnInit {
 
     this.modalRef.afterClose.subscribe(data => {
       console.log(data);
+    });
+  }
+
+  public showEdit() {
+    this.drawerRef = this.drawerService.create({
+      nzTitle: '编辑专利官费',
+      nzContent: EditComponent,
+      nzContentParams: {
+        name: 'EditComponent'
+      },
+      nzClosable: true,
+      nzMask: true,
+      nzMaskClosable: false,
+      nzWidth: 640,
+      nzBodyStyle: {
+        height: 'calc(100% - 55px)',
+        overflow: 'auto',
+        'padding-bottom': '53px'
+      }
+    });
+
+    this.drawerRef.afterOpen.subscribe(() => {
+      console.log('编辑专利官费');
+    });
+
+    this.drawerRef.afterClose.subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  showDeleteConfirm(): void {
+    this.modalService.confirm({
+      nzTitle: '确定删除吗？',
+      nzOkText: '删除',
+      // nzOkType: 'danger',
+      nzOnOk: () => console.log('OK'),
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
     });
   }
 
