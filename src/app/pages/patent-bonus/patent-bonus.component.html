@@ -73,7 +73,11 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">奖金类型</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="bonusType"/>
+          <nz-select id="bonusType" nzAllowClear formControlName="bonusType">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option nzValue="1" nzLabel="申请"></nz-option>
+            <nz-option nzValue="2" nzLabel="授权"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -113,7 +117,7 @@
       <th>发放状态</th>
       <th>实发金额</th>
       <th>发明人</th>
-      <th>发明人位顺</th>
+      <th>发明人位次</th>
       <th>操作</th>
     </tr>
   </thead>

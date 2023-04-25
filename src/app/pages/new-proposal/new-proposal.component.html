@@ -77,7 +77,7 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="8">贡献率</nz-form-label>
           <nz-form-control [nzSpan]="16">
-            <nz-input-number class="passenger-input" formControlName="rate"
+            <nz-input-number class="rate-input" formControlName="rate"
               [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterPercent" [nzParser]="parserPercent">
             </nz-input-number>
             <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(i, $event)"></i>

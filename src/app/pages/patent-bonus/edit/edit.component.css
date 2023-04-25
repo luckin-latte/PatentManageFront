@@ -1,3 +1,21 @@
+.rate-input {
+  width: 80%;
+  margin-right: 8px;
+}
+
+.add-button {
+  width: 100%;
+}
+
+.dynamic-delete-button {
+  cursor: pointer;
+  position: relative;
+  top: 4px;
+  font-size: 24px;
+  color: #999;
+  transition: all 0.3s;
+}
+
 .operate-area {
   text-align: right;
 }

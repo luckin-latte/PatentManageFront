@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
-import { NzUploadFile } from 'ng-zorro-antd/upload';
 
 @Component({
   selector: 'app-create',
@@ -11,16 +10,6 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 })
 export class CreateComponent implements OnInit {
 
-  fileList: NzUploadFile[] = [
-    {
-      uid: '1',
-      name: 'xxx.png',
-      status: 'done',
-      response: 'Server Error 500',
-      url: 'http://www.baidu.com/xxx.png'
-    }
-  ]
-
   @Input() name!: string;
   CreateForm: FormGroup;
   drawerRef!: NzDrawerRef;
@@ -29,23 +18,52 @@ export class CreateComponent implements OnInit {
     private formBuilder: FormBuilder
     ) {
       this.CreateForm = this.formBuilder.group({
-        feeName: ['2018'],
+        patentCode: ['ZL557'],
+        patentType: ['0'],
+        bonusType: ['0'],
         status: ['0'],
-        dueFee: ['1200'],
-        date: ['2017-09-04'],
-        actualPay: ['1200'],
-        payDate: ['2017-09-04'],
-        remark: ['备注']
+        totalBonus: [10000],
+        listOfInventor: this.formBuilder.array([
+          this.formBuilder.group({
+            inventorName: ['发明人1'],
+            actualPay: [100],
+          })
+        ])
       });
   }
 
   ngOnInit(): void {
   }
 
-  cancel() {
+  public cancel() {
   }
 
-  save() {
+  public save() {
     this.drawerRef.close(this.CreateForm.getRawValue());
   }
+
+  
+  get listOfInventor(): FormArray {
+    return this.CreateForm.get('listOfInventor') as FormArray;
+  }
+
+  public addField(e?: MouseEvent): void {
+    if (e) {
+      e.preventDefault();
+    }
+    this.listOfInventor.push(
+      this.formBuilder.group({
+        inventorName: [''],
+        actualPay: [100],
+      })
+    );
+  }
+
+  public removeField(i: number, e: MouseEvent): void {
+    e.preventDefault();
+    if (this.listOfInventor.length > 1) {
+      this.listOfInventor.removeAt(i);
+    }
+  }
+
 }

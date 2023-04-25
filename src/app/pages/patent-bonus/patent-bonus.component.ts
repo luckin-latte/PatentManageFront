@@ -17,8 +17,8 @@ export class PatentBonusComponent implements OnInit {
     {
       number: '1',
       code: 'ZL1234',
-      patentType: 'type',
-      bonusType: 'type',
+      patentType: '发明型',
+      bonusType: '授权',
       bonus: '10000',
       status: '已发放',
       actualPay: '10000',
@@ -44,7 +44,7 @@ export class PatentBonusComponent implements OnInit {
       inventorName: ['发明人1'],
       inventorCode: ['A575'],
       department: ['开发1部'],
-      bonusType: ['奖金'],
+      bonusType: ['0'],
       status: ['0']
     });
   }

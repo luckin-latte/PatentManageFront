@@ -15,7 +15,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzModalModule } from 'ng-zorro-antd/modal';
-import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 
 import { PatentBonusRoutingModule } from './patent-bonus-routing.module';
 import { PatentBonusComponent } from './patent-bonus.component';
@@ -46,7 +46,7 @@ import { EditComponent } from './edit/edit.component';
     NzEmptyModule,
     NzDrawerModule,
     NzModalModule,
-    NzUploadModule,
+    NzInputNumberModule,
     PatentBonusRoutingModule
   ]
 })
