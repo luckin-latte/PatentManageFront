@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       console.log('登录成功', res);
       // 存储token
       localStorage.setItem('token', res.data.token)
-      this.router.navigate(['/index']);
+      this.router.navigate(['/indexProposal']);
     })
   }
 

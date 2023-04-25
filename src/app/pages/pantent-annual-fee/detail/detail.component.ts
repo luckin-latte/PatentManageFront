@@ -18,8 +18,8 @@ export class DetailComponent implements OnInit {
       number: '1',
       status: '已缴费',
       annual: '2012',
-      amount: '2000',
-      date: '2021-04-05',
+      dueFee: '2000',
+      dueDate: '2021-04-05',
       actualPay: '2000',
       payDate: '2021-04-01'
     }

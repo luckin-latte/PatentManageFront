@@ -15,6 +15,9 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 import { PantentAnnualFeeRoutingModule } from './pantent-annual-fee-routing.module';
 import { PantentAnnualFeeComponent } from './pantent-annual-fee.component';
@@ -44,6 +47,9 @@ import { DetailComponent } from './detail/detail.component';
     NzEmptyModule,
     NzDrawerModule,
     NzModalModule,
+    NzDividerModule,
+    NzInputNumberModule,
+    NzUploadModule,
     PantentAnnualFeeRoutingModule
   ]
 })
