@@ -16,6 +16,7 @@
       <th>实缴金额</th>
       <th>实缴日期</th>
       <th>发票</th>
+      <th>操作</th>
     </tr>
   </thead>
   <tbody>
@@ -29,6 +30,10 @@
       <td>{{ data.payDate }}</td>
       <td>
         <button nz-button (click)="showInvoice()">查看</button>
+      </td>
+      <td>
+        <button nz-button (click)="showDeleteConfirm()">删除</button>
+        <button nz-button (click)="showEdit()" style="margin-left: 8px;">编辑</button>
       </td>
     </tr>
   </tbody>

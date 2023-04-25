@@ -29,10 +29,14 @@ export class EditComponent implements OnInit {
     private formBuilder: FormBuilder
     ) {
       this.EditForm = this.formBuilder.group({
-        patentCode: ['ZL2345'],
-        payer: ['备注'],
-        feeName: ['2018'],
+        patentCode: ['ZL6666'],
+        annualFee: ['1000'],
+        overdue: ['200'],
+        agencyFee: ['4500'],
+        otherFee: ['1200'],
+        totalFee: ['8700'],
         status: ['0'],
+        annual: ['2016'],
         dueFee: ['1200'],
         date: ['2017-09-04'],
         actualPay: ['1200'],

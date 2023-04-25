@@ -5,6 +5,7 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import { CreateComponent } from '../create/create.component';
 import { InvoiceComponent } from 'src/app/shared/component/invoice/invoice.component';
+import { EditComponent } from '../edit/edit.component';
 
 @Component({
   selector: 'app-detail',
@@ -87,6 +88,45 @@ export class DetailComponent implements OnInit {
 
     this.modalRef.afterClose.subscribe(data => {
       console.log(data);
+    });
+  }
+
+  
+  public showEdit() {
+    this.drawerRef = this.drawerService.create({
+      nzTitle: '编辑专利年费',
+      nzContent: EditComponent,
+      nzContentParams: {
+        name: 'EditComponent'
+      },
+      nzClosable: true,
+      nzMask: true,
+      nzMaskClosable: false,
+      nzWidth: 640,
+      nzBodyStyle: {
+        height: 'calc(100% - 55px)',
+        overflow: 'auto',
+        'padding-bottom': '53px'
+      }
+    });
+
+    this.drawerRef.afterOpen.subscribe(() => {
+      console.log('编辑专利年费');
+    });
+
+    this.drawerRef.afterClose.subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  showDeleteConfirm(): void {
+    this.modalService.confirm({
+      nzTitle: '确定删除吗？',
+      nzOkText: '删除',
+      // nzOkType: 'danger',
+      nzOnOk: () => console.log('OK'),
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
     });
   }
 

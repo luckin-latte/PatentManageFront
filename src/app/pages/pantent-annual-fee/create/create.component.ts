@@ -29,15 +29,16 @@ export class CreateComponent implements OnInit {
     private formBuilder: FormBuilder
     ) {
       this.CreateForm = this.formBuilder.group({
-        trademarkCode: ['1'],
-        trademarkName: ['trademarkName'],
-        inventorName: ['inventorName'],
-        owner: ['owner'],
-        trademarkType: ['0409'],
-        copyrightNo: ['1245643'],
+        annualFee: ['1000'],
+        overdue: ['200'],
+        totalFee: ['1200'],
         status: ['0'],
-        powerStatus: ['0'],
-        agency: ['0']
+        annual: ['2018'],
+        dueFee: ['1200'],
+        date: ['2017-09-04'],
+        actualPay: ['1200'],
+        payDate: ['2017-09-04'],
+        remark: ['备注']
       });
   }
 
