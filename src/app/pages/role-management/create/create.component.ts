@@ -18,12 +18,9 @@ export class CreateComponent implements OnInit {
     private formBuilder: FormBuilder
     ) {
       this.CreateForm = this.formBuilder.group({
-        userName: ['管理员'],
-        userCode: ['2023074'],
-        department: [''],
-        role: ['0'],
-        password: ['applyCode'],
-        tel: ['01234'],
+        roleName: ['管理员'],
+        roleCode: ['2023074'],
+        auth: ['没有没有没有']
       });
   }
 
