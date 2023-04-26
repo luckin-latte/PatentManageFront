@@ -21,10 +21,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      userName: ["kbcxy", [Validators.required]],
+      userName: ["admin", [Validators.required]],
       // userName: [null, [Validators.required]],
-      // default: mcwjs
-      password: ["mcwjs", [Validators.required]],
+      password: ["123456", [Validators.required]],
       // password: [null, [Validators.required]],
       captcha: [1234, [Validators.required]],
       // captcha: [null, [Validators.required]],

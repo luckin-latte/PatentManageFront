@@ -47,6 +47,11 @@ export const ROUTES: Routes = [
     loadChildren: () => import('../pages/department-proposal/department-proposal.module').then(m => m.DepartmentProposalModule)
   },
   {
+    path: 'newProperty',
+    pathMatch: 'prefix',
+    loadChildren: () => import('../pages/new-property/new-property.module').then(m => m.NewPropertyModule)
+  },
+  {
     path: 'myPatentAdd',
     pathMatch: 'prefix',
     loadChildren: () => import('../pages/my-patent-add/my-patent-add.module').then(m => m.MyPatentAddModule)

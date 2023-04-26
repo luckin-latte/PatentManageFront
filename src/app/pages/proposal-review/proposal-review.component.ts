@@ -19,7 +19,7 @@ export class ProposalReviewComponent implements OnInit {
       name: '检索系统',
       proposer: '小章',
       inventor: '小明',
-      agency: '河海',
+      department: '河海',
       date: '2023-03-09',
     }
   ];
