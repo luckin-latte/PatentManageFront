@@ -19,13 +19,15 @@ import { MyPatentRoutingModule } from './my-patent-routing.module';
 import { MyPatentComponent } from './my-patent.component';
 import { BonusComponent } from './bonus/bonus.component';
 import { FileComponent } from './file/file.component';
+import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
   declarations: [
     MyPatentComponent,
     BonusComponent,
-    FileComponent
+    FileComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,

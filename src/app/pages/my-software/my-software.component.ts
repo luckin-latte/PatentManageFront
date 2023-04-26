@@ -4,6 +4,7 @@ import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
 import { BonusComponent } from './bonus/bonus.component';
 import { FileComponent } from './file/file.component';
+import { EditComponent } from './edit/edit.component';
 
 @Component({
   selector: 'app-my-software',
@@ -50,7 +51,7 @@ export class MySoftwareComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchForm = this.formBuilder.group({
-      softwareCode: ['SW11234'],
+      softwareCode: ['RZ11234'],
       softwareName: ['授课系统'],
       version: ['1.0.0'],
       inventorName: ['inventorName'],
@@ -129,6 +130,33 @@ export class MySoftwareComponent implements OnInit {
 
     this.drawerRef.afterOpen.subscribe(() => {
       console.log('显示文件详情');
+    });
+
+    this.drawerRef.afterClose.subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  public edit() {
+    this.drawerRef = this.nzDrawerService.create({
+      nzTitle: '编辑专利信息',
+      nzContent: EditComponent,
+      nzContentParams: {
+        name: 'This is a param from child'
+      },
+      nzClosable: true,
+      nzMask: true,
+      nzMaskClosable: false,
+      nzWidth: 720,
+      nzBodyStyle: {
+        height: 'calc(100% - 55px)',
+        overflow: 'auto',
+        'padding-bottom': '53px'
+      }
+    });
+
+    this.drawerRef.afterOpen.subscribe(() => {
+      console.log('编辑专利信息');
     });
 
     this.drawerRef.afterClose.subscribe(data => {

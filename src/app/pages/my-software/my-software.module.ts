@@ -20,13 +20,15 @@ import { MySoftwareRoutingModule } from './my-software-routing.module';
 import { MySoftwareComponent } from './my-software.component';
 import { FileComponent } from './file/file.component';
 import { BonusComponent } from './bonus/bonus.component';
+import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
   declarations: [
     MySoftwareComponent,
     FileComponent,
-    BonusComponent
+    BonusComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,

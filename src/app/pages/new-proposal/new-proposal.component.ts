@@ -22,7 +22,7 @@ export class NewProposalComponent implements OnInit {
   ) {
   }
 
-  get listOfInventor(): FormArray {
+  public get listOfInventor(): FormArray {
     return this.newProposalForm.get('listOfInventor') as FormArray;
   }
 
@@ -43,7 +43,7 @@ export class NewProposalComponent implements OnInit {
     });
   }
 
-  addField(e?: MouseEvent): void {
+  public addField(e?: MouseEvent): void {
     if (e) {
       e.preventDefault();
     }
@@ -55,7 +55,7 @@ export class NewProposalComponent implements OnInit {
     );
   }
 
-  removeField(i: number, e: MouseEvent): void {
+  public removeField(i: number, e: MouseEvent): void {
     e.preventDefault();
     if (this.listOfInventor.length > 1) {
       this.listOfInventor.removeAt(i);
@@ -74,11 +74,11 @@ export class NewProposalComponent implements OnInit {
   //   }
   // }
 
-  resetForm(): void {
+  public resetForm(): void {
     this.newProposalForm.reset();
   }
 
-  submitForm(value: {
+  public submitForm(value: {
     proposalCode: string,
     proposalName: string,
     proposerName: string,

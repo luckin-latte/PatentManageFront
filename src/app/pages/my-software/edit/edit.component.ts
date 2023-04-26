@@ -18,17 +18,23 @@ export class EditComponent implements OnInit {
     private formBuilder: FormBuilder
     ) {
       this.EditForm = this.formBuilder.group({
-        patentCode: ['patentCode'],
-        patentName: ['patentName'],
-        inventorName: ['inventorName'],
-        applyCode: ['applyCode'],
+        softwareCode: ['RZ1234'],
+        softwareName: ['软件著作'],
+        inventorName: ['发明人'],
+        agency: ['0'],
+        version: ['1.0.0'],
+        devWay: ['开发方式'],
+        registerCode: ['DJ123456'],
         applyDate: [''],
-        process: ['0'],
-        empowerCode: ['applyCode'],
-        empowerDate: [''],
+        certiCode: ['ZS123456'],
+        certiDate: [''],
+        storeCode: ['FC123456'],
+        storeDate: [''],
         powerStatus: ['0'],
-        patentType: ['0'],
-        agency: ['0']
+        rightRange: ['权力范围'],
+        proposalDate: ['0'],
+        completeDate: ['0'],
+        releaseDate: ['0']
       });
   }
 

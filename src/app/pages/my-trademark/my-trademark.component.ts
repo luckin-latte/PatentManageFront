@@ -4,6 +4,7 @@ import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
 import { BonusComponent } from './bonus/bonus.component';
 import { FileComponent } from './file/file.component';
+import { EditComponent } from './edit/edit.component';
 
 @Component({
   selector: 'app-my-trademark',
@@ -112,5 +113,31 @@ export class MyTrademarkComponent implements OnInit {
       console.log(data);
     });
   }
-  
+  public edit() {
+    this.drawerRef = this.nzDrawerService.create({
+      nzTitle: '编辑专利信息',
+      nzContent: EditComponent,
+      nzContentParams: {
+        name: 'This is a param from child'
+      },
+      nzClosable: true,
+      nzMask: true,
+      nzMaskClosable: false,
+      nzWidth: 720,
+      nzBodyStyle: {
+        height: 'calc(100% - 55px)',
+        overflow: 'auto',
+        'padding-bottom': '53px'
+      }
+    });
+
+    this.drawerRef.afterOpen.subscribe(() => {
+      console.log('编辑专利信息');
+    });
+
+    this.drawerRef.afterClose.subscribe(data => {
+      console.log(data);
+    });
+  }
+
 }

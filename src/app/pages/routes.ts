@@ -51,21 +51,21 @@ export const ROUTES: Routes = [
     pathMatch: 'prefix',
     loadChildren: () => import('../pages/new-property/new-property.module').then(m => m.NewPropertyModule)
   },
-  {
-    path: 'myPatentAdd',
-    pathMatch: 'prefix',
-    loadChildren: () => import('../pages/my-patent-add/my-patent-add.module').then(m => m.MyPatentAddModule)
-  },
-  {
-    path: 'mySoftwareAdd',
-    pathMatch: 'prefix',
-    loadChildren: () => import('../pages/my-software-add/my-software-add.module').then(m => m.MySoftwareAddModule)
-  },
-  {
-    path: 'myTrademarkadd',
-    pathMatch: 'prefix',
-    loadChildren: () => import('../pages/my-trademark-add/my-trademark-add.module').then(m => m.MyTrademarkAddModule)
-  },
+  // {
+  //   path: 'myPatentAdd',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/my-patent-add/my-patent-add.module').then(m => m.MyPatentAddModule)
+  // },
+  // {
+  //   path: 'mySoftwareAdd',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/my-software-add/my-software-add.module').then(m => m.MySoftwareAddModule)
+  // },
+  // {
+  //   path: 'myTrademarkadd',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/my-trademark-add/my-trademark-add.module').then(m => m.MyTrademarkAddModule)
+  // },
   {
     path: 'myPatent',
     pathMatch: 'prefix',
