@@ -2,11 +2,6 @@ import { Routes } from '@angular/router';
 
 export const ROUTES: Routes = [
   {
-    path: 'agenc',
-    pathMatch: 'prefix',
-    loadChildren: () => import('../pages/agenc/agenc.module').then(m => m.AgencModule)
-  },
-  {
     path: 'indexProposal',
     pathMatch: 'prefix',
     loadChildren: () => import('../pages/index-proposal/index-proposal.module').then(m => m.IndexProposalModule)
@@ -132,14 +127,14 @@ export const ROUTES: Routes = [
     loadChildren: () => import('../pages/trademark-post-file/trademark-post-file.module').then(m => m.TrademarkPostFileModule)
   },
   {
-    path: 'pantentOfficialFee',
+    path: 'patentOfficialFee',
     pathMatch: 'prefix',
-    loadChildren: () => import('../pages/pantent-official-fee/pantent-official-fee.module').then(m => m.PantentOfficialFeeModule)
+    loadChildren: () => import('../pages/patent-official-fee/patent-official-fee.module').then(m => m.PatentOfficialFeeModule)
   },
   {
-    path: 'pantentAnnualFee',
+    path: 'patentAnnualFee',
     pathMatch: 'prefix',
-    loadChildren: () => import('../pages/pantent-annual-fee/pantent-annual-fee.module').then(m => m.PantentAnnualFeeModule)
+    loadChildren: () => import('./patent-annual-fee/patent-annual-fee.module').then(m => m.PatentAnnualFeeModule)
   },
   {
     path: 'patentBonus',

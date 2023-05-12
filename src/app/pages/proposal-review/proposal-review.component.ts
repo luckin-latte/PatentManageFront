@@ -15,12 +15,12 @@ export class ProposalReviewComponent implements OnInit {
   dataSet = [
     {
       number: '1',
-      code: 'T2019',
-      name: '检索系统',
-      proposer: '小章',
-      inventor: '小明',
-      department: '河海',
-      date: '2023-03-09',
+      code: 'TA23051207',
+      name: '企业知识产权管理系统',
+      proposer: '小张',
+      inventor: '小张，小明',
+      department: '应用开发部',
+      date: '2023-05-12',
     }
   ];
 

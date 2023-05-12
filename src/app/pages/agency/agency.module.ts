@@ -6,11 +6,15 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 import { AgencyRoutingModule } from './agency-routing.module';
 import { AgencyComponent } from './agency.component';
+import { CreateComponent } from './create/create.component';
+import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
   declarations: [
-    AgencyComponent
+    AgencyComponent,
+    CreateComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,

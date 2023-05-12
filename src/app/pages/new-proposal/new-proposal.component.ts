@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { formatDate } from '@angular/common';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
+import { NewProposalService } from './new-proposal.service';
 
 @Component({
   selector: 'app-new-proposal',
@@ -19,6 +21,7 @@ export class NewProposalComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     // private msg: NzMessageService
+    private newProposalService: NewProposalService
   ) {
   }
 
@@ -26,12 +29,19 @@ export class NewProposalComponent implements OnInit {
     return this.newProposalForm.get('listOfInventor') as FormArray;
   }
 
+
+    // this.master.controls[0].get('code').disable();
+    // this.master.controls[0].get('code').setValidators([Validators.required, Validators.maxLength(20)]);
+    // this.master.controls[0].get('name').setValidators(Validators.required);
+    // this.doc.removeControl('pms_area');
+    // this.doc.addControl('pms_area', this.master);
+
   ngOnInit(): void {
     this.newProposalForm = this.formBuilder.group({
-      proposalCode: ['proposalCode', [Validators.required]],
+      proposalCode: ['proposalCode',],
       proposalName: ['proposalName', [Validators.required]],
       proposerName: ['proposerName', [Validators.required]],
-      datePicker: ['', [Validators.required]],
+      datePicker: [new Date(), [Validators.required]],
       patentType: ['1'],
       listOfInventor: this.formBuilder.array([
         this.formBuilder.group({
@@ -74,24 +84,25 @@ export class NewProposalComponent implements OnInit {
   //   }
   // }
 
-  public resetForm(): void {
+  public reset(e: MouseEvent): void {
     this.newProposalForm.reset();
   }
 
-  public submitForm(value: {
-    proposalCode: string,
-    proposalName: string,
-    proposerName: string,
-    datePicker: Date,
-    patentType: string,
-    listOfInventor: [],
-    detailText: Text
-    }): void {
+  public submit = ($event: { preventDefault: () => void; }, value: any) => {
+    $event.preventDefault();
+    Object.keys(this.newProposalForm.controls).forEach(key => {
+      this.newProposalForm.controls[key].markAsDirty();
+      this.newProposalForm.controls[key].updateValueAndValidity();
+    })
+    console.log(value);
+  }
+
+  public submitForm() {
     for (const key in this.newProposalForm.controls) {
       this.newProposalForm.controls[key].markAsDirty();
       this.newProposalForm.controls[key].updateValueAndValidity();
     }
-    console.log(value);
+    console.log(this.newProposalForm.value)
   }
 
 }

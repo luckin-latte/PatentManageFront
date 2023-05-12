@@ -6,11 +6,15 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 import { BillRoutingModule } from './bill-routing.module';
 import { BillComponent } from './bill.component';
+import { CreateComponent } from './create/create.component';
+import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
   declarations: [
-    BillComponent
+    BillComponent,
+    CreateComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,

@@ -6,7 +6,8 @@
             [(nzCollapsed)]="isCollapsed"
             [nzTrigger]="null">
     <div class="sidebar-logo">
-        <nz-avatar nzIcon="user" style="background-color:cadetblue;"></nz-avatar>
+      <nz-avatar nzIcon="user" style="background-color:cadetblue;"></nz-avatar>
+      <span style="color: aliceblue;">系统管理员</span>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="首页" nzIcon="dashboard">
@@ -103,10 +104,10 @@
       <li nz-submenu nzOpen nzTitle="费用管理" nzIcon="account-book">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="pantentOfficialFee">专利官费</a>
+            <a routerLink="patentOfficialFee">专利官费</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="pantentAnnualFee">专利年费</a>
+            <a routerLink="patentAnnualFee">专利年费</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="patentBonus">专利奖金</a>
@@ -124,14 +125,14 @@
             <a routerLink="softwareBonus">软著奖金</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="bill">奖金</a>
+            <a routerLink="bill">账单</a>
           </li>
         </ul>
       </li>
       <li nz-submenu nzOpen nzTitle="代理机构管理" nzIcon="apartment">
         <ul>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="agenc">代理机构</a>
+            <a routerLink="agency">代理机构</a>
           </li>
         </ul>
       </li>
@@ -171,9 +172,11 @@
   </nz-sider>
 
   <nz-layout>
-    <nz-header>
+
+    
+    <!-- <nz-header>
       <div nz-row [nzGutter]="16" class="app-header">
-        <div nz-col [nzMd]="16" [nzLg]="18" [nzXl]="20">
+        <div nz-col [nzMd]="18" [nzLg]="20" [nzXl]="22">
           <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
             <i class="trigger" nz-icon
               [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
@@ -181,7 +184,26 @@
           </span>
         </div>
 
-        <div nz-col  [nzMd]="8" [nzLg]="6" [nzXl]="4">
+        <div nz-col  [nzMd]="6" [nzLg]="4" [nzXl]="2">
+          <span class="header-logout">
+            <i nz-icon nzType="logout" nzTheme="outline" style="margin-right: 8px;"></i>
+            <a style="color:rgb(66, 66, 66); font-family:Segoe UI">注销</a>
+          </span>
+        </div>
+      </div>
+    </nz-header> -->
+
+    <nz-header>
+      <div nz-row [nzGutter]="16" class="app-header">
+        <div nz-col [nzMd]="8" [nzLg]="12" [nzXl]="16">
+          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+            <i class="trigger" nz-icon
+              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+          </span>
+        </div>
+
+        <div nz-col  [nzMd]="16" [nzLg]="12" [nzXl]="8">
           <span class="header-logout">
             <i nz-icon nzType="logout" nzTheme="outline" style="margin-right: 8px;"></i>
             <a style="color:rgb(66, 66, 66); font-family:Segoe UI">注销</a>
@@ -189,6 +211,7 @@
         </div>
       </div>
     </nz-header>
+
     <nz-content>
       <!-- <nz-breadcrumb [nzAutoGenerate]="true">Breadcrumb面包屑</nz-breadcrumb> -->
       <div class="inner-content">

@@ -11,8 +11,8 @@ import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 export class CreateComponent implements OnInit {
 
   @Input() name!: string;
-  CreateForm: FormGroup;
-  drawerRef!: NzDrawerRef;
+  public CreateForm: FormGroup;
+  public drawerRef!: NzDrawerRef;
 
   constructor(
     private formBuilder: FormBuilder

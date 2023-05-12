@@ -66,7 +66,8 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="8">技术方案实质内容</nz-form-label>
             <nz-form-control>
-              <input nz-input />
+              <textarea nz-input
+                [nzAutosize]="{ minRows: 2, maxRows: 100 }"></textarea>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -96,7 +97,9 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="8">审批意见</nz-form-label>
             <nz-form-control>
-              <input nz-input />
+              <textarea nz-input
+                placeholder="最多可输入200字符"
+                [nzAutosize]="{ minRows: 2, maxRows: 10 }"></textarea>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -106,7 +109,11 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="8">审批结论</nz-form-label>
             <nz-form-control>
-              <input nz-input />
+              <nz-select id="patentType">
+                <nz-option nzValue="1" nzLabel="驳回"></nz-option>
+                <nz-option nzValue="2" nzLabel="补充文件"></nz-option>
+                <nz-option nzValue="3" nzLabel="通过"></nz-option>
+              </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>

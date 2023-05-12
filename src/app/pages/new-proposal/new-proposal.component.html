@@ -5,14 +5,14 @@
   </nz-breadcrumb>
 </nz-page-header>
 
-<form nz-form [formGroup]="newProposalForm" (ngSubmit)="submitForm(newProposalForm.value)">
+<form nz-form [formGroup]="newProposalForm">
 
   <div nz-row [nzGutter]="16">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
         <nz-form-label [nzSpan]="12" nzRequired>提案编号</nz-form-label>
         <nz-form-control [nzSpan]="12">
-          <input nz-input formControlName="proposalCode"/>
+          <input nz-input formControlName="proposalCode" [disabled]="true"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -31,7 +31,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="12" nzRequired>提案人</nz-form-label>
         <nz-form-control [nzSpan]="12">
-          <input nz-input formControlName="proposerName"/>
+          <input nz-input formControlName="proposerName" />
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -39,7 +39,8 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="8" nzRequired>提案日期</nz-form-label>
         <nz-form-control [nzSpan]="16">
-          <nz-date-picker formControlName="datePicker" style="width: 100%;"></nz-date-picker>
+          <nz-date-picker nzDisabled formControlName="datePicker"
+            nzFormat="yyyy-MM-dd" value-format="yyyy-MM-dd" style="width: 100%;"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -128,8 +129,9 @@
 
   <div nz-row [nzGutter]="16">
     <div nz-col nzSpan="20" nzOffset="4">
-      <button nz-button (click)="resetForm()">重置</button>
-      <button nz-button  [nzType]="'primary'" style="margin-left: 30px;" [disabled]="!newProposalForm.valid">提交审批</button>
+      <button nz-button (click)="reset($event)">重置</button>
+      <button nz-button [disabled]="!newProposalForm.valid" (click)="submitForm()"
+       [nzType]="'primary'" style="margin-left: 30px;">提交审批</button>
     </div>
   </div>
 

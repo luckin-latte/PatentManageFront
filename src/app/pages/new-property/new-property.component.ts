@@ -24,22 +24,22 @@ export class NewPropertyComponent implements OnInit {
 
   ngOnInit(): void {
     this.patentCreateForm = this.formBuilder.group({
-      patentCode: ['ZL111111'],
-      patentName: ['专利'],
+      patentCode: ['ZL19502'],
+      patentName: ['移动终端的壳体'],
       listOfInventor: this.formBuilder.array([
         this.formBuilder.group({
-          inventorName: ['专利发明人'],
-          rate: [100]
+          inventorName: [''],
+          rate: []
         })
       ]),
-      applyCode: ['申请号'],
-      applyDate: [''],
-      process: ['0'],
+      applyCode: ['AP82059'],
+      applyDate: ['2022-02-05'],
+      process: ['8'],
       empowerCode: ['授权号'],
-      empowerDate: [''],
-      powerStatus: ['0'],
-      patentType: ['0'],
-      agency: ['0']
+      empowerDate: ['2023-05-07'],
+      powerStatus: ['3'],
+      patentType: ['3'],
+      agency: ['1']
     });
     this.sofetwareCreateForm = this.formBuilder.group({
       softwareCode: ['RZ222222'],

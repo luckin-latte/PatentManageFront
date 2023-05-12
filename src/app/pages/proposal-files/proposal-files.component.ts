@@ -15,11 +15,11 @@ export class ProposalFilesComponent implements OnInit {
   myproposalSet = [
     {
       number: '1',
-      code: 'SB1234',
-      name: 'HHUC',
-      proposer: '提案人',
-      status: '申请中',
-      date: '2023-04-01'
+      code: '	TA23051207',
+      name: '企业知识产权管理系统',
+      proposer: '小张',
+      status: '通过',
+      date: '2023-05-12'
     }
   ];
 

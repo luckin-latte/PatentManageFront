@@ -17,15 +17,15 @@ export class MyPatentComponent implements OnInit {
   myPatentSet = [
     {
       number: '1',
-      code: 'T1234',
+      code: 'ZL17603',
       name: '电机',
-      inventor: '发明人',
+      inventor: '永永，小代',
       type: '发明专利',
-      applyCode: 'S1345',
+      applyCode: 'AP14656',
       applyDate: '2029-09-08',
-      empowerCode: 'S234',
-      empowerDate: '2908-09-07',
-      status: '待交',
+      empowerCode: 'SQ6720B',
+      empowerDate: '2021-09-07',
+      status: '有权',
       process: '官方发证'
     }
   ];
