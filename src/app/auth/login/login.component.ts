@@ -17,7 +17,9 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private loginService: LoginService
-    ) { }
+    ) {
+
+    }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -31,7 +33,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  submitForm(): void {
+  public submitForm(): void {
     const loginForm = this.loginForm;
     const { controls } = loginForm;
     for (const i in controls) {
@@ -39,21 +41,23 @@ export class LoginComponent implements OnInit {
       controls[i].updateValueAndValidity();
     }
     
-    // 表单数据
+    // 处理表单数据
     console.log(loginForm.value);
     const { userName, password } = loginForm.value;
     const loginRequest: LoginRequest = { userName, password }
+
     // 请求后端登录
     this.loginService.login(loginRequest).subscribe((res: any) =>{
       console.log('登录成功', res);
       // 存储token
       // localStorage.setItem('token', res.data.token)
-      sessionStorage.setItem('token', res.data.token);
+      sessionStorage.setItem('userInfo', JSON.stringify(res.data));
+      // 路由跳转
       this.router.navigate(['/indexProposal']);
     })
   }
 
-  confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
+  public confirmationValidator = (control: FormControl): { [s: string]: boolean } => {
     if (!control.value) {
       return { required: true };
     } else if (control.value !== this.loginForm.controls.password.value) {
@@ -63,7 +67,7 @@ export class LoginComponent implements OnInit {
   };
 
   // 请求验证码
-  getCaptcha(e: MouseEvent): void {
+  public getCaptcha(e: MouseEvent): void {
     e.preventDefault();
   }
 

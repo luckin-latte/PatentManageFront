@@ -19,11 +19,38 @@ export class DetailComponent implements OnInit {
       number: '1',
       name: '申请费',
       status: '已缴费',
-      amount: '2000',
+      amount: '800',
       date: '2021-04-05',
-      actualPay: '2000',
+      actualPay: '800',
       payDate: '2021-04-01',
-      remark: '备注'
+      remark: ''
+    },{
+      number: '2',
+      name: '公告印刷费',
+      status: '已缴费',
+      amount: '200',
+      date: '2021-05-06',
+      actualPay: '200',
+      payDate: '2021-05-05',
+      remark: ''
+    },{
+      number: '3',
+      name: '实审费',
+      status: '已缴费',
+      amount: '600',
+      date: '2021-04-05',
+      actualPay: '600',
+      payDate: '2021-04-01',
+      remark: ''
+    },{
+      number: '4',
+      name: '优先权要求费',
+      status: '已缴费',
+      amount: '500',
+      date: '2021-04-05',
+      actualPay: '500',
+      payDate: '2021-04-01',
+      remark: ''
     }
   ];
 

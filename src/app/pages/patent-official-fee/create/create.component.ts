@@ -29,17 +29,21 @@ export class CreateComponent implements OnInit {
     private formBuilder: FormBuilder
     ) {
       this.CreateForm = this.formBuilder.group({
-        feeName: ['2018'],
+        feeName: ['权附费'],
         status: ['0'],
-        dueFee: ['1200'],
-        date: ['2017-09-04'],
-        actualPay: ['1200'],
-        payDate: ['2017-09-04'],
-        remark: ['备注']
+        dueFee: ['300'],
+        date: [''],
+        actualPay: ['300'],
+        payDate: [''],
+        remark: ['']
       });
   }
 
   ngOnInit(): void {
+  }
+
+  public onChange(result: Date): void {
+    console.log('onChange: ', result);
   }
 
   cancel() {

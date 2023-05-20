@@ -16,14 +16,24 @@ export class PatentBonusComponent implements OnInit {
   pantentBonusSet = [
     {
       number: '1',
-      code: 'ZL1234',
+      code: 'ZL19502',
       patentType: '发明型',
       bonusType: '授权',
-      bonus: '10000',
+      bonus: '1000',
       status: '已发放',
-      actualPay: '10000',
-      inventor: '小明',
+      actualPay: '1000',
+      inventor: '小王',
       rank: '1'
+    },{
+      number: '2',
+      code: 'ZL19502',
+      patentType: '发明型',
+      bonusType: '授权',
+      bonus: '600',
+      status: '已发放',
+      actualPay: '600',
+      inventor: '小明',
+      rank: '2'
     }
   ];
 

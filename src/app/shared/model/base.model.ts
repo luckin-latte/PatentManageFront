@@ -4,7 +4,7 @@ export class BaseModel {
   }
 }
 
-export class PMSQueryMode {
+export class QueryMode {
 
   constructor(values: any) {
   }

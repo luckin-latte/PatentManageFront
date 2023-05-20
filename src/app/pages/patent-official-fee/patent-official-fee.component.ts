@@ -17,6 +17,18 @@ export class PatentOfficialFeeComponent implements OnInit {
       code: 'ZL19502',
       name: '移动终端的壳体',
       proposer: '小文',
+      totalAmount: '2400'
+    },{
+      number: '2',
+      code: 'ZL25810',
+      name: '电机',
+      proposer: '涛涛',
+      totalAmount: '1900'
+    },{
+      number: '3',
+      code: 'ZL68041',
+      name: '电源适配器',
+      proposer: '茗茗',
       totalAmount: '2000'
     }
   ];
@@ -60,7 +72,7 @@ export class PatentOfficialFeeComponent implements OnInit {
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 860,
+      nzWidth: 960,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',

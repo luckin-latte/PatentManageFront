@@ -1,1 +1,87 @@
-<p>edit works!</p>
+<form nz-form [formGroup]="EditForm">
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>代理机构名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="name"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>代理机构编号</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="code"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">代理人</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="agent"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">代理机构负责人</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="director"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">联系电话</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="tel"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">邮箱</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="email"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">地址</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="address"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">备注</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="remark"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="24" class="operate-area">
+      <button nz-button (click)="cancel()">取消</button>
+      <button nz-button [nzType]="'primary'" style="margin-left: 8px;"
+       [disabled]="!EditForm.valid" (click)="save()">保存</button>
+    </div>
+  </div>
+
+</form>
