@@ -4,8 +4,7 @@ import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { AgencyService } from './agency.service';
-import { QueryCondition } from 'src/app/shared';
-import { QueryInfo } from 'src/app/shared';
+import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
@@ -18,26 +17,14 @@ import { EditComponent } from './edit/edit.component';
 })
 export class AgencyComponent implements OnInit {
 
-  dataSet = [
-    {
-      code: 'DL001',
-      name: '星星代理',
-      agent: '小张',
-      director: '小王',
-      tel: '086-1133425',
-      email: 'zhang@star.cn',
-      address: 'XX省XX市XX区XX大道XX号',
-      remark: ''
-    }
-  ];
-
-  searchForm: FormGroup;
-  drawerRef!: NzDrawerRef;
-  pageIndex: number = 1;
-  
+  public dataSet: any; // 查询列表资料
+  public searchForm: FormGroup;
   public searchLoading = true;
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
 
+  drawerRef!: NzDrawerRef;
+  pageIndex: number = 1;
+  
   constructor(
     private formBuilder: FormBuilder,
     private drawerService: NzDrawerService,
@@ -49,32 +36,9 @@ export class AgencyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.search(true);
   }
 
-  public onChange(result: Date): void {
-    console.log('onChange: ', result);
-  }
-
-  // 获取查询条件
-  public queryData(): void {
-    const queryCondition = new QueryCondition(); // 创建查询条件类
-
-    for (const key of Object.keys(this.searchForm.controls)) {
-      if (
-        Array.isArray(this.searchForm.controls[key].value) &&
-        this.searchForm.controls[key].value.length === 0
-      ) {
-        continue;
-      }
-      if (this.searchForm.controls[key].value === '') {
-        continue;
-      }
-    }
-    
-    this.queryInfo.setCondition(queryCondition);
-    console.log('queryInfo',this.queryInfo)
-  }
-  
   // 重置查询表单
   public resetForm(): void {
     this.searchForm.reset({
@@ -87,13 +51,48 @@ export class AgencyComponent implements OnInit {
     this.onBeforeSearch();
 
     if (reset) {
-      this.queryInfo.pageNumber = 1;
+      this.queryInfo.pageNum = 1;
       this.pageIndex = 1;
     }
 
     this.queryData();
-    
+
+    this.agencyService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+      console.log('返回数据：', res);
+      this.dataSet = res.data.list;
+      this.onAfterSearch;
+    })
   }
+
+  // 获取查询条件
+  public queryData(): void {
+    const queryCriteria = new QueryCriteria(); // 创建查询条件类
+
+    for (const key of Object.keys(this.searchForm.controls)) {
+      if (
+        Array.isArray(this.searchForm.controls[key].value) &&
+        this.searchForm.controls[key].value.length === 0
+      ) {
+        continue;
+      }
+      if (this.searchForm.controls[key].value === '') {
+        continue;
+      }
+
+      if (key === 'name') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'name',
+            this.searchForm.controls[key].value
+          )
+        );
+      }
+    }
+    
+    this.queryInfo.setCriteria(queryCriteria);
+    console.log('查询条件：',this.queryInfo)
+  }
+  
 
   onBeforeSearch(): void {
     this.searchLoading = true;
@@ -163,9 +162,9 @@ export class AgencyComponent implements OnInit {
       nzTitle: '确定删除吗？',
       nzOkText: '删除',
       // nzOkType: 'danger',
-      nzOnOk: () => console.log('OK'),
+      nzOnOk: () => console.log('确定删除'),
       nzCancelText: '取消',
-      nzOnCancel: () => console.log('Cancel')
+      nzOnCancel: () => console.log('取消删除')
     });
   }
 

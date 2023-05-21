@@ -51,7 +51,7 @@ export class LoginComponent implements OnInit {
       console.log('登录成功', res);
       // 存储token
       // localStorage.setItem('token', res.data.token)
-      sessionStorage.setItem('userInfo', JSON.stringify(res.data));
+      sessionStorage.setItem('UserInfo', JSON.stringify(res.data));
       // 路由跳转
       this.router.navigate(['/indexProposal']);
     })

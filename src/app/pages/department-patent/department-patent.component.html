@@ -11,7 +11,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="patentCode"/>
+          <input nz-input formControlName="code"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -19,7 +19,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">专利名称</nz-form-label>
         <nz-form-control>
-          <input nz-input  formControlName="patentName"/>
+          <input nz-input  formControlName="name"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -27,7 +27,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">发明人</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="inventorName"/>
+          <input nz-input formControlName="inventor"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -139,30 +139,30 @@
   </div>
 </form>
 
-<nz-table #myProposalTable nzBordered nzSize="small"
-  nzShowPagination nzShowSizeChanger [nzData]="myPatentSet">
+<nz-table #myProposalTable nzBordered nzSize="small" [nzScroll]="{ x: '1500px' }"
+  nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
-      <th>序号</th>
-      <th>专利编号</th>
-      <th>专利名称</th>
-      <th>专利类型</th>
-      <th>发明人</th>
-      <th>申请号</th>
-      <th>申请日期</th>
-      <th>授权号</th>
-      <th>授权日期</th>
-      <th>权力状态</th>
-      <th>当前程序</th>
-      <th>专利奖金</th>
-      <th>相关文件</th>
+      <th nzWidth="60px" nzLeft="0px">序号</th>
+      <th nzWidth="120px" nzLeft="60px">专利编号</th>
+      <th nzWidth="160px" nzLeft="180px">专利名称</th>
+      <th nzWidth="120px">专利类型</th>
+      <th nzWidth="160px">发明人</th>
+      <th nzWidth="120px">申请号</th>
+      <th nzWidth="120px">申请日期</th>
+      <th nzWidth="120px">授权号</th>
+      <th nzWidth="120px">授权日期</th>
+      <th nzWidth="120px">权力状态</th>
+      <th nzWidth="120px">当前程序</th>
+      <th nzWidth="80px" nzRight="80px">专利奖金</th>
+      <th nzWidth="80px" nzRight="0px">相关文件</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of myProposalTable.data">
-      <td>{{ data.number }}</td>
-      <td>{{ data.code }}</td>
-      <td>{{ data.name }}</td>
+    <tr *ngFor="let data of myProposalTable.data; let i = index">
+      <td nzLeft="0px">{{ i+1 }}</td>
+      <td nzLeft="60px">{{ data.code }}</td>
+      <td nzLeft="180px">{{ data.name }}</td>
       <td>{{ data.inventor}}</td>
       <td>{{ data.type }}</td>
       <td>{{ data.applyCode}}</td>
@@ -171,10 +171,10 @@
       <td>{{ data.empowerDate}}</td>
       <td>{{ data.status }}</td>
       <td>{{ data.process }}</td>
-      <td>
+      <td nzRight="80px">
         <button nz-button  (click)="openBonusDetail()">详情</button>
       </td>
-      <td>
+      <td nzRight="0px">
         <button nz-button  (click)="openFileDetail()">详情</button>
       </td>
     </tr>

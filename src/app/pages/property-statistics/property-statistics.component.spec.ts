@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PatentStatisticsComponent } from './patent-statistics.component';
+import { PropertyStatisticsComponent } from './property-statistics.component';
 
-describe('PatentStatisticsComponent', () => {
-  let component: PatentStatisticsComponent;
-  let fixture: ComponentFixture<PatentStatisticsComponent>;
+describe('PropertyStatisticsComponent', () => {
+  let component: PropertyStatisticsComponent;
+  let fixture: ComponentFixture<PropertyStatisticsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PatentStatisticsComponent ]
+      declarations: [ PropertyStatisticsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PatentStatisticsComponent);
+    fixture = TestBed.createComponent(PropertyStatisticsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

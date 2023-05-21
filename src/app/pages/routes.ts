@@ -187,28 +187,33 @@ export const ROUTES: Routes = [
     loadChildren: () => import('../pages/proposal-statistics/proposal-statistics.module').then(m => m.ProposalStatisticsModule)
   },
   {
-    path: 'patentStatistics',
+    path: 'propertyStatistics',
     pathMatch: 'prefix',
-    loadChildren: () => import('../pages/patent-statistics/patent-statistics.module').then(m => m.PatentStatisticsModule)
-  },
-  {
-    path: 'softwareStatistics',
-    pathMatch: 'prefix',
-    loadChildren: () => import('../pages/software-statistics/software-statistics.module').then(m => m.SoftwareStatisticsModule)
-  },
-  {
-    path: 'trademarkStatistics',
-    pathMatch: 'prefix',
-    loadChildren: () => import('../pages/trademark-statistics/trademark-statistics.module').then(m => m.TrademarkStatisticsModule)
-  },
-  {
-    path: 'billStatistics',
-    pathMatch: 'prefix',
-    loadChildren: () => import('../pages/bill-statistics/bill-statistics.module').then(m => m.BillStatisticsModule)
-  },
-  {
-    path: 'bonusStatistics',
-    pathMatch: 'prefix',
-    loadChildren: () => import('../pages/bonus-statistics/bonus-statistics.module').then(m => m.BonusStatisticsModule)
+    loadChildren: () => import('../pages/property-statistics/property-statistics.module').then(m =>m.PropertyStatisticsModule)
   }
+  // {
+  //   path: 'patentStatistics',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/patent-statistics/patent-statistics.module').then(m => m.PatentStatisticsModule)
+  // },
+  // {
+  //   path: 'softwareStatistics',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/software-statistics/software-statistics.module').then(m => m.SoftwareStatisticsModule)
+  // },
+  // {
+  //   path: 'trademarkStatistics',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/trademark-statistics/trademark-statistics.module').then(m => m.TrademarkStatisticsModule)
+  // },
+  // {
+  //   path: 'billStatistics',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/bill-statistics/bill-statistics.module').then(m => m.BillStatisticsModule)
+  // },
+  // {
+  //   path: 'bonusStatistics',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/bonus-statistics/bonus-statistics.module').then(m => m.BonusStatisticsModule)
+  // }
 ]

@@ -1,81 +1,54 @@
-export class QueryConditionInfo {
-  name: string = '';
-  values?: string[];
-  value?: string;
-  operator: string = '';
-  constructor(name: string, value: string | string[], operator: string) {
-    this.name = name;
-    if (Array.isArray(value)) {
-      this.values = value;
-    } else {
-      this.value = value;
+
+export class QueryInfo {
+  pageable: boolean = true;
+  pageSize: number = 10;
+  pageNum: number = 1;
+  criteria?: QueryCriteria;
+  getRawValue(): any {
+    return {
+      pageable: this.pageable,
+      pageSize: this.pageSize,
+      pageNum: this.pageNum,
+      criteria: this.criteria
     }
-    this.operator = operator;
+  }
+  constructor() {
+    this.criteria = new QueryCriteria();
+  }
+  setCriteria(criteria: QueryCriteria): void {
+    this.criteria = criteria;
+  }
+  clear(): void {
+    this.pageable = true;
+    this.pageSize = 10;
+    this.pageNum = 1;
+    this.criteria = new QueryCriteria();
   }
 }
-export enum QueryConditionOperator {
-  IN = "IN",
-  AND = "AND",
-  OR = "OR",
-  LIKE = "LIKE",
-  EQUAL = "EQUAL",
-  NOTEQUALS = "NotEquals",
-  LESSTHAN = "LessThan",
-  LESSTHANOREQUALTO = "LessThanOrEqualTo",
-  GREATERTHAN = "GreaterThan",
-  GREATERTHANOREQUALTO = "GreaterThanOrEqualTo",
-  BETWEEN = "Between"
-}
-export class QueryCondition {
-  joinOperator?: string;
-  items?: (QueryConditionInfo | QueryCondition)[];
-  constructor(joinOperator?: string) {
-    this.joinOperator = joinOperator;
+
+export class QueryCriteria {
+  items?: (QueryCriteriaInfo | QueryCriteria)[];
+  constructor() {
+    this.items = [];
   }
-  addCondition(condition: QueryConditionInfo | QueryCondition): void {
-    this.items?.push(condition)
+  addCriteria(criteria: QueryCriteriaInfo | QueryCriteria): void {
+    this.items?.push(criteria)
   }
   clearValue(): void {
     this.items = [];
   }
 }
-export class QueryInfo {
-  pageable: boolean = true;
-  pageSize: number = 10;
-  pageNumber: number = 1;
-  conditionField?: {
-      [key: string]: QueryConditionInfo;
-  };
-  condition?: QueryCondition;
-  getRawValue(): any {
-    const rawValue: any = {};
-    rawValue.pageable = this.pageable;
-    rawValue.pageSize = this.pageSize;
-    rawValue.pageNumber = this.pageNumber;
-    rawValue.conditionField = this.conditionField;
-    rawValue.condition = this.condition;
-    return rawValue;
-  }
-  constructor() {
-  }
-  setCondition(condition: QueryCondition): void {
-    this.condition = condition;
-  }
-  addConditionField(item: QueryConditionInfo): void {
-    if (!this.conditionField) {
-      this.conditionField = {};
+
+export class QueryCriteriaInfo {
+  key: string = '';
+  values?: string[];
+  value?: string;
+  constructor(key: string, value: string | string[]) {
+    this.key = key;
+    if (Array.isArray(value)) {
+      this.values = value;
+    } else {
+      this.value = value;
     }
-    this.conditionField[item.name] = item;
-  }
-  clearConditionValue(): void {
-    this.conditionField = undefined;
-    this.condition = undefined;
-  }
-  clear(): void {
-    this.pageable = true;
-    this.pageSize = 10;
-    this.pageNumber = 1;
-    this.conditionField = undefined;
-    this.condition = undefined;
   }
 }

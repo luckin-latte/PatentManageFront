@@ -7,7 +7,7 @@ import { apiUrl } from 'src/app/config';
 @Injectable({
   providedIn: 'root'
 })
-export class AgencyService {
+export class DepartmentProposalService {
 
   constructor(
     private httpClient: HttpClient
@@ -16,7 +16,7 @@ export class AgencyService {
 
   fetchData(queryInfo: object): Observable<any>{
     const query = JSON.stringify(queryInfo);
-    return this.httpClient.get(`${apiUrl}/agency/getAgency?value=${query}`)
+    return this.httpClient.get(`${apiUrl}/proposal/getProposalList1?value=${query}`)
   }
   
   submit() {
