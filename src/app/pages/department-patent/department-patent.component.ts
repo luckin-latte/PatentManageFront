@@ -6,7 +6,7 @@ import { DepartmentPatentService } from './department-patent.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
 import { BonusComponent } from './bonus/bonus.component';
-import { FileComponent } from './file/file.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 @Component({
   selector: 'app-department-patent',
@@ -41,7 +41,7 @@ export class DepartmentPatentComponent implements OnInit {
     this.searchForm.addControl('empowerCode', new FormControl(''));
     this.searchForm.addControl('empowerDateRange', new FormControl(''));
     this.searchForm.addControl('powerStatus', new FormControl('0'));
-    this.searchForm.addControl('patentType', new FormControl('0'));
+    this.searchForm.addControl('type', new FormControl('0'));
     this.searchForm.addControl('agency', new FormControl('0'));
   }
 
@@ -64,7 +64,7 @@ export class DepartmentPatentComponent implements OnInit {
       empowerCode: '',
       empowerDateRange: '',
       powerStatus: '0',
-      patentType: '0',
+      type: '0',
       agency: '0'
     });
   }
@@ -165,10 +165,10 @@ export class DepartmentPatentComponent implements OnInit {
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'patentType') {
+      } else if (key === 'type') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'patentType',
+            'type',
             this.searchForm.controls[key].value
           )
         );
@@ -194,7 +194,6 @@ export class DepartmentPatentComponent implements OnInit {
   onAfterSearch(): void {
     this.searchLoading = false;
   }
-
 
   public openBonusDetail() {
     this.drawerRef = this.nzDrawerService.create({
@@ -226,7 +225,7 @@ export class DepartmentPatentComponent implements OnInit {
   public openFileDetail() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
-      nzContent: FileComponent,
+      nzContent: FileListComponent,
       nzContentParams: {
         name: 'This is a param from child'
       },

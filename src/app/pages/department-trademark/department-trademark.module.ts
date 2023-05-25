@@ -18,14 +18,14 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { DepartmentTrademarkRoutingModule } from './department-trademark-routing.module';
 import { DepartmentTrademarkComponent } from './department-trademark.component';
 import { BonusComponent } from './bonus/bonus.component';
-import { FileComponent } from './file/file.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 
 @NgModule({
   declarations: [
     DepartmentTrademarkComponent,
     BonusComponent,
-    FileComponent
+    FileListComponent
   ],
   imports: [
     CommonModule,

@@ -3,8 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
 import { BonusComponent } from './bonus/bonus.component';
-import { FileComponent } from './file/file.component';
 import { EditComponent } from './edit/edit.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 @Component({
   selector: 'app-my-software',
@@ -113,7 +113,7 @@ export class MySoftwareComponent implements OnInit {
   public openFileDetail() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
-      nzContent: FileComponent,
+      nzContent: FileListComponent,
       nzContentParams: {
         name: 'This is a param from child'
       },

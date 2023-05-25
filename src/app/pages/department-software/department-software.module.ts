@@ -17,15 +17,15 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 import { DepartmentSoftwareRoutingModule } from './department-software-routing.module';
 import { DepartmentSoftwareComponent } from './department-software.component';
-import { FileComponent } from './file/file.component';
 import { BonusComponent } from './bonus/bonus.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 
 @NgModule({
   declarations: [
     DepartmentSoftwareComponent,
-    FileComponent,
-    BonusComponent
+    BonusComponent,
+    FileListComponent
   ],
   imports: [
     CommonModule,

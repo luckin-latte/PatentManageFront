@@ -20,13 +20,13 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { MyProposalRoutingModule } from './my-proposal-routing.module';
 import { MyProposalComponent } from './my-proposal.component';
 import { ReviewComponent } from './review/review.component';
-import { FileComponent } from './file/file.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 @NgModule({
   declarations: [
     MyProposalComponent,
     ReviewComponent,
-    FileComponent,
+    FileListComponent,
   ],
   imports: [
     CommonModule,

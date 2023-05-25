@@ -2,8 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
-import { FileComponent } from './file/file.component';
-
+import { FileListComponent } from './file-list/file-list.component';
 
 @Component({
   selector: 'app-proposal-files',
@@ -57,7 +56,7 @@ export class ProposalFilesComponent implements OnInit {
   openFileDetail() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
-      nzContent: FileComponent,
+      nzContent: FileListComponent,
       nzContentParams: {
         name: 'This is a param from child'
       },

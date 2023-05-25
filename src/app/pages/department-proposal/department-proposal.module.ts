@@ -18,14 +18,14 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { DepartmentProposalRoutingModule } from './department-proposal-routing.module';
 import { DepartmentProposalComponent } from './department-proposal.component';
 import { ReviewComponent } from './review/review.component';
-import { FileComponent } from './file/file.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 
 @NgModule({
   declarations: [
     DepartmentProposalComponent,
     ReviewComponent,
-    FileComponent
+    FileListComponent
   ],
   imports: [
     CommonModule,

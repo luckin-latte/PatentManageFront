@@ -6,12 +6,10 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 import { SoftwareReceiveFileRoutingModule } from './software-receive-file-routing.module';
 import { SoftwareReceiveFileComponent } from './software-receive-file.component';
-import { FileComponent } from './file/file.component';
 
 @NgModule({
   declarations: [
-    SoftwareReceiveFileComponent,
-    FileComponent
+    SoftwareReceiveFileComponent
   ],
   imports: [
     CommonModule,

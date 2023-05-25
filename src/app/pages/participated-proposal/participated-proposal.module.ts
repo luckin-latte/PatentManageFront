@@ -17,15 +17,15 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 import { ParticipatedProposalRoutingModule } from './participated-proposal-routing.module';
 import { ParticipatedProposalComponent } from './participated-proposal.component';
-import { FileComponent } from './file/file.component';
 import { ReviewComponent } from './review/review.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 
 @NgModule({
   declarations: [
     ParticipatedProposalComponent,
-    FileComponent,
-    ReviewComponent
+    ReviewComponent,
+    FileListComponent
   ],
   imports: [
     CommonModule,

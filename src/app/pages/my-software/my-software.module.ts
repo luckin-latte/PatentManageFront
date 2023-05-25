@@ -18,17 +18,17 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 import { MySoftwareRoutingModule } from './my-software-routing.module';
 import { MySoftwareComponent } from './my-software.component';
-import { FileComponent } from './file/file.component';
 import { BonusComponent } from './bonus/bonus.component';
 import { EditComponent } from './edit/edit.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 
 @NgModule({
   declarations: [
     MySoftwareComponent,
-    FileComponent,
     BonusComponent,
-    EditComponent
+    EditComponent,
+    FileListComponent
   ],
   imports: [
     CommonModule,

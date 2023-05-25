@@ -6,7 +6,7 @@ import { DepartmentProposalService } from './department-proposal.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
 import { ReviewComponent } from './review/review.component';
-import { FileComponent } from './file/file.component';
+import { FileListComponent } from './file-list/file-list.component';
 
 @Component({
   selector: 'app-department-proposal',
@@ -189,7 +189,7 @@ export class DepartmentProposalComponent implements OnInit {
   openFileDetail() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
-      nzContent: FileComponent,
+      nzContent: FileListComponent,
       nzContentParams: {
         name: 'This is a param from child'
       },

@@ -4,7 +4,7 @@ import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
 import { MyProposalService } from './my-proposal.service';
 import { ReviewComponent, } from './review/review.component';
-import { FileComponent } from './file/file.component';
+import { FileListComponent } from './file-list/file-list.component';
 import { ProposalModel } from 'src/app/shared/model/proposal.model';
 
 @Component({
@@ -136,7 +136,7 @@ export class MyProposalComponent implements OnInit {
   openFileDetail() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
-      nzContent: FileComponent,
+      nzContent: FileListComponent,
       nzContentParams: {
         name: 'This is a param from child'
       },
