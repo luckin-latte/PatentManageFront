@@ -63,7 +63,7 @@
 
 </form>
 
-<nz-table #myProposalTable nzBordered nzSize="small"
+<nz-table #Table nzBordered nzSize="small"
   nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
@@ -77,7 +77,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of myProposalTable.data; let i = index">
+    <tr *ngFor="let data of Table.data; let i = index">
       <td>{{ i+1 }}</td>
       <td>{{ data.code }}</td>
       <td>{{ data.name }}</td>
