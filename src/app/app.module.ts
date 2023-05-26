@@ -11,6 +11,7 @@ import { HttpClientModule, HttpClientJsonpModule, HTTP_INTERCEPTORS } from '@ang
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AuthInterceptors } from './http-interceptors/auth.interceptors';
+import { TokenInterceptors } from './http-interceptors/token.interceptors';
 import { LayoutModule } from './layout/layout.module';
 registerLocaleData(zh);
 
@@ -28,7 +29,8 @@ registerLocaleData(zh);
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN }, 
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptors, multi: true}
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptors, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptors, multi: true}
   ],
   bootstrap: [AppComponent]
 })

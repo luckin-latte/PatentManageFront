@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 
 import { LoginService } from './login.service';
-import { LoginRequest } from '../../shared/model/login';
+import { LoginRequest, UserInfo } from '../../shared/model/login';
 
 @Component({
   selector: 'app-login',
@@ -51,7 +51,10 @@ export class LoginComponent implements OnInit {
       console.log('登录成功', res);
       // 存储token
       // localStorage.setItem('token', res.data.token)
-      sessionStorage.setItem('UserInfo', JSON.stringify(res.data));
+      const token = res.data.token;
+      const userId = res.data.userId;
+      const userInfo: UserInfo = { token, userId };
+      sessionStorage.setItem('UserInfo', JSON.stringify(userInfo));
       // 路由跳转
       this.router.navigate(['/indexProposal']);
     })

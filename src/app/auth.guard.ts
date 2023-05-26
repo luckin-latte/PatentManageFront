@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanDeactivate<u
   // }
   canActivate(): boolean {
     console.log('登录->首页路由守卫');
-    const token = localStorage.getItem('userToken');
+    const token = sessionStorage.getItem('UserInfo');
     if (token) {
       return true;
     }

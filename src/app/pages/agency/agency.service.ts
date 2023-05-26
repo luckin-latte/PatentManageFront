@@ -14,10 +14,13 @@ export class AgencyService {
   ) { 
   }
 
-  fetchData(queryInfo: object): Observable<any>{
-    const query = JSON.stringify(queryInfo);
-    return this.httpClient.get(`${apiUrl}/agency/getAgency?value=${query}`)
+  getList(queryInfo: object): Observable<any>{
+    return this.httpClient.get(`${apiUrl}/agency/getAgency`, {
+      params: { queryInfo: JSON.stringify(queryInfo) }
+    });
   }
+
+  
   
   submit() {
     // return this.httpClient.post(`${apiUrl}/proposal/post`);

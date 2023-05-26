@@ -3,8 +3,7 @@ export interface LoginRequest {
   password: string;
 }
 
-export interface userInfo {
+export interface UserInfo {
   token: string,
-  userId: string,
-  userRole: string,
+  userId: string
 }
