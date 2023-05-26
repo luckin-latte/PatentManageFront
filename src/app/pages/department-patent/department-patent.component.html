@@ -9,17 +9,17 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
+        <nz-form-label [nzSpan]="6">专利名称</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="code"/>
+          <input nz-input  formControlName="name"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利名称</nz-form-label>
+        <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
         <nz-form-control>
-          <input nz-input  formControlName="name"/>
+          <input nz-input formControlName="code"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -36,18 +36,14 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">申请号</nz-form-label>
+        <nz-form-label [nzSpan]="6">专利类型</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="applyCode"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">申请日期</nz-form-label>
-        <nz-form-control>
-          <nz-range-picker [(ngModel)]="applyDateRange" (ngModelChange)="onChange($event)"
-            formControlName="applyDateRange" style="width: 100%;"></nz-range-picker>
+          <nz-select id="type" nzAllowClear formControlName="type">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
+            <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
+            <nz-option nzValue="3" nzLabel="外观设计专利"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -71,31 +67,11 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-  </div>
-
-  <div nz-row [nzGutter]="24">
-    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">授权号</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="empowerCode"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">授权日期</nz-form-label>
-        <nz-form-control>
-          <nz-range-picker [(ngModel)]="empowerDateRange" (ngModelChange)="onChange($event)"
-            formControlName="empowerDateRange" style="width: 100%;"></nz-range-picker>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">权力状态</nz-form-label>
         <nz-form-control>
-          <nz-select id="powerStatus" nzAllowClear formControlName="powerStatus">
+          <nz-select id="status" nzAllowClear formControlName="status">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
             <nz-option nzValue="1" nzLabel="待交"></nz-option>
             <nz-option nzValue="2" nzLabel="在审"></nz-option>
@@ -109,19 +85,6 @@
   </div>
 
   <div nz-row [nzGutter]="24">
-    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利类型</nz-form-label>
-        <nz-form-control>
-          <nz-select id="type" nzAllowClear formControlName="type">
-            <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
-            <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
-            <nz-option nzValue="3" nzLabel="外观设计专利"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">代理机构</nz-form-label>
@@ -139,43 +102,43 @@
   </div>
 </form>
 
-<nz-table #myProposalTable nzBordered nzSize="small" [nzScroll]="{ x: '1500px' }"
+<nz-table #reasultTable nzBordered nzSize="small" [nzScroll]="{ x: '1500px' }"
   nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
       <th nzWidth="60px" nzLeft="0px">序号</th>
       <th nzWidth="120px" nzLeft="60px">专利编号</th>
       <th nzWidth="160px" nzLeft="180px">专利名称</th>
-      <th nzWidth="120px">专利类型</th>
       <th nzWidth="160px">发明人</th>
+      <th nzWidth="120px">专利类型</th>
+      <th nzWidth="120px">当前程序</th>
+      <th nzWidth="120px">权力状态</th>
       <th nzWidth="120px">申请号</th>
       <th nzWidth="120px">申请日期</th>
       <th nzWidth="120px">授权号</th>
       <th nzWidth="120px">授权日期</th>
-      <th nzWidth="120px">权力状态</th>
-      <th nzWidth="120px">当前程序</th>
       <th nzWidth="80px" nzRight="80px">专利奖金</th>
       <th nzWidth="80px" nzRight="0px">相关文件</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of myProposalTable.data; let i = index">
+    <tr *ngFor="let data of reasultTable.data; let i = index">
       <td nzLeft="0px">{{ i+1 }}</td>
       <td nzLeft="60px">{{ data.code }}</td>
       <td nzLeft="180px">{{ data.name }}</td>
       <td>{{ data.inventor}}</td>
       <td>{{ data.type }}</td>
-      <td>{{ data.applyCode}}</td>
-      <td>{{ data.applyDate}}</td>
-      <td>{{ data.empowerCode}}</td>
-      <td>{{ data.empowerDate}}</td>
-      <td>{{ data.status }}</td>
       <td>{{ data.process }}</td>
+      <td>{{ data.status }}</td>
+      <td>{{ data.applyCode}}</td>
+      <td>{{ data.applyDate | date: 'yyyy-MM-dd'}}</td>
+      <td>{{ data.empowerCode}}</td>
+      <td>{{ data.empowerDate | date: 'yyyy-MM-dd'}}</td>
       <td nzRight="80px">
-        <button nz-button  (click)="openBonusDetail()">详情</button>
+        <button nz-button (click)="showBonus()">详情</button>
       </td>
       <td nzRight="0px">
-        <button nz-button  (click)="openFileDetail()">详情</button>
+        <button nz-button (click)="showFile()">详情</button>
       </td>
     </tr>
   </tbody>

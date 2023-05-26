@@ -104,7 +104,7 @@
     新增账单</button>
 </div>
 
-<nz-table #myProposalTable nzBordered nzSize="small" [nzScroll]="{ x: '1400px' }"
+<nz-table #reasultTable nzBordered nzSize="small" [nzScroll]="{ x: '1400px' }"
   nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
@@ -121,7 +121,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of myProposalTable.data; let i = index">
+    <tr *ngFor="let data of reasultTable.data; let i = index">
       <td nzLeft="0px">{{ i+1 }}</td>
       <td nzLeft="60px">{{ data.billCode }}</td>
       <td>{{ data.proposalName }}</td>
@@ -129,7 +129,7 @@
       <td>{{ data.status }}</td>
       <td>{{ data.dueFee }}</td>
       <td>{{ data.actualPay }}</td>
-      <td>{{ data.payDate }}</td>
+      <td>{{ data.payDate | date: 'yyyy-MM-dd' }}</td>
       <td nzRight="160px">
         <button nz-button>查看</button>
       </td>

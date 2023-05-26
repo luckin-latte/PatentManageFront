@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
+import { TrademarkPostFileService } from './trademark-post-file.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
 @Component({
@@ -12,26 +13,27 @@ import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 })
 export class TrademarkPostFileComponent implements OnInit {
 
+
   public dataSet: any; // 查询列表资料
   public searchForm: FormGroup;
   public searchLoading = true;
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
+  public dateRange = [];
 
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
-  public applyDateRange = [];
-  public empowerDateRange = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private nzDrawerService: NzDrawerService
+    private nzDrawerService: NzDrawerService,
+    private trademarkPostFileService: TrademarkPostFileService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('code', new FormControl(''));
     this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('type', new FormControl('0'));
-    this.searchForm.addControl('applyCode', new FormControl(''));
+    this.searchForm.addControl('code', new FormControl(''));
     this.searchForm.addControl('proposer', new FormControl(''));
+    this.searchForm.addControl('status', new FormControl('0'));
+    this.searchForm.addControl('dateRange', new FormControl(''));
   }
 
   ngOnInit(): void {
@@ -44,11 +46,11 @@ export class TrademarkPostFileComponent implements OnInit {
 
   public resetForm(): void {
     this.searchForm.reset({
-      code: '',
       name: '',
+      code: '',
+      proposer: '',
       type: '0',
-      applyCode: '',
-      proposer: ''
+      dateRange: ''
     });
   }
   
@@ -62,6 +64,12 @@ export class TrademarkPostFileComponent implements OnInit {
     }
 
     this.queryData();
+
+    this.trademarkPostFileService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+      console.log('返回数据：', res);
+      this.dataSet = res.data.list;
+      this.onAfterSearch;
+    })
 
   }
   
@@ -80,31 +88,17 @@ export class TrademarkPostFileComponent implements OnInit {
         continue;
       }
 
-      if (key === 'code') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'code',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'name') {
+      if (key === 'name') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
             'name',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'type') {
+      } else if (key === 'code') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'type',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'applyCode') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'applyCode',
+            'code',
             this.searchForm.controls[key].value
           )
         );
@@ -115,6 +109,20 @@ export class TrademarkPostFileComponent implements OnInit {
             this.searchForm.controls[key].value
           )
         );
+      } else if (key === 'type') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'type',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'dateRange') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'dateRange',
+            this.searchForm.controls[key].value
+          )
+        );
       }
     }
     
@@ -122,7 +130,6 @@ export class TrademarkPostFileComponent implements OnInit {
     console.log('查询条件：',this.queryInfo)
   }
   
-
   onBeforeSearch(): void {
     this.searchLoading = true;
   }
@@ -130,5 +137,5 @@ export class TrademarkPostFileComponent implements OnInit {
   onAfterSearch(): void {
     this.searchLoading = false;
   }
-
+  
 }

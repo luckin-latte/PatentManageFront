@@ -11,7 +11,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">角色名称</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="roleName"/>
+          <input nz-input formControlName="name"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -27,20 +27,20 @@
     新增角色</button>
 </div>
 
-<nz-table #userManageTable nzBordered nzSize="small" nzShowPagination nzShowSizeChanger
-  [nzData]="listOfData" nzTableLayout="fixed">
+<nz-table #resultTable nzBordered nzSize="small" nzShowPagination nzShowSizeChanger
+  [nzData]="dataSet" nzTableLayout="fixed">
   <thead>
     <tr>
-      <th>序号</th>
+      <th nzWidth="60px">序号</th>
       <th>角色名称</th>
       <th>权限</th>
       <th colspan="2">操作</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of userManageTable.data">
+    <tr *ngFor="let data of resultTable.data; let i = index">
       <ng-container *ngIf="!editCache[data.number].edit; else editTemplate">
-        <td>{{ data.number }}</td>
+        <td>{{ i + 1 }}</td>
         <td>{{ data.roleName }}</td>
         <td>{{ data.auth }}</td>
         <td>

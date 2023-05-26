@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
+import { SoftwarePostFileService } from './software-post-file.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
 @Component({
@@ -19,19 +20,18 @@ export class SoftwarePostFileComponent implements OnInit {
 
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
-  public applyDateRange = [];
-  public empowerDateRange = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private nzDrawerService: NzDrawerService
+    private nzDrawerService: NzDrawerService,
+    private softwarePostFileService: SoftwarePostFileService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('code', new FormControl(''));
     this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('type', new FormControl('0'));
-    this.searchForm.addControl('applyCode', new FormControl(''));
-    this.searchForm.addControl('proposer', new FormControl(''));
+    this.searchForm.addControl('code', new FormControl(''));
+    this.searchForm.addControl('version', new FormControl(''));
+    this.searchForm.addControl('fileName', new FormControl(''));
+    this.searchForm.addControl('fileCode', new FormControl(''));
   }
 
   ngOnInit(): void {
@@ -44,11 +44,11 @@ export class SoftwarePostFileComponent implements OnInit {
 
   public resetForm(): void {
     this.searchForm.reset({
-      code: '',
       name: '',
-      type: '0',
-      applyCode: '',
-      proposer: ''
+      code: '',
+      version: '',
+      fileName: '',
+      fileCode: ''
     });
   }
   
@@ -62,6 +62,12 @@ export class SoftwarePostFileComponent implements OnInit {
     }
 
     this.queryData();
+
+    this.softwarePostFileService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+      console.log('返回数据：', res);
+      this.dataSet = res.data.list;
+      this.onAfterSearch;
+    })
 
   }
   
@@ -80,38 +86,38 @@ export class SoftwarePostFileComponent implements OnInit {
         continue;
       }
 
-      if (key === 'code') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'code',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'name') {
+      if (key === 'name') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
             'name',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'type') {
+      } else if (key === 'code') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'type',
+            'code',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'applyCode') {
+      } else if (key === 'version') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'applyCode',
+            'version',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'proposer') {
+      } else if (key === 'fileName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'proposer',
+            'fileName',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'fileCode') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'fileCode',
             this.searchForm.controls[key].value
           )
         );
@@ -122,7 +128,6 @@ export class SoftwarePostFileComponent implements OnInit {
     console.log('查询条件：',this.queryInfo)
   }
   
-
   onBeforeSearch(): void {
     this.searchLoading = true;
   }
@@ -130,5 +135,9 @@ export class SoftwarePostFileComponent implements OnInit {
   onAfterSearch(): void {
     this.searchLoading = false;
   }
+  
+  public showFile() {}
+
+  public delete() {}
 
 }

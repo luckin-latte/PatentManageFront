@@ -83,7 +83,7 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzSpan]="16" class="search-area">
+    <div nz-col [nzSpan]="8" class="search-area">
       <button nz-button (click)="resetForm()">重置</button>
       <button nz-button [nzType]="'primary'" style="margin-left: 8px;">搜索</button>
     </div>
@@ -91,7 +91,7 @@
 
 </form>
 
-<nz-table #myProposalTable nzBordered nzSize="small" [nzScroll]="{ x: '1400px' }"
+<nz-table #reasultTable nzBordered nzSize="small" [nzScroll]="{ x: '1400px' }"
   nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
@@ -109,21 +109,21 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of myProposalTable.data; let i = index">
+    <tr *ngFor="let data of reasultTable.data; let i = index">
       <td nzLeft="0px">{{ i+1 }}</td>
       <td nzLeft="60px">{{ data.code }}</td>
       <td nzLeft="180px">{{ data.name }}</td>
-      <td>{{ data.date}}</td>
-      <td>{{ data.proposerName}}</td>
-      <td>{{ data.inventorName}}</td>
+      <td>{{ data.date | date: 'yyyy-MM-dd'}}</td>
+      <td>{{ data.proposer}}</td>
+      <td>{{ data.inventor}}</td>
       <td>{{ data.department}}</td>
       <td>{{ data.status}}</td>
       <td>{{ data.type}}</td>
       <td nzRight="80px">
-        <button nz-button (click)="openReviewDetail()">详情</button>
+        <button nz-button (click)="showReview()">详情</button>
       </td>
       <td nzRight="0px">
-        <button nz-button (click)="openFileDetail()">详情</button>
+        <button nz-button (click)="showFile()">详情</button>
       </td>
     </tr>
   </tbody>

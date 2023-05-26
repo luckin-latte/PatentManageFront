@@ -2,6 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
+import { MySoftwareService } from './my-software.service';
+import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
+
 import { BonusComponent } from './bonus/bonus.component';
 import { EditComponent } from './edit/edit.component';
 import { FileListComponent } from './file-list/file-list.component';
@@ -9,81 +12,157 @@ import { FileListComponent } from './file-list/file-list.component';
 @Component({
   selector: 'app-my-software',
   templateUrl: './my-software.component.html',
-  styleUrls: ['./my-software.component.css']
+  styleUrls: ['./my-software.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MySoftwareComponent implements OnInit {
 
-  mySoftwareSet = [
-    {
-      number: '1',
-      code: 'T1234',
-      name: '电机',
-      version: '1.0.0',
-      inventor: '发明人',
-      devWay: '开发方式',
-      registerCode: 'DJ786',
-      certiCode: 'ZS3456',
-      storeCode: 'FC589',
-      status: '生效',
-      powerStatus: '有权',
-      rightRange: '全部',
-      applyDate: '2018-07-05',
-      certiDate: '2013-06-04',
-      releaseDate: '2016-05-09',
-      storeDate: '2015-07-02',
-      completeDate: '2024-05-03'
-    }
-  ];
+  public dataSet: any; // 查询列表资料
+  public searchForm: FormGroup;
+  public searchLoading = true;
+  public proposalDateRange = [];
+  public applyDateRange = [];
+  public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
 
-  searchForm!: FormGroup;
   drawerRef!: NzDrawerRef;
-  proposalDateRange = [];
-  applyDateRange = [];
-  certiDateRange = [];
-  releaseDateRange = [];
-  storeDateRange = [];
-  completeDateRange = [];
+  pageIndex: number = 1;
 
   constructor(
     private formBuilder: FormBuilder,
-    private nzDrawerService: NzDrawerService
-  ) { }
+    private nzDrawerService: NzDrawerService,
+    private mySoftwareService: MySoftwareService
+    ) {
+    this.searchForm = this.formBuilder.group({});
+    this.searchForm.addControl('name', new FormControl(''));
+    this.searchForm.addControl('code', new FormControl(''));
+    this.searchForm.addControl('inventor', new FormControl(''));
+    this.searchForm.addControl('agency', new FormControl('0'));
+    this.searchForm.addControl('devWay', new FormControl('0'));
+    this.searchForm.addControl('status', new FormControl('0'));
+    this.searchForm.addControl('proposalDateRange', new FormControl(''));
+    this.searchForm.addControl('applyDateRange', new FormControl(''));
+  }
 
   ngOnInit(): void {
-    this.searchForm = this.formBuilder.group({
-      softwareCode: ['RZ11234'],
-      softwareName: ['授课系统'],
-      version: ['1.0.0'],
-      inventorName: ['inventorName'],
-      agency: ['0'],
-      devWay: ['devWay'],
-      registerCode: ['DJ654'],
-      proposalDateRange : [[]],
-      applyDateRange : [[]],
-      certiCode: ['ZS66464'],
-      certiDateRange : [[]],
-      releaseDateRange : [[]],
-      storeCode: ['FC1567'],
-      storeDateRange : [[]],
-      completeDateRange : [[]],
-      powerStatus: ['0'],
-      rightRange: ['权利范围']
-    });
+    this.search(true);
   }
 
   public onChange(result: Date): void {
     console.log('onChange: ', result);
   }
 
+  // 重置查询表单
   public resetForm(): void {
-    this.searchForm.reset();
+    this.searchForm.reset({
+      name: '',
+      code: '',
+      inventor: '',
+      agency: '0',
+      devWay: '0',
+      status: '0',
+      proposalDateRange: '',
+      applyDateRange: ''
+    });
+  }
+  
+  // 查询
+  public search(reset: boolean = false): void {
+    this.onBeforeSearch();
+
+    if (reset) {
+      this.queryInfo.pageNum = 1;
+      this.pageIndex = 1;
+    }
+
+    this.queryData();
+
+    this.mySoftwareService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+      console.log('返回数据：', res);
+      this.dataSet = res.data.list;
+      this.onAfterSearch;
+    })
+  }
+  
+  // 获取查询条件
+  public queryData(): void {
+    const queryCriteria = new QueryCriteria(); // 创建查询条件类
+
+    for (const key of Object.keys(this.searchForm.controls)) {
+      if (
+        Array.isArray(this.searchForm.controls[key].value) &&
+        this.searchForm.controls[key].value.length === 0
+      ) {
+        continue;
+      }
+      if (this.searchForm.controls[key].value === '') {
+        continue;
+      }
+
+      if (key === 'name') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'name',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'code') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'code',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'agency') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'agency',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'devWay') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'devWay',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'status') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'status',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'proposalDateRange') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'proposalDateRange',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'applyDateRange') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'applyDateRange',
+            this.searchForm.controls[key].value
+          )
+        );
+      }
+    }
+    
+    this.queryInfo.setCriteria(queryCriteria);
+    console.log('查询条件：',this.queryInfo)
+  }
+  
+  onBeforeSearch(): void {
+    this.searchLoading = true;
   }
 
-  public search(): void {
-
+  onAfterSearch(): void {
+    this.searchLoading = false;
   }
 
-  public openBonusDetail() {
+  public showBonus() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '奖金详情',
       nzContent: BonusComponent,
@@ -110,7 +189,7 @@ export class MySoftwareComponent implements OnInit {
     });
   }
 
-  public openFileDetail() {
+  public showFile() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
       nzContent: FileListComponent,

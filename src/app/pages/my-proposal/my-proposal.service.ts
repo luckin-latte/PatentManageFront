@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 import { apiUrl } from 'src/app/config';
 
@@ -10,15 +11,15 @@ export class MyProposalService {
 
   constructor(
     private httpClient: HttpClient
-  ) { }
+  ) { 
+  }
 
-  getList() {
-    const token = sessionStorage.getItem('token')
-    return this.httpClient.get(`${apiUrl}/proposal/getProposalList1`, {
-      headers: {
-        // Authorization: `Bearer ${token}`
-        Authorization: `${token}`
-      }
-    })
+  fetchData(queryInfo: object): Observable<any>{
+    const query = JSON.stringify(queryInfo);
+    return this.httpClient.get(`${apiUrl}/proposal/getProposalList1?value=${query}`)
+  }
+  
+  submit() {
+    // return this.httpClient.post(`${apiUrl}/proposal/post`);
   }
 }

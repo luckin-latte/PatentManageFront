@@ -2,6 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
+import { ProposalReviewService } from './proposal-review.service';
+import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
+
 import { ApprovalComponent } from './approval/approval.component';
 
 @Component({
@@ -12,50 +15,140 @@ import { ApprovalComponent } from './approval/approval.component';
 })
 export class ProposalReviewComponent implements OnInit {
 
-  dataSet = [
-    {
-      number: '1',
-      code: 'TA23051207',
-      name: '企业知识产权管理系统',
-      proposer: '小张',
-      inventor: '小张，小明',
-      department: '应用开发部',
-      date: '2023-05-12',
-    }
-  ];
+  public dataSet: any; // 查询列表资料
+  public searchForm: FormGroup;
+  public searchLoading = true;
+  public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
+  public dateRange = [];
 
-  searchForm!: FormGroup;
   drawerRef!: NzDrawerRef;
-  dateRange = [];
+  pageIndex: number = 1;
 
   constructor(
     private formBuilder: FormBuilder,
-    private nzDrawerService: NzDrawerService
-    ) {
-
+    private nzDrawerService: NzDrawerService,
+    private proposalReviewService: ProposalReviewService
+  ) {
+    this.searchForm = this.formBuilder.group({});
+    this.searchForm.addControl('name', new FormControl(''));
+    this.searchForm.addControl('code', new FormControl(''));
+    this.searchForm.addControl('department', new FormControl('0'));
+    this.searchForm.addControl('proposer', new FormControl(''));
+    this.searchForm.addControl('inventor', new FormControl(''));
+    this.searchForm.addControl('dateRange', new FormControl(''));
   }
 
   ngOnInit(): void {
-    this.searchForm = this.formBuilder.group({
-      proposalName: ['proposalName'],
-      proposalCode: ['proposalCode'],
-      inventorName: ['inventorName'],
-      department: ['0'],
-      proposerName: ['proposerName'],
-      proposerCode: ['proposerCode'],
-      dateRangePicker: [[]]
-    });
+    this.search(true);
   }
 
-  onChange(result: Date): void {
+  public onChange(result: Date): void {
     console.log('onChange: ', result);
   }
 
-  resetForm(): void {
-    this.searchForm.reset();
+  public resetForm(): void {
+    this.searchForm.reset({
+      name: '',
+      code: '',
+      department: '',
+      proposer: '',
+      inventor: '',
+      dateRange: ''
+    });
+  }
+  
+  // 查询
+  public search(reset: boolean = false): void {
+    this.onBeforeSearch();
+
+    if (reset) {
+      this.queryInfo.pageNum = 1;
+      this.pageIndex = 1;
+    }
+
+    this.queryData();
+
+    this.proposalReviewService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+      console.log('返回数据：', res);
+      this.dataSet = res.data.list;
+      this.onAfterSearch;
+    })
+
+  }
+  
+  // 获取查询条件
+  public queryData(): void {
+    const queryCriteria = new QueryCriteria(); // 创建查询条件类
+
+    for (const key of Object.keys(this.searchForm.controls)) {
+      if (
+        Array.isArray(this.searchForm.controls[key].value) &&
+        this.searchForm.controls[key].value.length === 0
+      ) {
+        continue;
+      }
+      if (this.searchForm.controls[key].value === '') {
+        continue;
+      }
+
+      if (key === 'name') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'name',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'code') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'code',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'department') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'department',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'proposer') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'proposer',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'inventor') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'inventor',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'dateRange') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'dateRange',
+            this.searchForm.controls[key].value
+          )
+        );
+      }
+    }
+    
+    this.queryInfo.setCriteria(queryCriteria);
+    console.log('查询条件：',this.queryInfo)
+  }
+  
+  onBeforeSearch(): void {
+    this.searchLoading = true;
   }
 
-  openApproval() {
+  onAfterSearch(): void {
+    this.searchLoading = false;
+  }
+
+  public approval() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '审批详情',
       nzContent: ApprovalComponent,

@@ -2,6 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
+import { MyPatentService } from './my-patent.service';
+import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
+
 import { BonusComponent } from './bonus/bonus.component';
 import { EditComponent } from './edit/edit.component';
 import { FileListComponent } from './file-list/file-list.component';
@@ -14,61 +17,148 @@ import { FileListComponent } from './file-list/file-list.component';
 })
 export class MyPatentComponent implements OnInit {
 
-  myPatentSet = [
-    {
-      number: '1',
-      code: 'ZL17603',
-      name: '电机',
-      inventor: '永永，小代',
-      type: '发明专利',
-      applyCode: 'AP14656',
-      applyDate: '2029-09-08',
-      empowerCode: 'SQ6720B',
-      empowerDate: '2021-09-07',
-      status: '有权',
-      process: '官方发证'
-    }
-  ];
+  public dataSet: any; // 查询列表资料
+  public searchForm: FormGroup;
+  public searchLoading = true;
+  public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
 
-  searchForm!: FormGroup;
   drawerRef!: NzDrawerRef;
-  applyDateRange = [];
-  empowerDateRange = [];
+  pageIndex: number = 1;
 
   constructor(
     private formBuilder: FormBuilder,
-    private nzDrawerService: NzDrawerService
-  ) { }
+    private nzDrawerService: NzDrawerService,
+    private myPatentService: MyPatentService
+    ) {
+    this.searchForm = this.formBuilder.group({});
+    this.searchForm.addControl('name', new FormControl(''));
+    this.searchForm.addControl('code', new FormControl(''));
+    this.searchForm.addControl('inventor', new FormControl(''));
+    this.searchForm.addControl('type', new FormControl('0'));
+    this.searchForm.addControl('process', new FormControl('0'));
+    this.searchForm.addControl('status', new FormControl('0'));
+    this.searchForm.addControl('agency', new FormControl('0'));
+  }
 
   ngOnInit(): void {
-    this.searchForm = this.formBuilder.group({
-      patentCode: ['patentCode'],
-      patentName: ['patentName'],
-      inventorName: ['inventorName'],
-      applyCode: ['applyCode'],
-      applyDateRange: [[]],
-      process: ['0'],
-      empowerCode: ['applyCode'],
-      empowerDateRange: [[]],
-      powerStatus: ['0'],
-      patentType: ['0'],
-      agency: ['0']
-    });
+    this.search(true);
   }
 
   public onChange(result: Date): void {
     console.log('onChange: ', result);
   }
 
+  // 重置查询表单
   public resetForm(): void {
-    this.searchForm.reset();
+    this.searchForm.reset({
+      code: '',
+      name: '',
+      inventor: '',
+      type: '0',
+      process: '0',
+      status: '0',
+      agency: '0'
+    });
+  }
+  
+  // 查询
+  public search(reset: boolean = false): void {
+    this.onBeforeSearch();
+
+    if (reset) {
+      this.queryInfo.pageNum = 1;
+      this.pageIndex = 1;
+    }
+
+    this.queryData();
+
+    this.myPatentService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+      console.log('返回数据：', res);
+      this.dataSet = res.data.list;
+      this.onAfterSearch;
+    })
+  }
+  
+  // 获取查询条件
+  public queryData(): void {
+    const queryCriteria = new QueryCriteria(); // 创建查询条件类
+
+    for (const key of Object.keys(this.searchForm.controls)) {
+      if (
+        Array.isArray(this.searchForm.controls[key].value) &&
+        this.searchForm.controls[key].value.length === 0
+      ) {
+        continue;
+      }
+      if (this.searchForm.controls[key].value === '') {
+        continue;
+      }
+
+      if (key === 'code') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'code',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'name') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'name',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'inventor') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'inventor',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'type') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'type',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'process') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'process',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'status') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'status',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'agency') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'agency',
+            this.searchForm.controls[key].value
+          )
+        );
+      }
+    }
+    
+    this.queryInfo.setCriteria(queryCriteria);
+    console.log('查询条件：',this.queryInfo)
+  }
+  
+  onBeforeSearch(): void {
+    this.searchLoading = true;
   }
 
-  public search(): void {
-
+  onAfterSearch(): void {
+    this.searchLoading = false;
   }
 
-  public openBonusDetail() {
+  public showBonus() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '奖金详情',
       nzContent: BonusComponent,
@@ -95,7 +185,7 @@ export class MyPatentComponent implements OnInit {
     });
   }
 
-  public openFileDetail() {
+  public showFile() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
       nzContent: FileListComponent,

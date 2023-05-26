@@ -2,6 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
+import { MyTrademarkService } from './my-trademark.service';
+import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
+
 import { BonusComponent } from './bonus/bonus.component';
 import { EditComponent } from './edit/edit.component';
 import { FileListComponent } from './file-list/file-list.component';
@@ -9,58 +12,162 @@ import { FileListComponent } from './file-list/file-list.component';
 @Component({
   selector: 'app-my-trademark',
   templateUrl: './my-trademark.component.html',
-  styleUrls: ['./my-trademark.component.css']
+  styleUrls: ['./my-trademark.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyTrademarkComponent implements OnInit {
 
-  myTrademarkSet = [
-    {
-      number: '1',
-      code: 'SB1234',
-      name: 'HHUC',
-      inventor: '发明人',
-      owner: '河海',
-      copyrightNo: 'CPN45356',
-      type: '0409',
-      powerStatus: '有权',
-      status: '申请中',
-    }
-  ];
+  public dataSet: any; // 查询列表资料
+  public searchForm: FormGroup;
+  public searchLoading = true;
+  public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
 
-  searchForm!: FormGroup;
   drawerRef!: NzDrawerRef;
+  pageIndex: number = 1;
 
   constructor(
     private formBuilder: FormBuilder,
-    private nzDrawerService: NzDrawerService
-  ) { }
+    private nzDrawerService: NzDrawerService,
+    private myTrademarkService: MyTrademarkService
+    ) {
+    this.searchForm = this.formBuilder.group({});
+    this.searchForm.addControl('name', new FormControl(''));
+    this.searchForm.addControl('code', new FormControl(''));
+    this.searchForm.addControl('inventor', new FormControl(''));
+    this.searchForm.addControl('owner', new FormControl(''));
+    this.searchForm.addControl('copyright', new FormControl(''));
+    this.searchForm.addControl('type', new FormControl(''));
+    this.searchForm.addControl('status', new FormControl('0'));
+    this.searchForm.addControl('agency', new FormControl('0'));
+  }
 
   ngOnInit(): void {
-    this.searchForm = this.formBuilder.group({
-      trademarkCode: ['trademarkCode'],
-      trademarkName: ['trademarkName'],
-      inventorName: ['inventorName'],
-      owner: ['owner'],
-      trademarkType: ['0409'],
-      copyrightNo: ['1245643'],
-      status: ['0'],
-      powerStatus: ['0'],
-      agency: ['0']
-    });
+    this.search(true);
   }
 
   public onChange(result: Date): void {
     console.log('onChange: ', result);
   }
 
+  // 重置查询表单
   public resetForm(): void {
-    this.searchForm.reset();
+    this.searchForm.reset({
+      name: '',
+      code: '',
+      inventor: '',
+      owner: '',
+      copyright: '',
+      type: '0',
+      status: '0',
+      agency: '0',
+    });
+  }
+  
+  // 查询
+  public search(reset: boolean = false): void {
+    this.onBeforeSearch();
+
+    if (reset) {
+      this.queryInfo.pageNum = 1;
+      this.pageIndex = 1;
+    }
+
+    this.queryData();
+
+    this.myTrademarkService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+      console.log('返回数据：', res);
+      this.dataSet = res.data.list;
+      this.onAfterSearch;
+    })
+  }
+  
+  // 获取查询条件
+  public queryData(): void {
+    const queryCriteria = new QueryCriteria(); // 创建查询条件类
+
+    for (const key of Object.keys(this.searchForm.controls)) {
+      if (
+        Array.isArray(this.searchForm.controls[key].value) &&
+        this.searchForm.controls[key].value.length === 0
+      ) {
+        continue;
+      }
+      if (this.searchForm.controls[key].value === '') {
+        continue;
+      }
+
+      if (key === 'name') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'name',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'code') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'code',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'inventor') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'inventor',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'owner') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'owner',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'copyright') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'copyright',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'type') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'type',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'status') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'status',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'agency') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'agency',
+            this.searchForm.controls[key].value
+          )
+        );
+      }
+    }
+    
+    this.queryInfo.setCriteria(queryCriteria);
+    console.log('查询条件：',this.queryInfo)
+  }
+  
+  onBeforeSearch(): void {
+    this.searchLoading = true;
   }
 
-  public search(): void {
-
+  onAfterSearch(): void {
+    this.searchLoading = false;
   }
-  openBonusDetail() {
+
+  public showBonus() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '奖金详情',
       nzContent: BonusComponent,
@@ -87,7 +194,7 @@ export class MyTrademarkComponent implements OnInit {
     });
   }
 
-  openFileDetail() {
+  public showFile() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
       nzContent: FileListComponent,
@@ -113,6 +220,7 @@ export class MyTrademarkComponent implements OnInit {
       console.log(data);
     });
   }
+  
   public edit() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '编辑专利信息',

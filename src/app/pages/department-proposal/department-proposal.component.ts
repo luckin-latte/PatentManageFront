@@ -19,12 +19,11 @@ export class DepartmentProposalComponent implements OnInit {
   public dataSet: any; // 查询列表资料
   public searchForm: FormGroup;
   public searchLoading = true;
-  public payDateRange = [];
+  public dateRange = [];
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
 
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
-  dateRange = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -159,7 +158,7 @@ export class DepartmentProposalComponent implements OnInit {
     this.searchLoading = false;
   }
 
-  openReviewDetail() {
+  public showReview() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '审批详情',
       nzContent: ReviewComponent,
@@ -186,7 +185,7 @@ export class DepartmentProposalComponent implements OnInit {
     });
   }
 
-  openFileDetail() {
+  public showFile() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
       nzContent: FileListComponent,

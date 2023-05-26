@@ -9,15 +9,7 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="code"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利名称</nz-form-label>
+        <nz-form-label [nzSpan]="6">软著名称</nz-form-label>
         <nz-form-control>
           <input nz-input  formControlName="name"/>
         </nz-form-control>
@@ -25,14 +17,17 @@
     </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利类型</nz-form-label>
+        <nz-form-label [nzSpan]="6">软著编号</nz-form-label>
         <nz-form-control>
-          <nz-select id="type" nzAllowClear formControlName="type">
-            <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
-            <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
-            <nz-option nzValue="3" nzLabel="外观设计专利"></nz-option>
-          </nz-select>
+          <input nz-input formControlName="code"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">版本号</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="version"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -41,17 +36,17 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">申请号</nz-form-label>
+        <nz-form-label [nzSpan]="6">文件名称</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="applyCode"/>
+          <input nz-input formControlName="fileName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">提案人</nz-form-label>
+        <nz-form-label [nzSpan]="6">文件编号</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="proposer"/>
+          <input nz-input formControlName="fileCode"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -63,28 +58,39 @@
 
 </form>
 
-<nz-table #Table nzBordered nzSize="small"
+<nz-table #resultTable nzBordered nzSize="small" [nzScroll]="{ x: '1400px' }"
   nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
-      <th nzWidth="60px">序号</th>
-      <th>专利编号</th>
-      <th>专利名称</th>
-      <th>专利申请号</th>
-      <th>专利类型</th>
+      <th nzWidth="60px" nzLeft="0px">序号</th>
+      <th nzWidth="120px" nzLeft="60px">软著编号</th>
+      <th nzWidth="160px" nzLeft="180px">软著名称</th>
+      <th>版本号</th>
       <th>提案人</th>
-      <th nzWidth="120px">文件列表</th>
+      <th>提案时间</th>
+      <th>文件编号</th>
+      <th>发文名称</th>
+      <th>上传人</th>
+      <th nzWidth="80px" nzRight="80px">文件详情</th>
+      <th nzWidth="80px" nzRight="0px">操作</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of Table.data; let i = index">
-      <td>{{ i+1 }}</td>
-      <td>{{ data.code }}</td>
-      <td>{{ data.name }}</td>
-      <td>{{ data.applyCode}}</td>
+    <tr *ngFor="let data of resultTable.data; let i = index">
+      <td nzLeft="0px">{{ i+1 }}</td>
+      <td nzLeft="60px">{{ data.code }}</td>
+      <td nzLeft="180px">{{ data.name }}</td>
+      <td>{{ data.version }}</td>
       <td>{{ data.proposer }}</td>
-      <td>
-        <button nz-button>查看</button>
+      <td>{{ data.date }}</td>
+      <td>{{ data.fileCode }}</td>
+      <td>{{ data.fileName }}</td>
+      <td>{{ data.uploader }}</td>
+      <td nzRight="80px">
+        <button nz-button (click)="showFile()">查看</button>
+      </td>
+      <td nzRight="0px">
+        <button nz-button (click)="delete()">删除</button>
       </td>
     </tr>
   </tbody>

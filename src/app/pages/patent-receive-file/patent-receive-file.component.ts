@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
+import { PatentReceiveFileService } from './patent-receive-file.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
 @Component({
@@ -19,18 +20,17 @@ export class PatentReceiveFileComponent implements OnInit {
 
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
-  public applyDateRange = [];
-  public empowerDateRange = [];
 
   constructor(
     private formBuilder: FormBuilder,
-    private nzDrawerService: NzDrawerService
+    private nzDrawerService: NzDrawerService,
+    private patentReceiveFileService: PatentReceiveFileService
   ) {
     this.searchForm = this.formBuilder.group({});
     this.searchForm.addControl('code', new FormControl(''));
     this.searchForm.addControl('name', new FormControl(''));
     this.searchForm.addControl('type', new FormControl('0'));
-    this.searchForm.addControl('applyCode', new FormControl(''));
+    this.searchForm.addControl('agency', new FormControl('0'));
     this.searchForm.addControl('proposer', new FormControl(''));
   }
 
@@ -47,7 +47,7 @@ export class PatentReceiveFileComponent implements OnInit {
       code: '',
       name: '',
       type: '0',
-      applyCode: '',
+      agency: '0',
       proposer: ''
     });
   }
@@ -62,6 +62,12 @@ export class PatentReceiveFileComponent implements OnInit {
     }
 
     this.queryData();
+
+    this.patentReceiveFileService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+      console.log('返回数据：', res);
+      this.dataSet = res.data.list;
+      this.onAfterSearch;
+    })
 
   }
   
@@ -101,10 +107,10 @@ export class PatentReceiveFileComponent implements OnInit {
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'applyCode') {
+      } else if (key === 'agency') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'applyCode',
+            'agency',
             this.searchForm.controls[key].value
           )
         );
@@ -130,5 +136,9 @@ export class PatentReceiveFileComponent implements OnInit {
   onAfterSearch(): void {
     this.searchLoading = false;
   }
+  
+  public create() {}
+
+  public showFile() {}
 
 }

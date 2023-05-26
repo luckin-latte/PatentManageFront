@@ -49,8 +49,8 @@
   </div>
 </form>
 
-<nz-table #myProposalTable nzBordered nzSize="small"
-  nzShowPagination nzShowSizeChanger [nzData]="pantentAnnualFeeSet">
+<nz-table #resultTable nzBordered nzSize="small"
+  nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
       <th>编号</th>
@@ -62,7 +62,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of myProposalTable.data">
+    <tr *ngFor="let data of resultTable.data">
       <td>{{ data.number }}</td>
       <td>{{ data.code }}</td>
       <td>{{ data.name }}</td>

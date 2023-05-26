@@ -3,9 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
 import { MyProposalService } from './my-proposal.service';
+import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
+
 import { ReviewComponent, } from './review/review.component';
 import { FileListComponent } from './file-list/file-list.component';
-import { ProposalModel } from 'src/app/shared/model/proposal.model';
 
 @Component({
   selector: 'app-my-proposal',
@@ -15,98 +16,140 @@ import { ProposalModel } from 'src/app/shared/model/proposal.model';
 })
 export class MyProposalComponent implements OnInit {
 
-  myProposalList!: ProposalModel[];
+  public dataSet: any; // 查询列表资料
+  public searchForm: FormGroup;
+  public searchLoading = true;
+  public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
+  public dateRange = [];
 
-  myProposalSet = [
-    {
-      code: 'TA22051102',
-      name: '检索系统',
-      proposer: '小章',
-      inventor: '小张，小明，小王',
-      department: '应用开发部',
-      date: '2022-05-11',
-      status: '在审',
-      type: '软著'
-    },{
-      code: 'TA22071203',
-      name: '检索系统标志',
-      proposer: '小文',
-      inventor: '小文，小红',
-      department: '设计部',
-      date: '2022-07-12',
-      status: '在审',
-      type: '软著'
-    },{
-      code: 'TA22072206',
-      name: 'ERP系统',
-      proposer: '小王',
-      inventor: '小王，小明，小聪',
-      department: '应用开发部',
-      date: '2022-07-22',
-      status: '通过',
-      type: '商标'
-    },{
-      code: 'TA22091618',
-      name: 'UI组件库',
-      proposer: '小江',
-      inventor: '小江，小王，小明，小红',
-      department: '系统开发部',
-      date: '2023-05-12',
-      status: '不通过',
-      type: '软著'
-    },{
-      code: 'TA23051207',
-      name: '企业知识产权管理系统',
-      proposer: '小张',
-      inventor: '小张，小明',
-      department: '应用开发部',
-      date: '2023-05-12',
-      status: '在审',
-      type: '软著'
-    },
-  ];
-
-  searchForm!: FormGroup;
   drawerRef!: NzDrawerRef;
-  dateRange = [];
+  pageIndex: number = 1;
 
   constructor(
     private formBuilder: FormBuilder,
     private nzDrawerService: NzDrawerService,
     private myProposalService: MyProposalService
-  ) {
+    ) {
     this.searchForm = this.formBuilder.group({});
+    this.searchForm.addControl('name', new FormControl(''));
+    this.searchForm.addControl('code', new FormControl(''));
+    this.searchForm.addControl('type', new FormControl('0'));
+    this.searchForm.addControl('inventor', new FormControl(''));
+    this.searchForm.addControl('status', new FormControl('0'));
+    this.searchForm.addControl('dateRange', new FormControl(''));
   }
 
   ngOnInit(): void {
-    this.search();
-    this.searchForm = this.formBuilder.group({
-      proposalName: ['proposalName'],
-      proposalCode: ['proposalCode'],
-      proposalType: ['0'],
-      inventorName: ['inventorName'],
-      inventorCode: ['inventorCode'],
-      proposalStatus: ['0'],
-      dateRangePicker: [[]]
-    });
+    this.search(true);
   }
 
   public onChange(result: Date): void {
     console.log('onChange: ', result);
   }
 
+  // 重置查询表单
   public resetForm(): void {
-    this.searchForm.reset();
+    this.searchForm.reset({
+      name: '',
+      code: '',
+      type: '0',
+      inventor: '',
+      status: '0',
+      dateRange: ''
+    });
+  }
+  
+  // 查询
+  public search(reset: boolean = false): void {
+    this.onBeforeSearch();
+
+    if (reset) {
+      this.queryInfo.pageNum = 1;
+      this.pageIndex = 1;
+    }
+
+    this.queryData();
+
+    this.myProposalService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+      console.log('返回数据：', res);
+      this.dataSet = res.data.list;
+      this.onAfterSearch;
+    })
+  }
+  
+  // 获取查询条件
+  public queryData(): void {
+    const queryCriteria = new QueryCriteria(); // 创建查询条件类
+
+    for (const key of Object.keys(this.searchForm.controls)) {
+      if (
+        Array.isArray(this.searchForm.controls[key].value) &&
+        this.searchForm.controls[key].value.length === 0
+      ) {
+        continue;
+      }
+      if (this.searchForm.controls[key].value === '') {
+        continue;
+      }
+
+      if (key === 'name') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'name',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'code') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'code',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'type') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'type',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'inventor') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'inventor',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'status') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'status',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'dateRange') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'dateRange',
+            this.searchForm.controls[key].value
+          )
+        );
+      }
+    }
+    
+    this.queryInfo.setCriteria(queryCriteria);
+    console.log('查询条件：',this.queryInfo)
+  }
+  
+  onBeforeSearch(): void {
+    this.searchLoading = true;
   }
 
-  public search() {
-    this.myProposalService.getList().subscribe(((res:any) => {
-      console.log(res)
-      this.myProposalList = res
-    }))
+  onAfterSearch(): void {
+    this.searchLoading = false;
   }
 
-  openReviewDetail() {
+  public showReview() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '审批详情',
       nzContent: ReviewComponent,
@@ -133,7 +176,7 @@ export class MyProposalComponent implements OnInit {
     });
   }
 
-  openFileDetail() {
+  public showFile() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
       nzContent: FileListComponent,

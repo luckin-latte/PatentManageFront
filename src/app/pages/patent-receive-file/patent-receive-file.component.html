@@ -9,17 +9,17 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
+        <nz-form-label [nzSpan]="6">专利名称</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="code"/>
+          <input nz-input  formControlName="name"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利名称</nz-form-label>
+        <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
         <nz-form-control>
-          <input nz-input  formControlName="name"/>
+          <input nz-input formControlName="code"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -41,9 +41,11 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">申请号</nz-form-label>
+        <nz-form-label [nzSpan]="6">代理机构</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="applyCode"/>
+          <nz-select id="agency" nzAllowClear formControlName="agency">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -63,6 +65,11 @@
 
 </form>
 
+<div>
+  <button nz-button nzType="primary" (click)="create()" style="margin-top: 8px;">
+    新增专利来文</button>
+</div>
+
 <nz-table #Table nzBordered nzSize="small"
   nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
@@ -70,21 +77,22 @@
       <th nzWidth="60px">序号</th>
       <th>专利编号</th>
       <th>专利名称</th>
-      <th>专利申请号</th>
       <th>专利类型</th>
+      <th>代理机构</th>
       <th>提案人</th>
       <th nzWidth="120px">文件列表</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of Table.data; let i = index">
-      <td>{{ i+1 }}</td>
+      <td>{{ i + 1 }}</td>
       <td>{{ data.code }}</td>
       <td>{{ data.name }}</td>
-      <td>{{ data.applyCode}}</td>
+      <td>{{ data.type }}</td>
+      <td>{{ data.agency}}</td>
       <td>{{ data.proposer }}</td>
       <td>
-        <button nz-button>查看</button>
+        <button nz-button (click)="showFile()">查看</button>
       </td>
     </tr>
   </tbody>

@@ -9,17 +9,17 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
+        <nz-form-label [nzSpan]="6">专利名称</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="patentCode"/>
+          <input nz-input  formControlName="name"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="8">专利名称</nz-form-label>
+        <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
         <nz-form-control>
-          <input nz-input  formControlName="patentName"/>
+          <input nz-input formControlName="code"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -27,7 +27,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">专利类型</nz-form-label>
         <nz-form-control>
-          <nz-select id="patentType" nzAllowClear formControlName="patentType">
+          <nz-select id="type" nzAllowClear formControlName="type">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
             <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
             <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
@@ -46,20 +46,20 @@
   </div>
 </form>
 
-<nz-table #myProposalTable nzBordered nzSize="small"
-  nzShowPagination nzShowSizeChanger [nzData]="patentAnnualFeeSet">
+<nz-table #resultTable nzBordered nzSize="small"
+  nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
-      <th>编号</th>
+      <th nzWidth="60px">序号</th>
       <th>专利编号</th>
       <th>专利名称</th>
       <th>专利类型</th>
-      <th>年费详情</th>
+      <th nzWidth="80px">年费详情</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of myProposalTable.data">
-      <td>{{ data.number }}</td>
+    <tr *ngFor="let data of resultTable.data; let i = index">
+      <td>{{ i + 1 }}</td>
       <td>{{ data.code }}</td>
       <td>{{ data.name }}</td>
       <td>{{ data.type }}</td>

@@ -1,7 +1,6 @@
 <nz-page-header class="site-page-header">
   <nz-breadcrumb nz-page-header-breadcrumb>
     <nz-breadcrumb-item>代理机构管理</nz-breadcrumb-item>
-    <!-- <nz-breadcrumb-item><a>代理机构</a></nz-breadcrumb-item> -->
   </nz-breadcrumb>
 </nz-page-header>
 
@@ -28,7 +27,7 @@
     新增代理机构</button>
 </div>
 
-<nz-table #myProposalTable nzBordered nzSize="small" [nzScroll]="{ x: '1440px' }"
+<nz-table #reasultTable nzBordered nzSize="small" [nzScroll]="{ x: '1440px' }"
   nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
@@ -45,7 +44,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of myProposalTable.data; let i = index">
+    <tr *ngFor="let data of reasultTable.data; let i = index">
       <td nzLeft="0px">{{ i+1 }}</td>
       <td nzLeft="60px">{{ data.code }}</td>
       <td nzLeft="180px">{{ data.name }}</td>

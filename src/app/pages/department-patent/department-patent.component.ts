@@ -32,16 +32,12 @@ export class DepartmentPatentComponent implements OnInit {
     private departmentPatentService: DepartmentPatentService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('code', new FormControl(''));
     this.searchForm.addControl('name', new FormControl(''));
+    this.searchForm.addControl('code', new FormControl(''));
     this.searchForm.addControl('inventor', new FormControl(''));
-    this.searchForm.addControl('applyCode', new FormControl(''));
-    this.searchForm.addControl('applyDateRange', new FormControl(''));
-    this.searchForm.addControl('process', new FormControl('0'));
-    this.searchForm.addControl('empowerCode', new FormControl(''));
-    this.searchForm.addControl('empowerDateRange', new FormControl(''));
-    this.searchForm.addControl('powerStatus', new FormControl('0'));
     this.searchForm.addControl('type', new FormControl('0'));
+    this.searchForm.addControl('process', new FormControl('0'));
+    this.searchForm.addControl('status', new FormControl('0'));
     this.searchForm.addControl('agency', new FormControl('0'));
   }
 
@@ -58,13 +54,9 @@ export class DepartmentPatentComponent implements OnInit {
       code: '',
       name: '',
       inventor: '',
-      applyCode: '',
-      applyDateRange: '',
-      process: '0',
-      empowerCode: '',
-      empowerDateRange: '',
-      powerStatus: '0',
       type: '0',
+      process: '0',
+      status: '0',
       agency: '0'
     });
   }
@@ -123,17 +115,10 @@ export class DepartmentPatentComponent implements OnInit {
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'applyCode') {
+      } else if (key === 'type') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'applyCode',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'applyDateRange') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'applyDateRange',
+            'type',
             this.searchForm.controls[key].value
           )
         );
@@ -144,31 +129,10 @@ export class DepartmentPatentComponent implements OnInit {
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'empowerCode') {
+      } else if (key === 'status') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'empowerCode',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'empowerDateRange') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'empowerDateRange',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'powerStatus') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'powerStatus',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'type') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'type',
+            'status',
             this.searchForm.controls[key].value
           )
         );
@@ -195,7 +159,7 @@ export class DepartmentPatentComponent implements OnInit {
     this.searchLoading = false;
   }
 
-  public openBonusDetail() {
+  public showBonus() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '奖金详情',
       nzContent: BonusComponent,
@@ -222,7 +186,7 @@ export class DepartmentPatentComponent implements OnInit {
     });
   }
 
-  public openFileDetail() {
+  public showFile() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
       nzContent: FileListComponent,
