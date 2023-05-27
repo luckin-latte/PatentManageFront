@@ -23,10 +23,8 @@ export class TokenInterceptors implements HttpInterceptor {
         headers: req.headers.set('token', userInfo.token)
       });
     } else {
-      // 处理 userInfoString 不存在的情况，设置默认的 token 或其他处理逻辑
-      tokenReq = req.clone({
-        headers: req.headers.set('token', '')
-      });
+      // 处理 userInfoString 不存在的情况
+      tokenReq = req;
     }
 
     return next.handle(tokenReq);

@@ -175,8 +175,6 @@
   </nz-sider>
 
   <nz-layout>
-
-    
     <nz-header>
       <div nz-row [nzGutter]="16" class="app-header">
         <div nz-col [nzMd]="18" [nzLg]="20" [nzXl]="22">
@@ -188,32 +186,13 @@
         </div>
 
         <div nz-col  [nzMd]="6" [nzLg]="4" [nzXl]="2">
-          <span class="header-logout">
+          <span class="header-logout" (click)="logout($event)">
             <i nz-icon nzType="logout" nzTheme="outline" style="margin-right: 8px;"></i>
             <a style="color:rgb(66, 66, 66); font-family:Segoe UI">注销</a>
           </span>
         </div>
       </div>
     </nz-header>
-
-    <!-- <nz-header>
-      <div nz-row [nzGutter]="16" class="app-header">
-        <div nz-col [nzMd]="8" [nzLg]="12" [nzXl]="16">
-          <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-            <i class="trigger" nz-icon
-              [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i>
-          </span>
-        </div>
-
-        <div nz-col  [nzMd]="16" [nzLg]="12" [nzXl]="8">
-          <span class="header-logout">
-            <i nz-icon nzType="logout" nzTheme="outline" style="margin-right: 8px;"></i>
-            <a style="color:rgb(66, 66, 66); font-family:Segoe UI">注销</a>
-          </span>
-        </div>
-      </div>
-    </nz-header> -->
 
     <nz-content>
       <!-- <nz-breadcrumb [nzAutoGenerate]="true">Breadcrumb面包屑</nz-breadcrumb> -->

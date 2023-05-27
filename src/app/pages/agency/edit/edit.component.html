@@ -1,76 +1,88 @@
 <form nz-form [formGroup]="EditForm">
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired>代理机构名称</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="name"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzRequired>代理机构编号</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="code"/>
+        <nz-form-control nzErrorTip="不能为空!">
+          <input nz-input formControlName="agencyName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
   </div>
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>代理机构编号</nz-form-label>
+        <nz-form-control nzErrorTip="不能为空!">
+          <input nz-input formControlName="agencyCode"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">代理人</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="agent"/>
+          <input nz-input formControlName="agentName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">代理机构负责人</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="director"/>
+          <input nz-input formControlName="agencyHolder"/>
         </nz-form-control>
       </nz-form-item>
     </div>
   </div>
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">联系电话</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="tel"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">邮箱</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="email"/>
+          <input nz-input formControlName="agencyPhone"/>
         </nz-form-control>
       </nz-form-item>
     </div>
   </div>
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="24">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">地址</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="address"/>
+        <nz-form-label [nzSpan]="6">邮箱</nz-form-label>
+        <nz-form-control nzErrorTip="请输入正确的邮箱!">
+          <input nz-input formControlName="agencyEmail"/>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">地址</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="agencyAddress"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+ 
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">备注</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="remark"/>
+          <input nz-input formControlName="agencyRemark"/>
         </nz-form-control>
       </nz-form-item>
     </div>

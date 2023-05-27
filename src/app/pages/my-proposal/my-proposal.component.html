@@ -11,7 +11,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">提案名称</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="name"/>
+          <input nz-input formControlName="proposalName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -19,7 +19,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">提案编号</nz-form-label>
         <nz-form-control>
-          <input nz-input  formControlName="code"/>
+          <input nz-input  formControlName="proposalCode"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -27,7 +27,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">提案类型</nz-form-label>
         <nz-form-control>
-          <nz-select id="type" nzAllowClear formControlName="type">
+          <nz-select id="proposalType" nzAllowClear formControlName="proposalType">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
             <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
             <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
@@ -45,7 +45,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">发明人</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="inventor"/>
+          <input nz-input formControlName="inventorName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -53,7 +53,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">审批状态</nz-form-label>
         <nz-form-control>
-          <nz-select id="status" nzAllowClear formControlName="status">
+          <nz-select id="proposalState" nzAllowClear formControlName="proposalState">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
             <nz-option nzValue="1" nzLabel="在审"></nz-option>
             <nz-option nzValue="2" nzLabel="通过"></nz-option>
@@ -101,12 +101,12 @@
   <tbody>
     <tr *ngFor="let data of resultTable.data; let i = index">
       <td nzLeft="0px">{{ i+1 }}</td>
-      <td nzLeft="60px">{{ data.code }}</td>
-      <td nzLeft="180px">{{ data.name }}</td>
-      <td>{{ data.date | date: 'yyyy-MM-dd' }}</td>
-      <td>{{ data.inventor }}</td>
-      <td>{{ data.status }}</td>
-      <td>{{ data.type }}</td>
+      <td nzLeft="60px">{{ data.proposalCode }}</td>
+      <td nzLeft="180px">{{ data.proposalName }}</td>
+      <td>{{ data.proposalDate | date: 'yyyy-MM-dd' }}</td>
+      <td>{{ data.inventorNameList }}</td>
+      <td>{{ data.reviewState }}</td>
+      <td>{{ data.proposalType }}</td>
       <td nzRight="200px">
         <button nz-button (click)="showReview()">详情</button>
       </td>

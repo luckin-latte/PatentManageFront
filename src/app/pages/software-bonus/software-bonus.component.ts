@@ -32,13 +32,13 @@ export class SoftwareBonusComponent implements OnInit {
     private softwareBonusService: SoftwareBonusService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('patentType', new FormControl('0'));
-    this.searchForm.addControl('type', new FormControl('0'));
-    this.searchForm.addControl('inventor', new FormControl(''));
-    this.searchForm.addControl('department', new FormControl(''));
-    this.searchForm.addControl('status', new FormControl('0'));
+    this.searchForm.addControl('softwareName', new FormControl(''));
+    this.searchForm.addControl('softwareCode', new FormControl(''));
+    this.searchForm.addControl('version', new FormControl(''));
+    this.searchForm.addControl('bonusAmount', new FormControl(''));
+    this.searchForm.addControl('bonusType', new FormControl('0'));
+    this.searchForm.addControl('releaseStatus', new FormControl('0'));
+    this.searchForm.addControl('inventorName', new FormControl(''));
   }
 
   ngOnInit(): void {
@@ -51,13 +51,13 @@ export class SoftwareBonusComponent implements OnInit {
 
   public resetForm(): void {
     this.searchForm.reset({
-      name: '',
-      code: '',
-      patentType: '0',
-      type: '0',
-      inventor: '',
-      department: '',
-      status: '0'
+      softwareName: '',
+      softwareCode: '',
+      version: '',
+      bonusAmount: '',
+      bonusType: '0',
+      releaseStatus: '0',
+      inventorName: ''
     });
   }
   
@@ -66,13 +66,13 @@ export class SoftwareBonusComponent implements OnInit {
     this.onBeforeSearch();
 
     if (reset) {
-      this.queryInfo.pageNum = 1;
+      this.queryInfo.pageIndex = 1;
       this.pageIndex = 1;
     }
 
     this.queryData();
 
-    this.softwareBonusService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+    this.softwareBonusService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
       this.onAfterSearch;
@@ -95,52 +95,52 @@ export class SoftwareBonusComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'softwareName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'softwareName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'code') {
+      } else if (key === 'softwareCode') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'code',
+            'softwareCode',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'patentType') {
+      } else if (key === 'version') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'patentType',
+            'version',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'type') {
+      } else if (key === 'bonusAmount') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'type',
+            'bonusAmount',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'inventor') {
+      } else if (key === 'bonusType') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'inventor',
+            'bonusType',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'department') {
+      } else if (key === 'releaseStatus') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'department',
+            'releaseStatus',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'status') {
+      } else if (key === 'inventorName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'status',
+            'inventorName',
             this.searchForm.controls[key].value
           )
         );

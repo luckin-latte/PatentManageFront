@@ -1,11 +1,11 @@
 <div class="login-wrapper" nz-row nzJustify="space-around" nzAlign="middle">
   <form nz-form [formGroup]="loginForm" class="login-form" (ngSubmit)="submitForm()">
-    <h1 class="login-form-title">知识产权管理系统</h1>
-    <h2 class="login-form-text login-form-margin">用户登录</h2>
+    <h1>知识产权管理系统</h1>
+    <!-- <h2>用户登录</h2> -->
     <nz-form-item>
       <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="请输入用户名!">
         <nz-input-group nzPrefixIcon="user">
-          <input type="text" nz-input formControlName="userName" placeholder="用户名" />
+          <input type="text" nz-input formControlName="userName" placeholder="请输入用户名" />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
@@ -13,7 +13,7 @@
     <nz-form-item>
       <nz-form-control [nzSm]="24" [nzXs]="24" nzErrorTip="请输入密码!">
         <nz-input-group nzPrefixIcon="lock">
-          <input type="password" nz-input formControlName="password" placeholder="密码" />
+          <input type="password" nz-input formControlName="password" placeholder="请输入密码" />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
@@ -23,7 +23,7 @@
         <div nz-row [nzGutter]="8">
           <div nz-col [nzSpan]="16">
             <nz-input-group nzPrefixIcon="key">
-              <input type="captcha" nz-input formControlName="captcha" placeholder="验证码" />
+              <input type="captcha" nz-input formControlName="captcha" placeholder="请输入验证码" />
             </nz-input-group>
           </div>
           <div nz-col [nzSpan]="8">
@@ -33,7 +33,7 @@
       </nz-form-control>
     </nz-form-item>
 
-    <div nz-row class="login-form-margin">
+    <div nz-row>
       <div nz-col [nzSpan]="12">
         <label nz-checkbox formControlName="remember">
           <span>记住我</span>
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <button nz-button class="login-form-button login-form-margin"
+    <button nz-button style="width: 100%; margin-top: 16px;"
       [disabled]="!loginForm.valid" [nzType]="'primary'">登录</button>
   </form>
 </div>

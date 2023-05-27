@@ -30,12 +30,6 @@ export class NewProposalComponent implements OnInit {
   }
 
 
-    // this.master.controls[0].get('code').disable();
-    // this.master.controls[0].get('code').setValidators([Validators.required, Validators.maxLength(20)]);
-    // this.master.controls[0].get('name').setValidators(Validators.required);
-    // this.doc.removeControl('pms_area');
-    // this.doc.addControl('pms_area', this.master);
-
   ngOnInit(): void {
     this.newProposalForm = this.formBuilder.group({
       proposalCode: ['proposalCode',],

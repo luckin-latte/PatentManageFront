@@ -10,7 +10,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">机构名称</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="name"/>
+          <input nz-input formControlName="agencyName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -46,17 +46,17 @@
   <tbody>
     <tr *ngFor="let data of reasultTable.data; let i = index">
       <td nzLeft="0px">{{ i+1 }}</td>
-      <td nzLeft="60px">{{ data.code }}</td>
-      <td nzLeft="180px">{{ data.name }}</td>
-      <td>{{ data.agent }}</td>
-      <td>{{ data.director }}</td>
-      <td>{{ data.tel }}</td>
-      <td>{{ data.email }}</td>
-      <td>{{ data.address }}</td>
-      <td>{{ data.remark }}</td>
+      <td nzLeft="60px">{{ data.agencyCode }}</td>
+      <td nzLeft="180px">{{ data.agencyName }}</td>
+      <td>{{ data.agentName }}</td>
+      <td>{{ data.agencyHolder }}</td>
+      <td>{{ data.agencyPhone }}</td>
+      <td>{{ data.agencyEmail }}</td>
+      <td>{{ data.agencyAddress }}</td>
+      <td>{{ data.agencyRemark }}</td>
       <td nzRight="0px">
-        <button nz-button (click)="delete()">删除</button>
-        <button nz-button (click)="edit()" style="margin-left: 8px;">编辑</button>
+        <button nz-button (click)="delete(data.agencyCode)">删除</button>
+        <button nz-button (click)="edit(data.agencyCode, data)" style="margin-left: 8px;">编辑</button>
       </td>
     </tr>
   </tbody>

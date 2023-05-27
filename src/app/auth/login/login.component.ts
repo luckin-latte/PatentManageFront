@@ -23,27 +23,26 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
-      userName: ["admin", [Validators.required]],
       // userName: [null, [Validators.required]],
-      password: ["123456", [Validators.required]],
       // password: [null, [Validators.required]],
-      captcha: [1234, [Validators.required]],
       // captcha: [null, [Validators.required]],
+
+      userName: ["admin", [Validators.required]],
+      password: ["123456", [Validators.required]],
+      captcha: [1234, [Validators.required]],
       remember: [true]
     });
   }
 
   public submitForm(): void {
-    const loginForm = this.loginForm;
-    const { controls } = loginForm;
-    for (const i in controls) {
-      controls[i].markAsDirty();
-      controls[i].updateValueAndValidity();
+    for (const i in this.loginForm.controls) {
+      this.loginForm.controls[i].markAsDirty();
+      this.loginForm.controls[i].updateValueAndValidity();
     }
     
     // 处理表单数据
-    console.log(loginForm.value);
-    const { userName, password } = loginForm.value;
+    console.log(this.loginForm.value);
+    const { userName, password } = this.loginForm.value;
     const loginRequest: LoginRequest = { userName, password }
 
     // 请求后端登录

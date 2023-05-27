@@ -15,18 +15,8 @@ export class LibService {
   }
   
   // 获取编号
-  public getCode(xData: any): Observable<any> {
-    const mSaveData = new Object();
-    // mSaveData['queryCdtn'] = xData;
-
-    LibService.pmsConsole(
-      'callQueryService-LibServer-getCode-data: ',
-      mSaveData
-    );
-    return this.httpClient.post('restful/service/pms/PmsLibServer/getMaxCode', mSaveData);
+  public getCode(xData: string): Observable<any> {
+    return this.httpClient.get(`${apiUrl}/proposal/getCode?typeName=${xData}`);
   }
 
-  public static pmsConsole(message?: any, ...optionalParams: any[]): void {
-    console.log(message, ...optionalParams);
-  }
 }

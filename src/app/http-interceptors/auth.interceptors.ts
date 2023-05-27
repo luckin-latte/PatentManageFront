@@ -23,10 +23,8 @@ export class AuthInterceptors implements HttpInterceptor {
         headers: req.headers.set('userId', userInfo.userId)
       });
     } else {
-      // 处理 userInfoString 不存在的情况，设置默认的 userId 或其他处理逻辑
-      authReq = req.clone({
-        headers: req.headers.set('userId', '')
-      });
+      // 处理 userInfoString 不存在的情况
+      authReq = req;
     }
 
     return next.handle(authReq);

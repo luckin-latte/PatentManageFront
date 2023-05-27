@@ -62,7 +62,7 @@ export class ProposalReviewComponent implements OnInit {
     this.onBeforeSearch();
 
     if (reset) {
-      this.queryInfo.pageNum = 1;
+      this.queryInfo.pageIndex = 1;
       this.pageIndex = 1;
     }
 

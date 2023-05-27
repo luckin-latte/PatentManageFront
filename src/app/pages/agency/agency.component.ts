@@ -24,7 +24,7 @@ export class AgencyComponent implements OnInit {
 
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
-  
+
   constructor(
     private formBuilder: FormBuilder,
     private drawerService: NzDrawerService,
@@ -32,7 +32,7 @@ export class AgencyComponent implements OnInit {
     private agencyService: AgencyService
     ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
+    this.searchForm.addControl('agencyName', new FormControl(''));
   }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class AgencyComponent implements OnInit {
   // 重置查询表单
   public resetForm(): void {
     this.searchForm.reset({
-      name: ''
+      agencyName: ''
     });
   }
   
@@ -51,7 +51,7 @@ export class AgencyComponent implements OnInit {
     this.onBeforeSearch();
 
     if (reset) {
-      this.queryInfo.pageNum = 1;
+      this.queryInfo.pageIndex = 1;
       this.pageIndex = 1;
     }
 
@@ -79,10 +79,10 @@ export class AgencyComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'agencyName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'agencyName',
             this.searchForm.controls[key].value
           )
         );
@@ -113,7 +113,7 @@ export class AgencyComponent implements OnInit {
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 520,
+      nzWidth: 540,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -130,17 +130,17 @@ export class AgencyComponent implements OnInit {
     });
   }
 
-  public edit() {
+  public edit(code: string, data: object) {
     this.drawerRef = this.drawerService.create({
       nzTitle: '编辑代理机构',
       nzContent: EditComponent,
       nzContentParams: {
-        name: 'EditComponent'
+        agencyInfo: data
       },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 640,
+      nzWidth: 540,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -157,15 +157,19 @@ export class AgencyComponent implements OnInit {
     });
   }
 
-  public delete(): void {
+  public delete(code: string): void {
     this.modalService.confirm({
       nzTitle: '确定删除吗？',
       nzOkText: '删除',
       // nzOkType: 'danger',
-      nzOnOk: () => console.log('确定删除'),
+      nzOnOk: () => this.agencyService.deleteAgency(code).subscribe((res: any) =>{
+        console.log('删除信息：', res);
+      }),
       nzCancelText: '取消',
       nzOnCancel: () => console.log('取消删除')
     });
   }
+
+
 
 }

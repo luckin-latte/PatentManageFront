@@ -14,9 +14,8 @@ export class SoftwareBonusService {
   ) { 
   }
 
-  fetchData(queryInfo: object): Observable<any>{
-    const query = JSON.stringify(queryInfo);
-    return this.httpClient.get(`${apiUrl}/bonus/getList?value=${query}`)
+  getList(queryInfo: object): Observable<any>{
+    return this.httpClient.get(`${apiUrl}/bonus/getList`, queryInfo)
   }
   
   submit() {

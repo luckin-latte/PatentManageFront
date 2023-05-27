@@ -14,9 +14,13 @@ export class MyProposalService {
   ) { 
   }
 
+  getList(queryInfo: object): Observable<any>{
+    return this.httpClient.post(`${apiUrl}/proposal/getProposalList1`, queryInfo)
+  }
+
   fetchData(queryInfo: object): Observable<any>{
-    const query = JSON.stringify(queryInfo);
-    return this.httpClient.get(`${apiUrl}/proposal/getProposalList1?value=${query}`)
+    // const query = JSON.stringify(queryInfo);
+    return this.httpClient.post(`${apiUrl}/proposal/getProposalList1`,queryInfo)
   }
   
   submit() {

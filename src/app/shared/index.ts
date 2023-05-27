@@ -1,3 +1,5 @@
 import { from } from 'rxjs';
 
-export * from './model/query';
+// export * from './component';
+export * from './model';
+export * from './service';

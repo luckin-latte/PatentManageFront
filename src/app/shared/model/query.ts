@@ -2,13 +2,13 @@
 export class QueryInfo {
   pageable: boolean = true;
   pageSize: number = 10;
-  pageNum: number = 1;
+  pageIndex: number = 1;
   criteria?: QueryCriteria;
   getRawValue(): any {
     return {
       pageable: this.pageable,
       pageSize: this.pageSize,
-      pageNum: this.pageNum,
+      pageIndex: this.pageIndex,
       criteria: this.criteria
     }
   }
@@ -21,7 +21,7 @@ export class QueryInfo {
   clear(): void {
     this.pageable = true;
     this.pageSize = 10;
-    this.pageNum = 1;
+    this.pageIndex = 1;
     this.criteria = new QueryCriteria();
   }
 }
