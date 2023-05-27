@@ -13,7 +13,6 @@ import { AgencyService } from '../agency.service';
 })
 export class CreateComponent implements OnInit {
 
-  @Input() name!: string;
   CreateForm: FormGroup;
   drawerRef!: NzDrawerRef;
 
@@ -23,14 +22,14 @@ export class CreateComponent implements OnInit {
     private agencyService: AgencyService
     ) {
       this.CreateForm = this.formBuilder.group({
-        agencyName: [null, [Validators.required]],
-        agencyCode: [null, [Validators.required]],
-        agentName: [null],
-        agencyHolder: [null],
-        agencyPhone: [null],
-        agencyEmail: [null, [Validators.email]],
-        agencyAddress: [null],
-        agencyRemark: [null]
+        agencyName: ['', [Validators.required]],
+        agencyCode: ['', [Validators.required]],
+        agentName: [''],
+        agencyHolder: [''],
+        agencyPhone: [''],
+        agencyEmail: ['', [Validators.email]],
+        agencyAddress: [''],
+        agencyRemark: ['']
       });
 
       // this.CreateForm.addControl('agencyName', new FormControl('', [Validators.required]));
@@ -66,7 +65,7 @@ export class CreateComponent implements OnInit {
     console.log('新增数据：', this.CreateForm.value)
 
     this.agencyService.newData(this.CreateForm.value).subscribe((res: any) =>{
-      console.log('res.data: ', res.data);
+      console.log('res.data: ', res);
     })
   }
 

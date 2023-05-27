@@ -18,15 +18,15 @@ export class AgencyService {
     return this.httpClient.post(`${apiUrl}/agency/getList`, queryInfo);
   }
 
-  deleteAgency(agencyCode: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/agency/deleteAgency/${agencyCode}`);
-  }
-
   newData(Data: object) {
     return this.httpClient.post(`${apiUrl}/agency/newAgency`, Data);
   }
 
   updateData(params: object) {
-    return this.httpClient.patch(`${apiUrl}/agency/Agency`, params);
+    return this.httpClient.patch(`${apiUrl}/agency/updateAgency`, params);
+  }
+
+  deleteAgency(agencyCode: string): Observable<any>{
+    return this.httpClient.delete(`${apiUrl}/agency/deleteAgency/${agencyCode}`);
   }
 }

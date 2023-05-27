@@ -158,18 +158,57 @@ export class SoftwareBonusComponent implements OnInit {
   onAfterSearch(): void {
     this.searchLoading = false;
   }
+
+  // // 数据相同合并单元格
+  // private mergeTableData(rawDataList): any[] {
+  //   const rowspan = this.mergeFix, mergeColumns = this.mergeColumns;
+
+  //   if (rawDataList.length > 1) {// 长度⼤于1才有资格进⼀步处理
+  //     const arr = rawDataList;
+  //     const aLen = arr.length;
+
+  //     for (let i = mergeColumns.length - 1; i >= 0; i--) {// 先迭代待合并列
+  //       let index = 0;
+  //       const title = mergeColumns[i];
+  //       let span = 1;// 合并列属性默认为1
+
+  //       for (let j = 0; j < aLen; j++) {
+  //         const meragePageIndex = Math.ceil((index + 1) / this.pageSize3);
+  //         const comp = arr[index][title];
+  //         // 不是合并行的project_code会被删掉，用compare_code代替
+  //         const projectCode = arr[index]['compare_code'];
+  //         const projectCode2 = arr[j]['compare_code'];
+  //         if (arr[j][title] === comp && span < this.pageSize3 && (j + 1) % this.pageSize3 !== 1 && projectCode === projectCode2) {
+  //           if (j !== index) {
+  //             // eslint-disable-next-line no-unused-expressions
+  //             delete arr[j][title], span++;
+  //           }
+  //           if (j === aLen - 1) {
+  //             arr[index][rowspan + title] = span;
+  //             arr[index]['meragePageIndex'] = meragePageIndex;
+  //           }
+
+
+  //         } else {
+  //           // eslint-disable-next-line no-unused-expressions
+  //           span > 1 && (arr[index][rowspan + title] = span, arr[index]['meragePageIndex'] = meragePageIndex, span = 1);
+  //           index = j;
+  //         }
+  //       }
+  //     }
+  //     return arr;
+  //   }
+  //   return rawDataList;
+  // }
   
   public create() {
     this.drawerRef = this.nzDrawerService.create({
-      nzTitle: '新增专利奖金',
+      nzTitle: '新增软著奖金',
       nzContent: CreateComponent,
-      nzContentParams: {
-        name: 'CreateComponent'
-      },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 640,
+      nzWidth: 680,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -178,7 +217,7 @@ export class SoftwareBonusComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('新增专利奖金');
+      console.log('新增软著奖金');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
@@ -186,12 +225,12 @@ export class SoftwareBonusComponent implements OnInit {
     });
   }
 
-  public edit() {
+  public edit(data: object) {
     this.drawerRef = this.nzDrawerService.create({
-      nzTitle: '编辑专利奖金',
+      nzTitle: '编辑软著奖金',
       nzContent: EditComponent,
       nzContentParams: {
-        name: 'EditComponent'
+        softwareBonusInfo: data
       },
       nzClosable: true,
       nzMask: true,
@@ -205,7 +244,7 @@ export class SoftwareBonusComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('编辑专利奖金');
+      console.log('编辑软著奖金');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
@@ -213,12 +252,14 @@ export class SoftwareBonusComponent implements OnInit {
     });
   }
 
-  public delete(): void {
+  public delete(id: string): void {
     this.nzModalService.confirm({
       nzTitle: '确定删除吗？',
       nzOkText: '删除',
       // nzOkType: 'danger',
-      nzOnOk: () => console.log('OK'),
+      nzOnOk: () => this.softwareBonusService.deleteAgency(id).subscribe((res: any) =>{
+        console.log('删除数据：', res);
+      }),
       nzCancelText: '取消',
       nzOnCancel: () => console.log('Cancel')
     });

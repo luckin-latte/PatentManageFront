@@ -35,7 +35,7 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     // this.agencyService.getAgency(this.agencyInfo).subscribe((res: any) =>{
     //   console.log('返回数据：', res);
-    console.log('this.agencyInfo', this.agencyInfo)
+      console.log('this.agencyInfo', this.agencyInfo)
       this.EditForm.patchValue(this.agencyInfo)
     // })
   }
@@ -52,7 +52,7 @@ export class EditComponent implements OnInit {
     console.log('修改结果：', this.EditForm.getRawValue())
 
     this.agencyService.updateData(this.EditForm.value).subscribe((res: any) =>{
-      console.log('res.data: ', res.data);
+      console.log('res.data: ', res);
     })
   }
 

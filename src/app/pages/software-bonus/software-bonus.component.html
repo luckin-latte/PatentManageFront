@@ -48,8 +48,8 @@
         <nz-form-control>
           <nz-select id="bonusType" nzAllowClear formControlName="bonusType">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="申请"></nz-option>
-            <nz-option nzValue="2" nzLabel="授权"></nz-option>
+            <nz-option nzValue="申请" nzLabel="申请"></nz-option>
+            <nz-option nzValue="授权" nzLabel="授权"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -60,8 +60,8 @@
         <nz-form-control>
           <nz-select id="releaseStatus" nzAllowClear formControlName="releaseStatus">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="已发放"></nz-option>
-            <nz-option nzValue="2" nzLabel="未发放"></nz-option>
+            <nz-option nzValue="已发放" nzLabel="已发放"></nz-option>
+            <nz-option nzValue="未发放" nzLabel="未发放"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -86,44 +86,43 @@
 
 <div>
   <button nz-button nzType="primary" (click)="create()" style="margin-top: 8px;">
-    新增专利奖金</button>
+    新增软著奖金</button>
 </div>
 
-<nz-table #resultTable nzBordered nzSize="small" [nzScroll]="{ x: '1400px' }"
+<nz-table #resultTable nzBordered nzSize="small" [nzScroll]="{ x: '1200px' }"
   nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
       <th nzWidth="60px" nzLeft="0px">序号</th>
       <th nzWidth="120px" nzLeft="60px">软著编号</th>
-      <th nzWidth="160px" nzLeft="180px">软著名称</th>
+      <th>软著名称</th>
       <th>版本号</th>
       <th>奖金类型</th>
       <th>奖金总额</th>
-
-      <th>发明人</th>
-      <th>位次</th>
-      <th>实发金额</th>
       <th>发放状态</th>
-      <th nzWidth="120px" nzRight="0px">操作</th>
+
+      <th nzWidth="80px" nzRight="300px">发明人</th>
+      <th nzWidth="60px" nzRight="240px">位次</th>
+      <th nzWidth="80px" nzRight="160px">实发金额</th>
+      <th nzWidth="160px" nzRight="0px">操作</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of resultTable.data; let i = index">
       <td nzLeft="0px">{{ i+1 }}</td>
       <td nzLeft="60px">{{ data.softwareCode }}</td>
-      <td nzLeft="180px">{{ data.softwareName }}</td>
+      <td>{{ data.softwareName }}</td>
       <td>{{ data.version }}</td>
       <td>{{ data.bonusType }}</td>
       <td>{{ data.bonusAmount }}</td>
-
-
-      <td>{{ data.inventorName }}</td>
-      <td>{{ data.ranking }}</td>
-      <td>{{ data.actualRelease }}</td>
       <td>{{ data.releaseStatus }}</td>
+
+      <td nzRight="300px">{{ data.inventorName }}</td>
+      <td nzRight="240px">{{ data.ranking }}</td>
+      <td nzRight="160px">{{ data.actualRelease }}</td>
       <td nzRight="0px">
-        <button nz-button (click)="delete()">删除</button>
-        <button nz-button (click)="edit()" style="margin-left: 8px;">编辑</button>
+        <button nz-button (click)="delete(data.bonusId)">删除</button>
+        <button nz-button (click)="edit(data)" style="margin-left: 8px;">编辑</button>
       </td>
     </tr>
   </tbody>

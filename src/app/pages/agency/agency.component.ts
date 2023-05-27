@@ -107,9 +107,6 @@ export class AgencyComponent implements OnInit {
     this.drawerRef = this.drawerService.create({
       nzTitle: '新增代理机构',
       nzContent: CreateComponent,
-      nzContentParams: {
-        name: 'CreateComponent'
-      },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
@@ -163,7 +160,8 @@ export class AgencyComponent implements OnInit {
       nzOkText: '删除',
       // nzOkType: 'danger',
       nzOnOk: () => this.agencyService.deleteAgency(code).subscribe((res: any) =>{
-        console.log('删除信息：', res);
+        console.log('code:----------', code);
+        console.log('删除数据：', res);
       }),
       nzCancelText: '取消',
       nzOnCancel: () => console.log('取消删除')
