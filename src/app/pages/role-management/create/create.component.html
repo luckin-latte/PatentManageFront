@@ -1,9 +1,9 @@
 <form nz-form [formGroup]="CreateForm">
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="18">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">角色名称</nz-form-label>
-        <nz-form-control>
+        <nz-form-label [nzSpan]="6" nzRequired>角色名称</nz-form-label>
+        <nz-form-control nzErrorTip="不能为空!">
           <input nz-input formControlName="roleName"/>
         </nz-form-control>
       </nz-form-item>
@@ -11,10 +11,10 @@
   </div>
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="18">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">角色编号</nz-form-label>
-        <nz-form-control>
+        <nz-form-label [nzSpan]="6" nzRequired>角色编号</nz-form-label>
+        <nz-form-control nzErrorTip="不能为空!">
           <input nz-input formControlName="roleCode"/>
         </nz-form-control>
       </nz-form-item>
@@ -22,20 +22,32 @@
   </div>
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="18">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">权限</nz-form-label>
-        <nz-form-control>
-          <input nz-input  formControlName="auth"/>
+        <nz-form-label [nzSpan]="6" nzRequired>权限</nz-form-label>
+        <nz-form-control nzErrorTip="不能为空!">
+          <nz-select [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder"
+          nzMode="multiple" nzPlaceHolder="请配置权限">
+            <nz-option nzValue="权限一" nzLabel="权限一"></nz-option>
+            <nz-option nzValue="权限二" nzLabel="权限二"></nz-option>
+            <nz-option nzValue="权限三" nzLabel="权限三"></nz-option>
+            <nz-option nzValue="权限四" nzLabel="权限四"></nz-option>
+            <nz-option nzValue="权限五" nzLabel="权限五"></nz-option>
+            <nz-option nzValue="权限六" nzLabel="权限六"></nz-option>
+            <nz-option nzValue="权限七" nzLabel="权限七"></nz-option>
+            <nz-option nzValue="权限八" nzLabel="权限八"></nz-option>
+          </nz-select>
+          <ng-template #tagPlaceHolder let-selectedList>+{{ selectedList.length }}</ng-template>
         </nz-form-control>
       </nz-form-item>
     </div>
   </div>
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzSpan]="12" class="operate-area">
+    <div nz-col [nzSpan]="18" class="operate-area">
       <button nz-button (click)="cancel()">取消</button>
-      <button nz-button [nzType]="'primary'" style="margin-left: 8px;" (click)="save()">保存</button>
+      <button nz-button [nzType]="'primary'" style="margin-left: 8px;"
+      [disabled]="!CreateForm.valid" (click)="save()">保存</button>
     </div>
   </div>
 </form>

@@ -12,6 +12,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 
 import { UserManagementRoutingModule } from './user-management-routing.module';
@@ -38,6 +39,7 @@ import { CreateComponent } from './create/create.component';
     NzIconModule,
     NzTableModule,
     NzDrawerModule,
+    NzModalModule,
     NzPopconfirmModule,
     UserManagementRoutingModule
   ]

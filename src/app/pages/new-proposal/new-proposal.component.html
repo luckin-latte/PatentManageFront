@@ -5,7 +5,7 @@
   </nz-breadcrumb>
 </nz-page-header>
 
-<form nz-form [formGroup]="newProposalForm">
+<form nz-form [formGroup]="CreateForm">
 
   <div nz-row [nzGutter]="16">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
@@ -37,10 +37,12 @@
     </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="8" nzRequired>提案日期</nz-form-label>
+        <nz-form-label [nzSpan]="8">部门</nz-form-label>
         <nz-form-control [nzSpan]="16">
-          <nz-date-picker nzDisabled formControlName="datePicker"
-            nzFormat="yyyy-MM-dd" value-format="yyyy-MM-dd" style="width: 100%;"></nz-date-picker>
+          <nz-select id="departmentName" formControlName="departmentName" (nzOnSearch)="searchDepart($event)"
+            nzShowSearch nzServerSearch nzAllowClear nzPlaceHolder="请选择部门">
+            <nz-option *ngFor="let o of listOfDepart" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
+          </nz-select>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -52,12 +54,21 @@
         <nz-form-label [nzSpan]="12" nzFor="patentType">知识产权类型</nz-form-label>
         <nz-form-control [nzSpan]="12">
           <nz-select id="patentType" formControlName="patentType">
-            <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
-            <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
-            <nz-option nzValue="3" nzLabel="外观设计专利"></nz-option>
-            <nz-option nzValue="4" nzLabel="软著"></nz-option>
-            <nz-option nzValue="5" nzLabel="商标"></nz-option>
+            <nz-option nzValue="发明专利" nzLabel="发明专利"></nz-option>
+            <nz-option nzValue="实用新型专利" nzLabel="实用新型专利"></nz-option>
+            <nz-option nzValue="外观设计专利" nzLabel="外观设计专利"></nz-option>
+            <nz-option nzValue="软著" nzLabel="软著"></nz-option>
+            <nz-option nzValue="商标" nzLabel="商标"></nz-option>
           </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="8" nzRequired>提案日期</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <nz-date-picker nzDisabled formControlName="datePicker"
+            nzFormat="yyyy-MM-dd" value-format="yyyy-MM-dd" style="width: 100%;"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -78,7 +89,7 @@
         <nz-form-item>
           <nz-form-label [nzSpan]="8">贡献率</nz-form-label>
           <nz-form-control [nzSpan]="16">
-            <nz-input-number class="rate-input" formControlName="rate"
+            <nz-input-number class="dynamic-input" formControlName="rate"
               [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterPercent" [nzParser]="parserPercent">
             </nz-input-number>
             <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(i, $event)"></i>
@@ -130,7 +141,7 @@
   <div nz-row [nzGutter]="16">
     <div nz-col nzSpan="20" nzOffset="4">
       <button nz-button (click)="reset($event)">重置</button>
-      <button nz-button [disabled]="!newProposalForm.valid" (click)="submitForm()"
+      <button nz-button [disabled]="!CreateForm.valid" (click)="submitForm()"
        [nzType]="'primary'" style="margin-left: 30px;">提交审批</button>
     </div>
   </div>

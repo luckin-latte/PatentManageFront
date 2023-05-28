@@ -103,8 +103,6 @@ export class RoleManagementComponent implements OnInit {
     this.searchLoading = false;
   }
   
-  editCache: { [key: string]: { edit: boolean; data: any } } = {};
-
   public create() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '新增角色',
@@ -129,35 +127,37 @@ export class RoleManagementComponent implements OnInit {
     });
   }
 
-  public startEdit(code: string): void {
-    this.editCache[code].edit = true;
+  editCache: { [key: string]: { edit: boolean; data: any } } = {};
+
+  public startEdit(data: object): void {
+    // this.editCache[code].edit = true;
   }
 
-  public cancelEdit(code: string): void {
-    const index = this.dataSet.findIndex((item: any) => item.code === code);
-    this.editCache[code] = {
-      data: { ...this.dataSet[index] },
-      edit: false
-    };
-  }
+  // public cancelEdit(code: string): void {
+  //   const index = this.dataSet.findIndex((item: any) => item.code === code);
+  //   this.editCache[code] = {
+  //     data: { ...this.dataSet[index] },
+  //     edit: false
+  //   };
+  // }
 
-  public saveEdit(code: string): void {
-    const index = this.dataSet.findIndex((item: any) => item.code === code);
-    Object.assign(this.dataSet[index], this.editCache[code].data);
-    this.editCache[code].edit = false;
-  }
+  // public saveEdit(code: string): void {
+  //   const index = this.dataSet.findIndex((item: any) => item.code === code);
+  //   Object.assign(this.dataSet[index], this.editCache[code].data);
+  //   this.editCache[code].edit = false;
+  // }
 
-  public updateEditCache(): void {
-    this.dataSet.forEach((item: any) => {
-      this.editCache[item.code] = {
-        edit: false,
-        data: { ...item }
-      };
-    });
-  }
+  // public updateEditCache(): void {
+  //   this.dataSet.forEach((item: any) => {
+  //     this.editCache[item.code] = {
+  //       edit: false,
+  //       data: { ...item }
+  //     };
+  //   });
+  // }
 
   public deleteRow(code: string): void {
-    this.dataSet = this.dataSet.filter((d: any) => d.code !== code);
+    // this.dataSet = this.dataSet.filter((d: any) => d.code !== code);
   }
 
 }

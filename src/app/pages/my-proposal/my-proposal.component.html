@@ -29,11 +29,11 @@
         <nz-form-control>
           <nz-select id="proposalType" nzAllowClear formControlName="proposalType">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
-            <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
-            <nz-option nzValue="3" nzLabel="外观设计专利"></nz-option>
-            <nz-option nzValue="4" nzLabel="软著"></nz-option>
-            <nz-option nzValue="5" nzLabel="商标"></nz-option>
+            <nz-option nzValue="发明专利" nzLabel="发明专利"></nz-option>
+            <nz-option nzValue="实用新型专利" nzLabel="实用新型专利"></nz-option>
+            <nz-option nzValue="外观设计专利" nzLabel="外观设计专利"></nz-option>
+            <nz-option nzValue="软著" nzLabel="软著"></nz-option>
+            <nz-option nzValue="商标" nzLabel="商标"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -55,10 +55,10 @@
         <nz-form-control>
           <nz-select id="proposalState" nzAllowClear formControlName="proposalState">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="在审"></nz-option>
-            <nz-option nzValue="2" nzLabel="通过"></nz-option>
-            <nz-option nzValue="3" nzLabel="不通过"></nz-option>
-            <nz-option nzValue="4" nzLabel="补充文件"></nz-option>
+            <nz-option nzValue="在审" nzLabel="在审"></nz-option>
+            <nz-option nzValue="通过" nzLabel="通过"></nz-option>
+            <nz-option nzValue="不通过" nzLabel="不通过"></nz-option>
+            <nz-option nzValue="补充文件" nzLabel="补充文件"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -104,11 +104,11 @@
       <td nzLeft="60px">{{ data.proposalCode }}</td>
       <td nzLeft="180px">{{ data.proposalName }}</td>
       <td>{{ data.proposalDate | date: 'yyyy-MM-dd' }}</td>
-      <td>{{ data.inventorNameList }}</td>
-      <td>{{ data.reviewState }}</td>
+      <td>{{ data.inventorNameList.toString() }}</td>
+      <td>{{ data.proposalState }}</td>
       <td>{{ data.proposalType }}</td>
       <td nzRight="200px">
-        <button nz-button (click)="showReview()">详情</button>
+        <button nz-button (click)="showReview(data.proposalCode)">详情</button>
       </td>
       <td nzRight="120px">
         <button nz-button (click)="showFile()">详情</button>

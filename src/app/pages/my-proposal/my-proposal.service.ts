@@ -15,7 +15,11 @@ export class MyProposalService {
   }
 
   getList(queryInfo: object): Observable<any>{
-    return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
+    return this.httpClient.post(`${apiUrl}/proposal/getProposalList1`, queryInfo);
+  }
+
+  getReviewList(proposalCode: string): Observable<any>{
+    return this.httpClient.get(`${apiUrl}/proposal/getReview/${proposalCode}`);
   }
 
   newData(Data: object) {

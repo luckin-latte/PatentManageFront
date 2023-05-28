@@ -1,60 +1,80 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input  } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { formatDate } from '@angular/common';
 
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
+import { LibService } from 'src/app/shared';
 import { NewProposalService } from './new-proposal.service';
 
 @Component({
   selector: 'app-new-proposal',
   templateUrl: './new-proposal.component.html',
-  styleUrls: ['./new-proposal.component.css']
+  styleUrls: ['./new-proposal.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewProposalComponent implements OnInit {
 
-  newProposalForm!: FormGroup;
+  CreateForm: FormGroup;
   formatterPercent = (value: number) => `${value} %`;
   parserPercent = (value: string) => value.replace(' %', '');
 
+  // 下拉搜索框数据
+  listOfDepart: Array<{ value: string; text: string }> = [];
+
   constructor(
     private formBuilder: FormBuilder,
-    // private msg: NzMessageService
+    // private msg: NzMessageService,
+    private libService: LibService,
     private newProposalService: NewProposalService
   ) {
-  }
-
-  public get listOfInventor(): FormArray {
-    return this.newProposalForm.get('listOfInventor') as FormArray;
-  }
-
-
-  ngOnInit(): void {
-    this.newProposalForm = this.formBuilder.group({
-      proposalCode: ['proposalCode',],
-      proposalName: ['proposalName', [Validators.required]],
-      proposerName: ['proposerName', [Validators.required]],
+    this.CreateForm = this.formBuilder.group({
+      proposalCode: ['', [Validators.required]],
+      proposalName: ['', [Validators.required]],
+      proposerName: ['', [Validators.required]],
+      departmentName: [''],
       datePicker: [new Date(), [Validators.required]],
-      patentType: ['1'],
+      patentType: [''],
       listOfInventor: this.formBuilder.array([
         this.formBuilder.group({
-          inventorName: ['inventorName'],
-          rate: [100],
+          inventorName: [''],
+          rate: ['100'],
         })
       ]),
       detailText: ['']
     });
   }
 
-  public addField(e?: MouseEvent): void {
-    if (e) {
-      e.preventDefault();
-    }
+  ngOnInit(): void {
+    this.libService.getCode('TA').subscribe((res: any) =>{
+      console.log('提案编号：', res.data);
+      this.CreateForm.get('proposalCode')?.setValue(res.data);
+    })
+  }
+
+  searchDepart(e: string): void {
+    this.libService.getAllDepartments().subscribe((res: any) => {
+      console.log(res.data)
+      res.data.forEach((item: string) => {
+        this.listOfDepart.push({
+          value: item,
+          text: item
+        });
+      });
+    });
+  }
+
+  public get listOfInventor(): FormArray {
+    return this.CreateForm.get('listOfInventor') as FormArray;
+  }
+
+  public addField(e: MouseEvent): void {
+    e.preventDefault();
     this.listOfInventor.push(
       this.formBuilder.group({
-        inventorName: [null],
-        rate: [100],
+        inventorName: [''],
+        rate: ['100'],
       })
     );
   }
@@ -79,24 +99,32 @@ export class NewProposalComponent implements OnInit {
   // }
 
   public reset(e: MouseEvent): void {
-    this.newProposalForm.reset();
-  }
-
-  public submit = ($event: { preventDefault: () => void; }, value: any) => {
-    $event.preventDefault();
-    Object.keys(this.newProposalForm.controls).forEach(key => {
-      this.newProposalForm.controls[key].markAsDirty();
-      this.newProposalForm.controls[key].updateValueAndValidity();
-    })
-    console.log(value);
+    this.CreateForm.reset({
+      proposalName: '',
+      proposerName: '',
+      departmentName: '',
+      datePicker: new Date(),
+      patentType:'',
+      listOfInventor: this.formBuilder.array([
+        this.formBuilder.group({
+          inventorName: '',
+          rate: '100',
+        })
+      ]),
+      detailText: ''
+    });
   }
 
   public submitForm() {
-    for (const key in this.newProposalForm.controls) {
-      this.newProposalForm.controls[key].markAsDirty();
-      this.newProposalForm.controls[key].updateValueAndValidity();
-    }
-    console.log(this.newProposalForm.value)
+    Object.keys(this.CreateForm.controls).forEach(key => {
+      this.CreateForm.controls[key].markAsDirty();
+      this.CreateForm.controls[key].updateValueAndValidity();
+    })
+    console.log('新增数据：', this.CreateForm.value)
+
+    this.newProposalService.newData(this.CreateForm.value).subscribe((res: any) =>{
+      console.log('res.data: ', res);
+    })
   }
 
 }

@@ -102,8 +102,6 @@ export class UserManagementComponent implements OnInit {
     this.searchLoading = false;
   }
   
-  editCache: { [key: number]: { edit: boolean; data: any } } = {};
-
   public create() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '新增用户',
@@ -128,35 +126,60 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
-  public startEdit(code: number): void {
-    this.editCache[code].edit = true;
+  // editCache: { [key: number]: { edit: boolean; data: any } } = {};
+
+  // public startEdit(code: string): void {
+  //   this.editCache[code].edit = true;
+  // }
+
+  // public cancelEdit(code: number): void {
+  //   const index = this.dataSet.findIndex((item: any) => item.code === code);
+  //   this.editCache[code] = {
+  //     data: { ...this.dataSet[index] },
+  //     edit: false
+  //   };
+  // }
+
+  // public saveEdit(code: number): void {
+  //   const index = this.dataSet.findIndex((item: any) => item.code === code);
+  //   Object.assign(this.dataSet[index], this.editCache[code].data);
+  //   this.editCache[code].edit = false;
+  // }
+
+  // public updateEditCache(): void {
+  //   this.dataSet.forEach((item: any) => {
+  //     this.editCache[item.code] = {
+  //       edit: false,
+  //       data: { ...item }
+  //     };
+  //   });
+  // }
+
+
+  isVisible = false;
+  isOkLoading = false;
+
+  showModal(data: object): void {
+    this.isVisible = true;
   }
 
-  public cancelEdit(code: number): void {
-    const index = this.dataSet.findIndex((item: any) => item.code === code);
-    this.editCache[code] = {
-      data: { ...this.dataSet[index] },
-      edit: false
-    };
+  handleOk(): void {
+    this.isOkLoading = true;
+    setTimeout(() => {
+      this.isVisible = false;
+      this.isOkLoading = false;
+    }, 3000);
   }
 
-  public saveEdit(code: number): void {
-    const index = this.dataSet.findIndex((item: any) => item.code === code);
-    Object.assign(this.dataSet[index], this.editCache[code].data);
-    this.editCache[code].edit = false;
-  }
-
-  public updateEditCache(): void {
-    this.dataSet.forEach((item: any) => {
-      this.editCache[item.code] = {
-        edit: false,
-        data: { ...item }
-      };
-    });
+  handleCancel(): void {
+    this.isVisible = false;
   }
 
   public deleteRow(code: string): void {
-    this.dataSet = this.dataSet.filter((d: any) => d.code !== code);
+    console.log('工号：', code)
+    this.userManagementService.deleteData(code).subscribe((res: any) =>{
+      console.log('删除数据：', res);
+    })
   }
 
 }

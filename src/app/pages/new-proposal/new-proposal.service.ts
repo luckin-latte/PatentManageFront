@@ -14,8 +14,8 @@ export class NewProposalService {
   ) { 
   }
   
-  newData(Data: object) {
-    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
+  newData(Data: object): Observable<any> {
+    return this.httpClient.post(`${apiUrl}/proposal/post`, Data);
   }
 
 }

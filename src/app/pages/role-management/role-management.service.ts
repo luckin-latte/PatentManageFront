@@ -15,7 +15,7 @@ export class RoleManagementService {
   }
 
   getList(queryInfo: object): Observable<any>{
-    return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
+    return this.httpClient.post(`${apiUrl}/user/getRole`, queryInfo);
   }
 
   newData(Data: object) {

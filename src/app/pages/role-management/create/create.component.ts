@@ -17,9 +17,9 @@ export class CreateComponent implements OnInit {
     private formBuilder: FormBuilder
     ) {
       this.CreateForm = this.formBuilder.group({
-        roleName: ['管理员'],
-        roleCode: ['2023074'],
-        auth: ['没有没有没有']
+        roleName: ['', [Validators.required]],
+        roleCode: ['', [Validators.required]],
+        permission: [[], [Validators.required]]
       });
   }
 

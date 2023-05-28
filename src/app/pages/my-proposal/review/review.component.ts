@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+
+import { MyProposalService } from '../my-proposal.service';
 
 @Component({
   selector: 'app-review',
@@ -9,30 +10,26 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class ReviewComponent implements OnInit {
 
-  dataSet = [
-    {
-      number: '1',
-      approver: '审批人',
-      process: '主管',
-      date: '2023-03-09',
-      result: '通过'
-    }
-  ];
+  public dataSet: any; // 查询列表资料
 
-  @Input() name!: string;
-  createForm: FormGroup;
+  @Input() proposalCode!: string;
 
   constructor(
-    private formBuilder: FormBuilder
+    private myProposalService: MyProposalService
   ) {
-    this.createForm = this.formBuilder.group({
-      name: [ null ],
-      description: [ null ],
-      deadline: [ new Date() ]
-    });
   }
 
   ngOnInit() {
+    this.search();
+  }
+
+  
+  // 查询
+  public search(): void {
+    this.myProposalService.getReviewList(this.proposalCode).subscribe((res: any) =>{
+      console.log('返回数据：', res);
+      this.dataSet = res.data.list;
+    })
   }
 
 }

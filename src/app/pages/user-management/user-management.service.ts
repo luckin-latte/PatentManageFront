@@ -18,15 +18,15 @@ export class UserManagementService {
     return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
   }
 
-  newData(Data: object) {
+  newData(Data: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
   }
 
-  updateData(params: object) {
+  updateData(params: object): Observable<any> {
     return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
   }
 
-  deleteAgency(userCode: string): Observable<any>{
+  deleteData(userCode: string): Observable<any>{
     return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
   }
 

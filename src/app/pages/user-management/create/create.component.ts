@@ -66,10 +66,10 @@ export class CreateComponent implements OnInit {
     });
   }
 
-  cancel() {
+  public cancel() {
   }
 
-  save() {
+  public save() {
     Object.keys(this.CreateForm.controls).forEach(key => {
       this.CreateForm.controls[key].markAsDirty();
       this.CreateForm.controls[key].updateValueAndValidity();

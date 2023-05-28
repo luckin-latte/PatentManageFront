@@ -18,11 +18,11 @@ export class AgencyService {
     return this.httpClient.post(`${apiUrl}/agency/getList`, queryInfo);
   }
 
-  newData(Data: object) {
+  newData(Data: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/agency/newAgency`, Data);
   }
 
-  updateData(params: object) {
+  updateData(params: object): Observable<any> {
     return this.httpClient.patch(`${apiUrl}/agency/updateAgency`, params);
   }
 

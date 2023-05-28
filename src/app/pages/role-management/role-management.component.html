@@ -32,24 +32,26 @@
   <thead>
     <tr>
       <th nzWidth="60px">序号</th>
-      <th>角色名称</th>
-      <th>权限</th>
+      <th nzWidth="160px">角色名称</th>
+      <th nzWidth="360px">权限</th>
+      <th nzWidth="200px">备注</th>
       <th colspan="2">操作</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of resultTable.data; let i = index">
-      <ng-container *ngIf="!editCache[data.number].edit; else editTemplate">
-        <td>{{ i + 1 }}</td>
+      <!-- <ng-container *ngIf="!editCache[data.number].edit; else editTemplate"> -->
+        <td>{{ i+1 }}</td>
         <td>{{ data.roleName }}</td>
-        <td>{{ data.auth }}</td>
+        <td>{{ data.permission.toString() }}</td>
+        <td>{{ data.remark }}</td>
         <td>
-          <a (click)="startEdit(data.number)">编辑</a>
+          <a (click)="startEdit(data)">编辑</a>
         </td>
         <td nzWidth="100px">
-          <a nz-popconfirm nzPopconfirmTitle="确定删除？" (nzOnConfirm)="deleteRow(data.number)">删除</a>
+          <a nz-popconfirm nzPopconfirmTitle="确定删除？" (nzOnConfirm)="deleteRow(data.roleName)">删除</a>
         </td>
-      </ng-container>
+      <!-- </ng-container>
       <ng-template #editTemplate>
         <td>{{ editCache[data.number].data.number }}</td>
         <td><input type="text" nz-input [(ngModel)]="editCache[data.number].data.roleName" /></td>
@@ -61,7 +63,7 @@
         <td nzWidth="100px">
           <a nz-popconfirm nzPopconfirmTitle="确定删除？" (nzOnConfirm)="deleteRow(data.number)">删除</a>
         </td>
-      </ng-template>
+      </ng-template> -->
     </tr>
   </tbody>
 </nz-table>

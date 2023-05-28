@@ -149,12 +149,12 @@ export class MyProposalComponent implements OnInit {
     this.searchLoading = false;
   }
 
-  public showReview() {
+  public showReview(code: string) {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '审批详情',
       nzContent: ReviewComponent,
       nzContentParams: {
-        name: 'This is a param from child'
+        proposalCode: code
       },
       nzClosable: true,
       nzMask: true,
