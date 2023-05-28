@@ -15,15 +15,19 @@ export class MyProposalService {
   }
 
   getList(queryInfo: object): Observable<any>{
-    return this.httpClient.post(`${apiUrl}/proposal/getProposalList1`, queryInfo)
+    return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
   }
 
-  fetchData(queryInfo: object): Observable<any>{
-    // const query = JSON.stringify(queryInfo);
-    return this.httpClient.post(`${apiUrl}/proposal/getProposalList1`,queryInfo)
+  newData(Data: object) {
+    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
+  }
+
+  updateData(params: object) {
+    return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
+  }
+
+  deleteAgency(userCode: string): Observable<any>{
+    return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
   }
   
-  submit() {
-    // return this.httpClient.post(`${apiUrl}/proposal/post`);
-  }
 }

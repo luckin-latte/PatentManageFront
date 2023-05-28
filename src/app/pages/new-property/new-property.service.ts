@@ -14,7 +14,8 @@ export class NewPropertyService {
   ) { 
   }
   
-  submit() {
-    // return this.httpClient.post(`${apiUrl}/proposal/post`);
+  newData(Data: object) {
+    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
   }
+
 }

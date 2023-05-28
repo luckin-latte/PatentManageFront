@@ -44,7 +44,7 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.libService.getCode('DL').subscribe((res: any) =>{
-      console.log('res.data: ', res.data);
+      // console.log('代理机构编号：', res.data);
       this.CreateForm.get('agencyCode')?.setValue(res.data);
     })
 
@@ -68,5 +68,4 @@ export class CreateComponent implements OnInit {
       console.log('res.data: ', res);
     })
   }
-
 }

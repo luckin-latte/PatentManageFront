@@ -72,7 +72,7 @@ export class ParticipatedProposalComponent implements OnInit {
 
     this.queryData();
 
-    this.participatedProposalService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+    this.participatedProposalService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
       this.onAfterSearch;

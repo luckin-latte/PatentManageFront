@@ -66,7 +66,7 @@ export class ProposalFilesComponent implements OnInit {
 
     this.queryData();
 
-    this.proposalFilesService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+    this.proposalFilesService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
       this.onAfterSearch;

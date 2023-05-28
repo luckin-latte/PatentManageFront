@@ -1,11 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
 import { TrademarkOfficialFeeService } from './trademark-official-fee.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
-import { DetailComponent } from './detail/detail.component';
+import { CreateComponent } from './create/create.component';
+import { EditComponent } from './edit/edit.component';
+import { InvoiceComponent } from 'src/app/shared/component/invoice/invoice.component';
 
 @Component({
   selector: 'app-trademark-official-fee',
@@ -22,11 +25,13 @@ export class TrademarkOfficialFeeComponent implements OnInit {
   public dateRange = [];
 
   drawerRef!: NzDrawerRef;
+  modalRef!: NzModalRef;
   pageIndex: number = 1;
 
   constructor(
     private formBuilder: FormBuilder,
-    private nzDrawerService: NzDrawerService,
+    private drawerService: NzDrawerService,
+    private modalService: NzModalService,
     private trademarkOfficialFeeService: TrademarkOfficialFeeService
   ) {
     this.searchForm = this.formBuilder.group({});
@@ -66,7 +71,7 @@ export class TrademarkOfficialFeeComponent implements OnInit {
 
     this.queryData();
 
-    this.trademarkOfficialFeeService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+    this.trademarkOfficialFeeService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
       this.onAfterSearch;
@@ -138,18 +143,20 @@ export class TrademarkOfficialFeeComponent implements OnInit {
   onAfterSearch(): void {
     this.searchLoading = false;
   }
+
+
   
-  public showDetail() {
-    this.drawerRef = this.nzDrawerService.create({
-      nzTitle: '专利官费详情',
-      nzContent: DetailComponent,
+  public create() {
+    this.drawerRef = this.drawerService.create({
+      nzTitle: '新增专利官费',
+      nzContent: CreateComponent,
       nzContentParams: {
-        name: 'This is a param from child'
+        name: 'CreateComponent'
       },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 860,
+      nzWidth: 640,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -158,11 +165,73 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('专利官费详情');
+      console.log('新增专利官费');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
       console.log(data);
+    });
+  }
+
+  public showInvoice() {
+    this.modalRef = this.modalService.create({
+      nzTitle: '发票详情',
+      nzContent: InvoiceComponent,
+      nzClosable: true,
+      nzMask: true,
+      nzMaskClosable: false,
+      nzWidth: 640,
+      nzBodyStyle: {
+        height: 'calc(100% - 55px)',
+        overflow: 'auto',
+        'padding-bottom': '53px'
+      }
+    });
+
+    this.modalRef.afterOpen.subscribe(() => {
+      console.log('查看发票详情');
+    });
+
+    this.modalRef.afterClose.subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  public showEdit() {
+    this.drawerRef = this.drawerService.create({
+      nzTitle: '编辑专利官费',
+      nzContent: EditComponent,
+      nzContentParams: {
+        name: 'EditComponent'
+      },
+      nzClosable: true,
+      nzMask: true,
+      nzMaskClosable: false,
+      nzWidth: 640,
+      nzBodyStyle: {
+        height: 'calc(100% - 55px)',
+        overflow: 'auto',
+        'padding-bottom': '53px'
+      }
+    });
+
+    this.drawerRef.afterOpen.subscribe(() => {
+      console.log('编辑专利官费');
+    });
+
+    this.drawerRef.afterClose.subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  showDeleteConfirm(): void {
+    this.modalService.confirm({
+      nzTitle: '确定删除吗？',
+      nzOkText: '删除',
+      // nzOkType: 'danger',
+      nzOnOk: () => console.log('OK'),
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('Cancel')
     });
   }
   

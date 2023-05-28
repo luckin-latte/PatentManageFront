@@ -72,7 +72,7 @@ export class MyPatentComponent implements OnInit {
 
     this.queryData();
 
-    this.myPatentService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+    this.myPatentService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
       this.onAfterSearch;

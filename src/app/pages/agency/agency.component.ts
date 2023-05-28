@@ -119,7 +119,7 @@ export class AgencyComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('新增代理机构');
+      // console.log('新增代理机构');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
@@ -146,7 +146,7 @@ export class AgencyComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('编辑代理机构');
+      // console.log('编辑代理机构');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
@@ -160,7 +160,6 @@ export class AgencyComponent implements OnInit {
       nzOkText: '删除',
       // nzOkType: 'danger',
       nzOnOk: () => this.agencyService.deleteAgency(code).subscribe((res: any) =>{
-        console.log('code:----------', code);
         console.log('删除数据：', res);
       }),
       nzCancelText: '取消',

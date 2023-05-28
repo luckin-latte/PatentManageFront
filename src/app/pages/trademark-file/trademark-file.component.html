@@ -1,0 +1,117 @@
+<nz-page-header class="site-page-header">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>文件管理</nz-breadcrumb-item>
+    <nz-breadcrumb-item><a>商标文件</a></nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+
+<form nz-form [formGroup]="searchForm" class="ant-advanced-search-form">
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">商标名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input  formControlName="trademarkName"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">商标编号</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="trademarkCode"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">文件名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="fileName"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">文件类型</nz-form-label>
+        <nz-form-control>
+          <nz-select id="fileType" nzAllowClear formControlName="fileType">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option nzValue="来文" nzLabel="来文"></nz-option>
+            <nz-option nzValue="发文" nzLabel="发文"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">上传人</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="uploaderName"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">上传时间</nz-form-label>
+        <nz-form-control>
+          <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onChange($event)"
+            formControlName="dateRange" style="width: 100%;"></nz-range-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzSpan]="24" class="operate-area">
+      <button nz-button (click)="resetForm()">重置</button>
+      <button nz-button [nzType]="'primary'" style="margin-left: 8px;" (click)="search()">搜索</button>
+    </div>
+  </div>
+</form>
+
+<div>
+  <button nz-button nzType="primary" (click)="create()" style="margin-top: 8px;">
+    新增商标文件</button>
+</div>
+
+<nz-table #Table nzBordered nzSize="small" [nzScroll]="{ x: '1200px' }"
+  nzShowPagination nzShowSizeChanger [nzData]="dataSet">
+  <thead>
+    <tr>
+      <th nzWidth="60px" nzLeft="0px">序号</th>
+      <th nzWidth="120px" nzLeft="60px">商标编号</th>
+      <th>商标名称</th>
+      <th>商标种类</th>
+      <th>商标版权号</th>
+      <th nzWidth="160px" nzRight="420px">文件名称</th>
+      <th nzWidth="80px" nzRight="340px">文件类型</th>
+      <th nzWidth="80px" nzRight="260px">上传人</th>
+      <th nzWidth="100px" nzRight="160px">上传时间</th>
+      <th nzWidth="80px" nzRight="80px">文件详情</th>
+      <th nzWidth="80px" nzRight="0px">操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of Table.data; let i = index">
+      <td nzLeft="0px">{{ i+1 }}</td>
+      <td nzLeft="60px">{{ data.trademarkCode }}</td>
+      <td>{{ data.trademarkName }}</td>
+      <td>{{ data.trademarkType }}</td>
+      <td>{{ data.copyRightCode }}</td>
+      <td nzRight="400px">{{ data.fileName }}</td>
+      <td nzRight="400px">{{ data.fileType }}</td>
+      <td nzRight="280px">{{ data.uploaderName }}</td>
+      <td nzRight="160px">{{ data.uploadDate }}</td>
+      <td nzRight="80px">
+        <button nz-button>查看</button>
+      </td>
+      <td nzRight="0px">
+        <button nz-button>删除</button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

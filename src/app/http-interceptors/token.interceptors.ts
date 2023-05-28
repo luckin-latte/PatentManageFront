@@ -11,7 +11,7 @@ export class TokenInterceptors implements HttpInterceptor {
   
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    console.log('http拦截器-token');
+    // console.log('http拦截器-token');
     
     const userInfoString = sessionStorage.getItem('UserInfo');
 

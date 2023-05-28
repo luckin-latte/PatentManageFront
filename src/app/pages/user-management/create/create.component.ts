@@ -2,6 +2,9 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
+import { LibService } from 'src/app/shared';
+import { UserManagementService } from '../user-management.service';
+
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -10,30 +13,71 @@ import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 })
 export class CreateComponent implements OnInit {
 
-  @Input() name!: string;
   public CreateForm: FormGroup;
   public drawerRef!: NzDrawerRef;
 
+  // 下拉搜索框数据
+  listOfDepart: Array<{ value: string; text: string }> = [];
+  listOfRole: Array<{ value: string; text: string }> = [];
+
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private libService: LibService,
+    private userManagementService: UserManagementService
     ) {
       this.CreateForm = this.formBuilder.group({
-        userName: ['管理员'],
-        userCode: ['2023074'],
-        department: [''],
-        role: ['0'],
-        password: ['applyCode'],
-        tel: ['01234'],
+        userName: ['', [Validators.required]],
+        userCode: ['', [Validators.required]],
+        departmentName: ['', [Validators.required]],
+        roleName: ['', [Validators.required]],
+        password: ['', [Validators.required]],
+        phone: [''],
       });
   }
 
   ngOnInit(): void {
+    this.libService.getCode('U').subscribe((res: any) =>{
+      console.log('工号：', res.data);
+      this.CreateForm.get('userCode')?.setValue(res.data);
+    })
+  }
+
+  searchDepart(e: string): void {
+    this.libService.getAllDepartments().subscribe((res: any) => {
+      console.log(res.data)
+      res.data.forEach((item: string) => {
+        this.listOfDepart.push({
+          value: item,
+          text: item
+        });
+      });
+    });
+  }
+
+  searchRole(e: string): void {
+    this.libService.getAllRoles().subscribe((res: any) => {
+      console.log(res.data)
+      res.data.forEach((item: string) => {
+        this.listOfRole.push({
+          value: item,
+          text: item
+        });
+      });
+    });
   }
 
   cancel() {
   }
 
   save() {
-    this.drawerRef.close(this.CreateForm.getRawValue());
+    Object.keys(this.CreateForm.controls).forEach(key => {
+      this.CreateForm.controls[key].markAsDirty();
+      this.CreateForm.controls[key].updateValueAndValidity();
+    })
+    console.log('新增数据：', this.CreateForm.value)
+
+    this.userManagementService.newData(this.CreateForm.value).subscribe((res: any) =>{
+      console.log('res.data: ', res);
+    })
   }
 }

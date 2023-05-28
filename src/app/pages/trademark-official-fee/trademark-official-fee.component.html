@@ -49,6 +49,11 @@
   </div>
 </form>
 
+<div>
+  <button nz-button nzType="primary" (click)="create()" style="margin-top: 8px;">
+    新增商标官费</button>
+</div>
+
 <nz-table #resultTable nzBordered nzSize="small"
   nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
@@ -69,7 +74,7 @@
       <td>{{ data.totalAmount }}</td>
       <td>{{ data.proposer }}</td>
       <td>
-        <button nz-button  (click)="showDetail()">查看</button>
+        <button nz-button>查看</button>
       </td>
     </tr>
   </tbody>

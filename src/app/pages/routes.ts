@@ -97,35 +97,50 @@ export const ROUTES: Routes = [
     loadChildren: () => import('../pages/proposal-files/proposal-files.module').then(m => m.ProposalFilesModule)
   },
   {
-    path: 'patentReceiveFile',
+    path: 'patentFile',
     pathMatch: 'prefix',
-    loadChildren: () => import('../pages/patent-receive-file/patent-receive-file.module').then(m => m.PatentReceiveFileModule)
+    loadChildren: () => import('../pages/patent-file/patent-file.module').then(m => m.PatentFileModule)
   },
   {
-    path: 'patentPostFile',
+    path: 'softwareFile',
     pathMatch: 'prefix',
-    loadChildren: () => import('../pages/patent-post-file/patent-post-file.module').then(m => m.PatentPostFileModule)
+    loadChildren: () => import('../pages/software-file/software-file.module').then(m => m.SoftwareFileModule)
   },
   {
-    path: 'softwareReceiveFile',
+    path: 'trademarkFile',
     pathMatch: 'prefix',
-    loadChildren: () => import('../pages/software-receive-file/software-receive-file.module').then(m => m.SoftwareReceiveFileModule)
+    loadChildren: () => import('../pages/trademark-file/trademark-file.module').then(m => m.TrademarkFileModule)
   },
-  {
-    path: 'softwarePostFile',
-    pathMatch: 'prefix',
-    loadChildren: () => import('../pages/software-post-file/software-post-file.module').then(m => m.SoftwarePostFileModule)
-  },
-  {
-    path: 'trademarkReceiveFile',
-    pathMatch: 'prefix',
-    loadChildren: () => import('../pages/trademark-receive-file/trademark-receive-file.module').then(m => m.TrademarkReceiveFileModule)
-  },
-  {
-    path: 'trademarkPostFile',
-    pathMatch: 'prefix',
-    loadChildren: () => import('../pages/trademark-post-file/trademark-post-file.module').then(m => m.TrademarkPostFileModule)
-  },
+  // {
+  //   path: 'patentReceiveFile',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/patent-receive-file/patent-receive-file.module').then(m => m.PatentReceiveFileModule)
+  // },
+  // {
+  //   path: 'patentPostFile',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/patent-post-file/patent-post-file.module').then(m => m.PatentPostFileModule)
+  // },
+  // {
+  //   path: 'softwareReceiveFile',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/software-receive-file/software-receive-file.module').then(m => m.SoftwareReceiveFileModule)
+  // },
+  // {
+  //   path: 'softwarePostFile',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/software-post-file/software-post-file.module').then(m => m.SoftwarePostFileModule)
+  // },
+  // {
+  //   path: 'trademarkReceiveFile',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/trademark-receive-file/trademark-receive-file.module').then(m => m.TrademarkReceiveFileModule)
+  // },
+  // {
+  //   path: 'trademarkPostFile',
+  //   pathMatch: 'prefix',
+  //   loadChildren: () => import('../pages/trademark-post-file/trademark-post-file.module').then(m => m.TrademarkPostFileModule)
+  // },
   {
     path: 'patentOfficialFee',
     pathMatch: 'prefix',

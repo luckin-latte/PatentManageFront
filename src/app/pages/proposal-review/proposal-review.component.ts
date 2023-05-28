@@ -68,7 +68,7 @@ export class ProposalReviewComponent implements OnInit {
 
     this.queryData();
 
-    this.proposalReviewService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+    this.proposalReviewService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
       this.onAfterSearch;

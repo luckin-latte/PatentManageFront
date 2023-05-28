@@ -19,4 +19,14 @@ export class LibService {
     return this.httpClient.get(`${apiUrl}/proposal/getCode?typeName=${xData}`);
   }
 
+  // 下拉框获取所有部门名称
+  public getAllDepartments(): Observable<any> {
+    return this.httpClient.get(`${apiUrl}/proposal/getAllDepartments`);
+  }
+
+  // 下拉框获取所有角色
+  public getAllRoles(): Observable<any> {
+    return this.httpClient.get(`${apiUrl}/proposal/getAllDepartments`);
+  }
+
 }

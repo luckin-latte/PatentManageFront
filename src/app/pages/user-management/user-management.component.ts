@@ -7,15 +7,6 @@ import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
 import { CreateComponent } from './create/create.component';
 
-interface ItemData {
-  number: string;
-  userName: string;
-  userCode: string;
-  tel: string;
-  role: string;
-  password: string
-}
-
 @Component({
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
@@ -28,7 +19,6 @@ export class UserManagementComponent implements OnInit {
   public searchForm: FormGroup;
   public searchLoading = true;
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
-  public dateRange = [];
 
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
@@ -39,11 +29,7 @@ export class UserManagementComponent implements OnInit {
     private userManagementService: UserManagementService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('proposer', new FormControl(''));
-    this.searchForm.addControl('status', new FormControl('0'));
-    this.searchForm.addControl('dateRange', new FormControl(''));
+    this.searchForm.addControl('userName', new FormControl(''));
   }
 
   ngOnInit(): void {
@@ -56,11 +42,7 @@ export class UserManagementComponent implements OnInit {
 
   public resetForm(): void {
     this.searchForm.reset({
-      name: '',
-      code: '',
-      proposer: '',
-      type: '0',
-      dateRange: ''
+      userName: ''
     });
   }
   
@@ -75,7 +57,7 @@ export class UserManagementComponent implements OnInit {
 
     this.queryData();
 
-    this.userManagementService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+    this.userManagementService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
       this.onAfterSearch;
@@ -105,34 +87,6 @@ export class UserManagementComponent implements OnInit {
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'code') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'code',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'proposer') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'proposer',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'type') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'type',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'dateRange') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'dateRange',
-            this.searchForm.controls[key].value
-          )
-        );
       }
     }
     
@@ -148,20 +102,16 @@ export class UserManagementComponent implements OnInit {
     this.searchLoading = false;
   }
   
-  editCache: { [key: string]: { edit: boolean; data: ItemData } } = {};
-  listOfData: ItemData[] = [];
+  editCache: { [key: string]: { edit: boolean; data: any } } = {};
 
   public create() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '新增用户',
       nzContent: CreateComponent,
-      nzContentParams: {
-        name: '新增用户'
-      },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 720,
+      nzWidth: 540,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -170,7 +120,7 @@ export class UserManagementComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('新增用户');
+      // console.log('新增用户');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
@@ -178,35 +128,35 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
-  public startEdit(number: string): void {
-    this.editCache[number].edit = true;
+  public startEdit(code: string): void {
+    this.editCache[code].edit = true;
   }
 
-  public cancelEdit(number: string): void {
-    const index = this.listOfData.findIndex(item => item.number === number);
-    this.editCache[number] = {
-      data: { ...this.listOfData[index] },
+  public cancelEdit(code: string): void {
+    const index = this.dataSet.findIndex((item: any) => item.code === code);
+    this.editCache[code] = {
+      data: { ...this.dataSet[index] },
       edit: false
     };
   }
 
-  public saveEdit(number: string): void {
-    const index = this.listOfData.findIndex(item => item.number === number);
-    Object.assign(this.listOfData[index], this.editCache[number].data);
-    this.editCache[number].edit = false;
+  public saveEdit(code: string): void {
+    const index = this.dataSet.findIndex((item: any) => item.code === code);
+    Object.assign(this.dataSet[index], this.editCache[code].data);
+    this.editCache[code].edit = false;
   }
 
   public updateEditCache(): void {
-    this.listOfData.forEach(item => {
-      this.editCache[item.number] = {
+    this.dataSet.forEach((item: any) => {
+      this.editCache[item.code] = {
         edit: false,
         data: { ...item }
       };
     });
   }
 
-  public deleteRow(number: string): void {
-    this.listOfData = this.listOfData.filter(d => d.number !== number);
+  public deleteRow(code: string): void {
+    this.dataSet = this.dataSet.filter((d: any) => d.code !== code);
   }
 
 }

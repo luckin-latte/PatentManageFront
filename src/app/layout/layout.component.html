@@ -82,6 +82,15 @@
             <a routerLink="proposalFiles">提案文件</a>
           </li>
           <li nz-menu-item nzMatchRouter>
+            <a routerLink="patentFile">专利文件</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="softwareFile">软著文件</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="trademarkFile">商标文件</a>
+          </li>
+          <!-- <li nz-menu-item nzMatchRouter>
             <a routerLink="patentReceiveFile">专利来文</a>
           </li>
           <li nz-menu-item nzMatchRouter>
@@ -98,7 +107,7 @@
           </li>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="trademarkPostFile">商标发文</a>
-          </li>
+          </li> -->
         </ul>
       </li>
       <li nz-submenu nzOpen nzTitle="费用管理" nzIcon="account-book">
@@ -110,22 +119,26 @@
             <a routerLink="patentAnnualFee">专利年费</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="patentBonus">专利奖金</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
             <a routerLink="trademarkOfficialFee">商标官费</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="trademarkBonus">商标奖金</a>
           </li>
           <li nz-menu-item nzMatchRouter>
             <a routerLink="softwareOfficialFee">软著官费</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="softwareBonus">软著奖金</a>
+            <a routerLink="bill">账单</a>
+          </li>
+        </ul>
+      </li>
+      <li nz-submenu nzOpen nzTitle="奖金管理" nzIcon="red-envelope">
+        <ul>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="patentBonus">专利奖金</a>
           </li>
           <li nz-menu-item nzMatchRouter>
-            <a routerLink="bill">账单</a>
+            <a routerLink="trademarkBonus">商标奖金</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="softwareBonus">软著奖金</a>
           </li>
         </ul>
       </li>

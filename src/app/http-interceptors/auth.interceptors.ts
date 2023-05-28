@@ -11,7 +11,7 @@ export class AuthInterceptors implements HttpInterceptor {
   
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     
-    console.log('http拦截器-userId');
+    // console.log('http拦截器-userId');
     
     const userInfoString = sessionStorage.getItem('UserInfo');
 

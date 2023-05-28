@@ -63,7 +63,7 @@ export class SoftwareOfficialFeeComponent implements OnInit {
 
     this.queryData();
 
-    this.softwareOfficialFeeService.fetchData(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+    this.softwareOfficialFeeService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
       this.onAfterSearch;
