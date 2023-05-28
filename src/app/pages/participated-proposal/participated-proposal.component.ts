@@ -129,13 +129,6 @@ export class ParticipatedProposalComponent implements OnInit {
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'dateRange') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'dateRange',
-            this.searchForm.controls[key].value
-          )
-        );
       } else if (key === 'proposalState') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
@@ -144,6 +137,14 @@ export class ParticipatedProposalComponent implements OnInit {
           )
         );
       }
+      // else if (key === 'dateRange') {
+      //   queryCriteria.addCriteria(
+      //     new QueryCriteriaInfo(
+      //       'dateRange',
+      //       this.searchForm.controls[key].value
+      //     )
+      //   );
+      // }
     }
     
     this.queryInfo.setCriteria(queryCriteria);

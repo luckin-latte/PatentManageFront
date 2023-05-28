@@ -11,7 +11,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">提案名称</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="name"/>
+          <input nz-input formControlName="proposalName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -19,7 +19,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">提案编号</nz-form-label>
         <nz-form-control>
-          <input nz-input  formControlName="code"/>
+          <input nz-input  formControlName="proposalCode"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -27,7 +27,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">提案部门</nz-form-label>
         <nz-form-control>
-          <nz-select id="department" nzAllowClear formControlName="department">
+          <nz-select id="departmentName" nzAllowClear formControlName="departmentName">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
           </nz-select>
         </nz-form-control>
@@ -40,7 +40,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">提案人</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="proposer"/>
+          <input nz-input formControlName="proposerName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -48,7 +48,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">发明人</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="inventor"/>
+          <input nz-input formControlName="inventorName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -57,7 +57,7 @@
         <nz-form-label [nzSpan]="6">提案日期</nz-form-label>
         <nz-form-control>
           <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onChange($event)"
-            formControlName="dateRangePicker" style="width: 100%;"></nz-range-picker>
+            formControlName="dateRange" style="width: 100%;"></nz-range-picker>
         </nz-form-control>
       </nz-form-item>
     </div>
