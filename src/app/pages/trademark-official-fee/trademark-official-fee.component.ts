@@ -35,11 +35,11 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     private trademarkOfficialFeeService: TrademarkOfficialFeeService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('proposer', new FormControl(''));
-    this.searchForm.addControl('status', new FormControl('0'));
-    this.searchForm.addControl('dateRange', new FormControl(''));
+    this.searchForm.addControl('trademarkName', new FormControl(''));
+    this.searchForm.addControl('trademarkCode', new FormControl(''));
+    this.searchForm.addControl('totalAmount', new FormControl(''));
+    this.searchForm.addControl('feeName', new FormControl(''));
+    this.searchForm.addControl('officialFeeStatus', new FormControl('0'));
   }
 
   ngOnInit(): void {
@@ -52,11 +52,11 @@ export class TrademarkOfficialFeeComponent implements OnInit {
 
   public resetForm(): void {
     this.searchForm.reset({
-      name: '',
-      code: '',
-      proposer: '',
-      type: '0',
-      dateRange: ''
+      trademarkName: '',
+      trademarkCode: '',
+      totalAmount: '',
+      feeName: '',
+      officialFeeStatus: '0'
     });
   }
   
@@ -94,38 +94,38 @@ export class TrademarkOfficialFeeComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'trademarkName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'trademarkName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'code') {
+      } else if (key === 'trademarkCode') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'code',
+            'trademarkCode',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'proposer') {
+      } else if (key === 'totalAmount') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'proposer',
+            'totalAmount',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'type') {
+      } else if (key === 'feeName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'type',
+            'feeName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'dateRange') {
+      } else if (key === 'officialFeeStatus') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'dateRange',
+            'officialFeeStatus',
             this.searchForm.controls[key].value
           )
         );
@@ -148,7 +148,7 @@ export class TrademarkOfficialFeeComponent implements OnInit {
   
   public create() {
     this.drawerRef = this.drawerService.create({
-      nzTitle: '新增专利官费',
+      nzTitle: '新增商标官费',
       nzContent: CreateComponent,
       nzContentParams: {
         name: 'CreateComponent'
@@ -165,7 +165,7 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('新增专利官费');
+      // console.log('新增商标官费');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
@@ -189,7 +189,7 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     });
 
     this.modalRef.afterOpen.subscribe(() => {
-      console.log('查看发票详情');
+      // console.log('查看发票详情');
     });
 
     this.modalRef.afterClose.subscribe(data => {
@@ -199,7 +199,7 @@ export class TrademarkOfficialFeeComponent implements OnInit {
 
   public showEdit() {
     this.drawerRef = this.drawerService.create({
-      nzTitle: '编辑专利官费',
+      nzTitle: '编辑商标官费',
       nzContent: EditComponent,
       nzContentParams: {
         name: 'EditComponent'
@@ -216,7 +216,7 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('编辑专利官费');
+      // console.log('编辑商标官费');
     });
 
     this.drawerRef.afterClose.subscribe(data => {

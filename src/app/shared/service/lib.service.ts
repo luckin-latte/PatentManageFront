@@ -26,7 +26,7 @@ export class LibService {
 
   // 下拉框获取所有角色
   public getAllRoles(): Observable<any> {
-    return this.httpClient.get(`${apiUrl}/proposal/getAllDepartments`);
+    return this.httpClient.get(`${apiUrl}/user/getRoleList`);
   }
 
 }
