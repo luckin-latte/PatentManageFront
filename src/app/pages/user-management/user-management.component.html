@@ -42,7 +42,7 @@
   </thead>
   <tbody>
     <tr *ngFor="let data of resultTable.data; let i = index">
-      <ng-container *ngIf="!editCache[data.userCode].edit; else editTemplate">
+      <ng-container *ngIf="!editCache[i].edit; else editTemplate">
         <td>{{ i+1 }}</td>
         <td>{{ data.userCode }}</td>
         <td>{{ data.userName }}</td>
@@ -50,7 +50,7 @@
         <td>{{ data.roleName }}</td>
         <td>{{ data.phone }}</td>
         <td>
-          <a (click)="startEdit(data.userCode)">编辑</a>
+          <a (click)="startEdit(i)">编辑</a>
         </td>
         <td nzWidth="100px">
           <a nz-popconfirm nzPopconfirmTitle="确定删除？" (nzOnConfirm)="deleteRow(data.userCode)">删除</a>
@@ -58,13 +58,13 @@
       </ng-container>
       <ng-template #editTemplate>
         <td>{{ editCache[data.number].data.number }}</td>
-        <td><input type="text" nz-input [(ngModel)]="editCache[data.userCode].data.userName" /></td>
-        <td><input type="text" nz-input [(ngModel)]="editCache[data.userCode].data.departmentName" /></td>
-        <td><input type="text" nz-input [(ngModel)]="editCache[data.userCode].data.roleName" /></td>
-        <td><input type="text" nz-input [(ngModel)]="editCache[data.userCode].data.phone" /></td>
+        <td><input type="text" nz-input [(ngModel)]="editCache[i].data.userName" /></td>
+        <td><input type="text" nz-input [(ngModel)]="editCache[i].data.departmentName" /></td>
+        <td><input type="text" nz-input [(ngModel)]="editCache[i].data.roleName" /></td>
+        <td><input type="text" nz-input [(ngModel)]="editCache[i].data.phone" /></td>
         <td>
           <a (click)="saveEdit(data.number)" class="save">保存</a>
-          <a nz-popconfirm nzPopconfirmTitle="确定取消？" (nzOnConfirm)="cancelEdit(data.userCode)">取消</a>
+          <a nz-popconfirm nzPopconfirmTitle="确定取消？" (nzOnConfirm)="cancelEdit(i)">取消</a>
         </td>
         <td nzWidth="100px">
           <a nz-popconfirm nzPopconfirmTitle="确定删除？" (nzOnConfirm)="deleteRow(data.userCode)">删除</a>

@@ -56,8 +56,8 @@ export class CreateComponent implements OnInit {
 
   searchRole(e: string): void {
     this.libService.getAllRoles().subscribe((res: any) => {
-      console.log(res.data)
-      res.data.forEach((item: string) => {
+      console.log(res.data.roleNameList)
+      res.data.roleNameList.forEach((item: string) => {
         this.listOfRole.push({
           value: item,
           text: item

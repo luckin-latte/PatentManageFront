@@ -167,6 +167,4 @@ export class AgencyComponent implements OnInit {
     });
   }
 
-
-
 }

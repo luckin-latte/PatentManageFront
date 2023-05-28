@@ -40,8 +40,9 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired>角色</nz-form-label>
         <nz-form-control nzErrorTip="不能为空!">
-          <nz-select id="roleName" nzAllowClear formControlName="roleName">
-            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+          <nz-select id="roleName" formControlName="roleName" (nzOnSearch)="searchRole($event)"
+            nzShowSearch nzServerSearch nzAllowClear nzPlaceHolder="请选择角色">
+            <nz-option *ngFor="let o of listOfRole" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>

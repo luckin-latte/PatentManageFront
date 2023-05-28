@@ -21,7 +21,7 @@ export class EditComponent implements OnInit {
     }
   ]
 
-  @Input() name!: string;
+  @Input() trademarkOfficialFeeInfo!: object;
   EditForm: FormGroup;
   drawerRef!: NzDrawerRef;
 

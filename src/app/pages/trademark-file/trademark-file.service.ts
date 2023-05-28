@@ -14,7 +14,7 @@ export class TrademarkFileService {
   }
 
   getList(queryInfo: object): Observable<any>{
-    return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
+    return this.httpClient.post(`${apiUrl}/trademark/getFileList`, queryInfo);
   }
 
   newData(Data: object) {

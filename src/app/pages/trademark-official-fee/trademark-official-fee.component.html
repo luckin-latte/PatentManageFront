@@ -68,46 +68,46 @@
     新增商标官费</button>
 </div>
 
-<nz-table #resultTable nzBordered nzSize="small"
+<nz-table #resultTable nzBordered nzSize="small" [nzScroll]="{ x: '1800px' }"
   nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
-      <th>序号</th>
-      <th>商标编号</th>
-      <th>商标名称</th>
-      <th>总金额</th>
+      <th nzWidth="60px" nzLeft="0px">序号</th>
+      <th nzWidth="120px" nzLeft="60px">商标编号</th>
+      <th nzWidth="120px" nzLeft="180px">商标名称</th>
+      <th nzWidth="60px" nzLeft="300px">总金额</th>
 
-      <th>费用名称</th>
+      <th nzWidth="120px" nzLeft="360px">费用名称</th>
       <th>应缴金额</th>
       <th>应缴日期</th>
       <th>缴费状态</th>
       <th>实缴金额</th>
       <th>实缴日期</th>
       <th>备注</th>
-      <th>发票</th>
-      <th>操作</th>
+      <th nzWidth="80px" nzRight="160px">发票</th>
+      <th nzWidth="160px" nzRight="0px">操作</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let data of resultTable.data; let i = index">
-      <td>{{ i+1 }}</td>
-      <td>{{ data.trademarkCode }}</td>
-      <td>{{ data.trademarkName }}</td>
-      <td>{{ data.totalAmount }}</td>
+      <td nzLeft="0px">{{ i+1 }}</td>
+      <td nzLeft="60px">{{ data.trademarkCode }}</td>
+      <td nzLeft="180px">{{ data.trademarkName }}</td>
+      <td nzLeft="300px">{{ data.totalAmount }}</td>
 
-      <td>{{ data.feeName }}</td>
+      <td nzLeft="360px">{{ data.feeName }}</td>
       <td>{{ data.dueAmount }}</td>
       <td>{{ data.dueDate }}</td>
       <td>{{ data.officialFeeStatus }}</td>
       <td>{{ data.actualPay }}</td>
       <td>{{ data.actualPayDate }}</td>
       <td>{{ data.remark }}</td>
-      <td>
-        <button nz-button>查看</button>
+      <td nzRight="160px">
+        <button nz-button (click)="showInvoice()">查看</button>
       </td>
-      <td>
-        <button nz-button>删除</button>
-        <button nz-button>编辑</button>
+      <td nzRight="0px">
+        <button nz-button (click)="delete(data.id)">删除</button>
+        <button nz-button (click)="edit(data.id, data)" style="margin-left: 8px;">编辑</button>
       </td>
     </tr>
   </tbody>

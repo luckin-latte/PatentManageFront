@@ -102,7 +102,7 @@ export class UserManagementComponent implements OnInit {
     this.searchLoading = false;
   }
   
-  editCache: { [key: string]: { edit: boolean; data: any } } = {};
+  editCache: { [key: number]: { edit: boolean; data: any } } = {};
 
   public create() {
     this.drawerRef = this.nzDrawerService.create({
@@ -128,11 +128,11 @@ export class UserManagementComponent implements OnInit {
     });
   }
 
-  public startEdit(code: string): void {
+  public startEdit(code: number): void {
     this.editCache[code].edit = true;
   }
 
-  public cancelEdit(code: string): void {
+  public cancelEdit(code: number): void {
     const index = this.dataSet.findIndex((item: any) => item.code === code);
     this.editCache[code] = {
       data: { ...this.dataSet[index] },
@@ -140,7 +140,7 @@ export class UserManagementComponent implements OnInit {
     };
   }
 
-  public saveEdit(code: string): void {
+  public saveEdit(code: number): void {
     const index = this.dataSet.findIndex((item: any) => item.code === code);
     Object.assign(this.dataSet[index], this.editCache[code].data);
     this.editCache[code].edit = false;

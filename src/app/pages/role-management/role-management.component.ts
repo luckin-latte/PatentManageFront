@@ -7,12 +7,6 @@ import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
 import { CreateComponent } from './create/create.component';
 
-interface ItemData {
-  number: string;
-  roleName: string;
-  auth: string;
-}
-
 @Component({
   selector: 'app-role-management',
   templateUrl: './role-management.component.html',
@@ -36,7 +30,7 @@ export class RoleManagementComponent implements OnInit {
     private roleManagementService: RoleManagementService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
+    this.searchForm.addControl('roleName', new FormControl(''));
   }
 
   ngOnInit(): void {
@@ -49,7 +43,7 @@ export class RoleManagementComponent implements OnInit {
 
   public resetForm(): void {
     this.searchForm.reset({
-      name: ''
+      roleName: ''
     });
   }
   
@@ -87,10 +81,10 @@ export class RoleManagementComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'roleName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'roleName',
             this.searchForm.controls[key].value
           )
         );
@@ -109,20 +103,16 @@ export class RoleManagementComponent implements OnInit {
     this.searchLoading = false;
   }
   
-  editCache: { [key: string]: { edit: boolean; data: ItemData } } = {};
-  listOfData: ItemData[] = [];
+  editCache: { [key: string]: { edit: boolean; data: any } } = {};
 
   public create() {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '新增角色',
       nzContent: CreateComponent,
-      nzContentParams: {
-        name: '新增角色'
-      },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 720,
+      nzWidth: 540,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -131,7 +121,7 @@ export class RoleManagementComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('新增角色');
+      // console.log('新增角色');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
@@ -139,35 +129,35 @@ export class RoleManagementComponent implements OnInit {
     });
   }
 
-  public startEdit(number: string): void {
-    this.editCache[number].edit = true;
+  public startEdit(code: string): void {
+    this.editCache[code].edit = true;
   }
 
-  public cancelEdit(number: string): void {
-    const index = this.listOfData.findIndex(item => item.number === number);
-    this.editCache[number] = {
-      data: { ...this.listOfData[index] },
+  public cancelEdit(code: string): void {
+    const index = this.dataSet.findIndex((item: any) => item.code === code);
+    this.editCache[code] = {
+      data: { ...this.dataSet[index] },
       edit: false
     };
   }
 
-  public saveEdit(number: string): void {
-    const index = this.listOfData.findIndex(item => item.number === number);
-    Object.assign(this.listOfData[index], this.editCache[number].data);
-    this.editCache[number].edit = false;
+  public saveEdit(code: string): void {
+    const index = this.dataSet.findIndex((item: any) => item.code === code);
+    Object.assign(this.dataSet[index], this.editCache[code].data);
+    this.editCache[code].edit = false;
   }
 
   public updateEditCache(): void {
-    this.listOfData.forEach(item => {
-      this.editCache[item.number] = {
+    this.dataSet.forEach((item: any) => {
+      this.editCache[item.code] = {
         edit: false,
         data: { ...item }
       };
     });
   }
 
-  public deleteRow(number: string): void {
-    this.listOfData = this.listOfData.filter(d => d.number !== number);
+  public deleteRow(code: string): void {
+    this.dataSet = this.dataSet.filter((d: any) => d.code !== code);
   }
 
 }

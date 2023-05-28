@@ -144,8 +144,6 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     this.searchLoading = false;
   }
 
-
-  
   public create() {
     this.drawerRef = this.drawerService.create({
       nzTitle: '新增商标官费',
@@ -197,17 +195,17 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     });
   }
 
-  public showEdit() {
+  public edit(code: string, data: object) {
     this.drawerRef = this.drawerService.create({
-      nzTitle: '编辑商标官费',
+      nzTitle: '编辑代理机构',
       nzContent: EditComponent,
       nzContentParams: {
-        name: 'EditComponent'
+        trademarkOfficialFeeInfo: data
       },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 640,
+      nzWidth: 540,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -216,7 +214,7 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      // console.log('编辑商标官费');
+      // console.log('编辑代理机构');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
@@ -224,15 +222,17 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     });
   }
 
-  showDeleteConfirm(): void {
+  public delete(code: string): void {
     this.modalService.confirm({
       nzTitle: '确定删除吗？',
       nzOkText: '删除',
       // nzOkType: 'danger',
-      nzOnOk: () => console.log('OK'),
+      nzOnOk: () => this.trademarkOfficialFeeService.deleteAgency(code).subscribe((res: any) =>{
+        console.log('删除数据：', res);
+      }),
       nzCancelText: '取消',
-      nzOnCancel: () => console.log('Cancel')
+      nzOnCancel: () => console.log('取消删除')
     });
   }
-  
+
 }

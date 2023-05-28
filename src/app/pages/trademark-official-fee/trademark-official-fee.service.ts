@@ -15,7 +15,7 @@ export class TrademarkOfficialFeeService {
   }
 
   getList(queryInfo: object): Observable<any>{
-    return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
+    return this.httpClient.post(`${apiUrl}/trademark/getOfficialFeeList`, queryInfo);
   }
 
   newData(Data: object) {
