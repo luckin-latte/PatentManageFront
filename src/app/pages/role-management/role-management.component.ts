@@ -127,7 +127,7 @@ export class RoleManagementComponent implements OnInit {
     });
   }
 
-  editCache: { [key: string]: { edit: boolean; data: any } } = {};
+  // editCache: { [key: string]: { edit: boolean; data: any } } = {};
 
   public startEdit(data: object): void {
     // this.editCache[code].edit = true;
@@ -157,7 +157,10 @@ export class RoleManagementComponent implements OnInit {
   // }
 
   public deleteRow(code: string): void {
-    // this.dataSet = this.dataSet.filter((d: any) => d.code !== code);
+    console.log('角色名：', code)
+    this.roleManagementService.deleteData(code).subscribe((res: any) =>{
+      console.log('删除数据：', res);
+    })
   }
 
 }

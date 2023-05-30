@@ -26,8 +26,8 @@ export class RoleManagementService {
     return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
   }
 
-  deleteAgency(userCode: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
+  deleteData(roleName: string): Observable<any>{
+    return this.httpClient.delete(`${apiUrl}/user/deleteRole/${roleName}`);
   }
   
 }
