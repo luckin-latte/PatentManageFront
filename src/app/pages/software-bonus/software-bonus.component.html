@@ -122,7 +122,7 @@
       <td nzRight="160px">{{ data.actualRelease }}</td>
       <td nzRight="0px">
         <button nz-button (click)="delete(data.bonusId)">删除</button>
-        <button nz-button (click)="edit(data)" style="margin-left: 8px;">编辑</button>
+        <button nz-button (click)="edit(data.bonusId, data)" style="margin-left: 8px;">编辑</button>
       </td>
     </tr>
   </tbody>

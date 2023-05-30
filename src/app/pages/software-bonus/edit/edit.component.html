@@ -1,7 +1,7 @@
 <form nz-form [formGroup]="EditForm">
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="20">
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired>软著编号</nz-form-label>
         <nz-form-control nzErrorTip="不能为空!">
@@ -9,7 +9,10 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="20">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">软著名称</nz-form-label>
         <nz-form-control>
@@ -20,7 +23,7 @@
   </div>
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="20">
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired>奖金类型</nz-form-label>
         <nz-form-control nzErrorTip="不能为空!">
@@ -31,7 +34,10 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="20">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">发放状态</nz-form-label>
         <nz-form-control>
@@ -45,19 +51,7 @@
   </div>
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzRequired>奖金总额</nz-form-label>
-        <nz-form-control nzErrorTip="不能为空!">
-          <nz-input-number [nzMin]="0" [nzMax]="1000000" [nzStep]="100"
-            style="width: 100%;" formControlName="bonusAmount"></nz-input-number>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-  </div>
-
-  <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="20">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">发明人</nz-form-label>
         <nz-form-control>
@@ -65,12 +59,26 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="20">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">实发金额</nz-form-label>
         <nz-form-control [nzSpan]="16">
-          <nz-input-number formControlName="actualRelease" style="width: 100%;"
+          <nz-input-number formControlName="actualRelease" style="width: 110%;"
             [nzMin]="0" [nzMax]="100000" [nzStep]="100"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+  
+  <div nz-row [nzGutter]="16" [hidden]="true">
+    <div nz-col [nzSpan]="20">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>奖金Id</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="bonusId"/>
         </nz-form-control>
       </nz-form-item>
     </div>

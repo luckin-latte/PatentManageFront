@@ -39,7 +39,7 @@ export class NewProposalComponent implements OnInit {
       listOfInventor: this.formBuilder.array([
         this.formBuilder.group({
           inventorName: [''],
-          rate: ['100'],
+          rate: ['0'],
         })
       ]),
       detailText: ['']
@@ -48,14 +48,14 @@ export class NewProposalComponent implements OnInit {
 
   ngOnInit(): void {
     this.libService.getCode('TA').subscribe((res: any) =>{
-      console.log('提案编号：', res.data);
+      // console.log('提案编号：', res.data);
       this.CreateForm.get('proposalCode')?.setValue(res.data);
     })
   }
 
   searchDepart(e: string): void {
     this.libService.getAllDepartments().subscribe((res: any) => {
-      console.log(res.data)
+      // console.log('所有部门名称', res.data)
       res.data.forEach((item: string) => {
         this.listOfDepart.push({
           value: item,
@@ -71,16 +71,18 @@ export class NewProposalComponent implements OnInit {
 
   public addField(e: MouseEvent): void {
     e.preventDefault();
+
     this.listOfInventor.push(
       this.formBuilder.group({
         inventorName: [''],
-        rate: ['100'],
+        rate: ['0'],
       })
     );
   }
 
   public removeField(i: number, e: MouseEvent): void {
     e.preventDefault();
+
     if (this.listOfInventor.length > 1) {
       this.listOfInventor.removeAt(i);
     }
@@ -108,7 +110,7 @@ export class NewProposalComponent implements OnInit {
       listOfInventor: this.formBuilder.array([
         this.formBuilder.group({
           inventorName: '',
-          rate: '100',
+          rate: '0',
         })
       ]),
       detailText: ''
@@ -120,10 +122,10 @@ export class NewProposalComponent implements OnInit {
       this.CreateForm.controls[key].markAsDirty();
       this.CreateForm.controls[key].updateValueAndValidity();
     })
-    console.log('新增数据：', this.CreateForm.value)
+    // console.log('新增技术提案：', this.CreateForm.value)
 
     this.newProposalService.newData(this.CreateForm.value).subscribe((res: any) =>{
-      console.log('res.data: ', res);
+      // console.log('result: ', res);
     })
   }
 

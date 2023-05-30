@@ -1,6 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 
+import { LibService } from 'src/app/shared';
+import { NewPropertyService } from './new-property.service';
+
+
 @Component({
   selector: 'app-new-property',
   templateUrl: './new-property.component.html',
@@ -8,69 +12,114 @@ import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@ang
 })
 export class NewPropertyComponent implements OnInit {
 
-  patentCreateForm!: FormGroup;
-  sofetwareCreateForm!: FormGroup;
-  trademarkCreateForm!: FormGroup;
+  patentCreateForm: FormGroup;
+  sofetwareCreateForm: FormGroup;
+  trademarkCreateForm: FormGroup;
   formatterPercent = (value: number) => `${value} %`;
   parserPercent = (value: string) => value.replace(' %', '');
 
+  // 下拉搜索框数据
+  listOfDepart: Array<{ value: string; text: string }> = [];
+  listOfAgency: Array<{ value: string; text: string }> = [];
+
   constructor(
-    private formBuilder: FormBuilder
-  ) { }
-
-  public get listOfInventor(): FormArray {
-    return this.patentCreateForm.get('listOfInventor') as FormArray;
-  }
-
-  ngOnInit(): void {
+    private formBuilder: FormBuilder,
+    private libService: LibService,
+    private newPropertyService: NewPropertyService
+  ) {
     this.patentCreateForm = this.formBuilder.group({
-      patentCode: ['ZL19502'],
-      patentName: ['移动终端的壳体'],
+      patentCode: ['', [Validators.required]],
+      patentName: ['', [Validators.required]],
+      applicationCode: [''],
+      applicationDate: [''],
+      grantCode: [''],
+      grantDate: [''],
       listOfInventor: this.formBuilder.array([
         this.formBuilder.group({
           inventorName: [''],
-          rate: []
+          rate: ['0']
         })
       ]),
-      applyCode: ['AP82059'],
-      applyDate: ['2022-02-05'],
-      process: ['8'],
-      empowerCode: ['授权号'],
-      empowerDate: ['2023-05-07'],
-      powerStatus: ['3'],
-      patentType: ['3'],
-      agency: ['1']
+      departmentName: ['', [Validators.required]],
+      agency: [''],
+      patentType: ['', [Validators.required]],
+      currentProgram: [''],
+      rightStatus: ['']
     });
     this.sofetwareCreateForm = this.formBuilder.group({
-      softwareCode: ['RZ222222'],
-      softwareName: ['软著'],
-      inventorName: ['软著发明人'],
-      agency: ['0'],
-      version: ['0.0.1'],
-      devWay: ['开发方式'],
-      registerCode: ['DJ222222'],
-      applyDate: [''],
-      certiCode: ['ZS222222'],
-      certiDate: [''],
-      storeCode: ['FC2222222'],
-      storeDate: [''],
-      powerStatus: ['0'],
-      rightRange: ['全部'],
+      softwareCode: ['', [Validators.required]],
+      softwareName: ['', [Validators.required]],
+      inventorName: [''],
+      departmentName: ['', [Validators.required]],
+      agency: [''],
+      version: ['', [Validators.required]],
+      developWay: [''],
+      registerCode: [''],
+      applicationDate: [''],
+      certificateCode: [''],
+      certificateDate: [''],
+      archiveCode: [''],
+      archiveDate: [''],
+      rightStatus: [''],
+      rightRange: [''],
       proposalDate: [''],
-      completeDate: [''],
-      releaseDate: ['']
+      finishDate: [''],
+      publishDate: ['']
     });
     this.trademarkCreateForm = this.formBuilder.group({
-      trademarkCode: ['trademarkCode'],
-      trademarkName: ['trademarkName'],
-      inventorName: ['inventorName'],
-      owner: ['owner'],
-      trademarkType: ['0409'],
-      copyrightNo: ['1245643'],
-      status: ['0'],
-      powerStatus: ['0'],
-      agency: ['0']
+      trademarkCode: ['', [Validators.required]],
+      trademarkName: ['', [Validators.required]],
+      inventorName: [''],
+      departmentName: ['', [Validators.required]],
+      trademarkOwner: [''],
+      trademarkType: ['', [Validators.required]],
+      copyRightCode: ['', [Validators.required]],
+      currentStatus: [''],
+      rightStatus: [''],
+      agency: ['']
     });
+  }
+
+  ngOnInit(): void {
+    this.libService.getCode('ZL').subscribe((res: any) =>{
+      console.log('专利编号：', res.data);
+      this.patentCreateForm.get('patentCode')?.setValue(res.data);
+    })
+    this.libService.getCode('RZ').subscribe((res: any) =>{
+      console.log('软著编号：', res.data);
+      this.sofetwareCreateForm.get('softwareCode')?.setValue(res.data);
+    })
+    this.libService.getCode('TM').subscribe((res: any) =>{
+      console.log('商标编号：', res.data);
+      this.trademarkCreateForm.get('trademarkCode')?.setValue(res.data);
+    })
+  }
+
+  searchDepart(e: string): void {
+    this.libService.getAllDepartments().subscribe((res: any) => {
+      console.log(res.data)
+      res.data.forEach((item: string) => {
+        this.listOfDepart.push({
+          value: item,
+          text: item
+        });
+      });
+    });
+  }
+
+  searchAgency(e: string): void {
+    this.libService.getAllAgency().subscribe((res: any) => {
+      console.log(res.data)
+      res.data.agencyNameList.forEach((item: string) => {
+        this.listOfAgency.push({
+          value: item,
+          text: item
+        });
+      });
+    });
+  }
+  public get listOfInventor(): FormArray {
+    return this.patentCreateForm.get('listOfInventor') as FormArray;
   }
 
   public addField(e?: MouseEvent): void {
@@ -97,5 +146,42 @@ export class NewPropertyComponent implements OnInit {
 
   public submitForm(): void {
   }
+
+  public newPatent() {
+    Object.keys(this.patentCreateForm.controls).forEach(key => {
+      this.patentCreateForm.controls[key].markAsDirty();
+      this.patentCreateForm.controls[key].updateValueAndValidity();
+    })
+    console.log('新增专利：', this.patentCreateForm.value)
+
+    this.newPropertyService.newPatent(this.patentCreateForm.value).subscribe((res: any) =>{
+      console.log('新增专利结果: ', res);
+    })
+  }
+
+  public newSoftware() {
+    Object.keys(this.patentCreateForm.controls).forEach(key => {
+      this.sofetwareCreateForm.controls[key].markAsDirty();
+      this.sofetwareCreateForm.controls[key].updateValueAndValidity();
+    })
+    console.log('新增软著：', this.sofetwareCreateForm.value)
+
+    this.newPropertyService.newSoftware(this.sofetwareCreateForm.value).subscribe((res: any) =>{
+      console.log('新增软著结果： ', res);
+    })
+  }
+
+  public newTrademark() {
+    Object.keys(this.patentCreateForm.controls).forEach(key => {
+      this.trademarkCreateForm.controls[key].markAsDirty();
+      this.trademarkCreateForm.controls[key].updateValueAndValidity();
+    })
+    console.log('新增商标：', this.trademarkCreateForm.value)
+
+    this.newPropertyService.newTrademark(this.trademarkCreateForm.value).subscribe((res: any) =>{
+      console.log('新增商标结果： ', res);
+    })
+  }
+
 
 }

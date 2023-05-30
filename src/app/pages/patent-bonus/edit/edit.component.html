@@ -1,23 +1,35 @@
 <form nz-form [formGroup]="EditForm">
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="20">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
-        <nz-form-control>
+        <nz-form-label [nzSpan]="6" nzRequired>专利编号</nz-form-label>
+        <nz-form-control nzErrorTip="不能为空!">
           <input nz-input formControlName="patentCode"/>
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="20">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利类型</nz-form-label>
+        <nz-form-label [nzSpan]="6">专利名称</nz-form-label>
         <nz-form-control>
-          <nz-select id="patentType" nzAllowClear formControlName="patentType">
-            <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
-            <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
-            <nz-option nzValue="3" nzLabel="外观设计专利"></nz-option>
+          <input nz-input formControlName="patentName"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="20">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>奖金类型</nz-form-label>
+        <nz-form-control nzErrorTip="不能为空!">
+          <nz-select id="bonusType" nzAllowClear formControlName="bonusType">
+            <nz-option nzValue="申请" nzLabel="申请"></nz-option>
+            <nz-option nzValue="授权" nzLabel="授权"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -25,26 +37,13 @@
   </div>
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">奖金类型</nz-form-label>
-        <nz-form-control>
-          <nz-select id="bonusType" nzAllowClear formControlName="bonusType">
-            <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="申请"></nz-option>
-            <nz-option nzValue="2" nzLabel="授权"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="20">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">发放状态</nz-form-label>
         <nz-form-control>
-          <nz-select id="status" nzAllowClear formControlName="status">
-            <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="已发放"></nz-option>
-            <nz-option nzValue="2" nzLabel="未发放"></nz-option>
+          <nz-select id="releaseStatus" nzAllowClear formControlName="releaseStatus">
+            <nz-option nzValue="已发放" nzLabel="已发放"></nz-option>
+            <nz-option nzValue="未发放" nzLabel="未发放"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -52,46 +51,34 @@
   </div>
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+    <div nz-col [nzSpan]="20">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">奖金总额</nz-form-label>
+        <nz-form-label [nzSpan]="6">发明人</nz-form-label>
         <nz-form-control>
-          <nz-input-number [nzMin]="1" [nzMax]="10" [nzStep]="1" style="width: 100%;"
-            formControlName="totalBonus"></nz-input-number>
+          <input nz-input formControlName="inventorName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
   </div>
 
-  <div formArrayName="listOfInventor" *ngFor="let inventor of listOfInventor.controls; let i = index">
-    <div nz-row [nzGutter]="16" [formGroupName]="i.toString()">
-      <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
-        <nz-form-item>
-          <nz-form-label [nzSpan]="6">第{{i+1}}发明人</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="inventorName"/>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-      <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
-        <nz-form-item>
-          <nz-form-label [nzSpan]="6">实发金额</nz-form-label>
-          <nz-form-control [nzSpan]="16">
-            <nz-input-number class="rate-input" formControlName="actualPay"
-              [nzMin]="1" [nzMax]="10" [nzStep]="1"></nz-input-number>
-            <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(i, $event)"></i>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzSpan]="20">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">实发金额</nz-form-label>
+        <nz-form-control [nzSpan]="16">
+          <nz-input-number formControlName="actualRelease" style="width: 110%;"
+            [nzMin]="0" [nzMax]="100000" [nzStep]="100"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
     </div>
   </div>
-
-  <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="24" [nzLg]="24" [nzXl]="24">
+  
+  <div nz-row [nzGutter]="16" [hidden]="true">
+    <div nz-col [nzSpan]="20">
       <nz-form-item>
-        <nz-form-control [nzSpan]="20" [nzOffset]="3">
-          <button nz-button nzType="dashed" class="add-button" (click)="addField($event)">
-            <i nz-icon nzType="plus"></i>添加发明人</button>
+        <nz-form-label [nzSpan]="6" nzRequired>奖金Id</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="bonusId"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -100,7 +87,8 @@
   <div nz-row [nzGutter]="16">
     <div nz-col [nzSpan]="24" class="operate-area">
       <button nz-button (click)="cancel()">取消</button>
-      <button nz-button [nzType]="'primary'" style="margin-left: 8px;" (click)="save()">保存</button>
+      <button nz-button [nzType]="'primary'" style="margin-left: 8px;"
+        [disabled]="!EditForm.valid" (click)="save()">保存</button>
     </div>
   </div>
 

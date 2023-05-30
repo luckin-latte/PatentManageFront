@@ -12,6 +12,7 @@ import { SoftwareBonusService } from '../software-bonus.service';
 })
 export class EditComponent implements OnInit {
 
+  @Input() bonusId!: string;
   @Input() softwareBonusInfo!: object;
   EditForm: FormGroup;
   drawerRef!: NzDrawerRef;
@@ -25,15 +26,16 @@ export class EditComponent implements OnInit {
         softwareName: [''],
         bonusType: ['', [Validators.required]],
         releaseStatus: [''],
-        bonusAmount: ['', [Validators.required]],
         inventorName: [''],
         actualRelease: [''],
+        bonusId: ['']
       });
   }
 
   ngOnInit(): void {
     console.log('this.agencyInfo', this.softwareBonusInfo)
     this.EditForm.patchValue(this.softwareBonusInfo)
+    this.EditForm.get('proposalCode')?.setValue(this.bonusId);
   }
 
   public cancel(): void {

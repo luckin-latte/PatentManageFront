@@ -32,9 +32,10 @@
   <thead>
     <tr>
       <th nzWidth="60px">序号</th>
+      <th nzWidth="120px">角色编号</th>
       <th nzWidth="160px">角色名称</th>
       <th nzWidth="360px">权限</th>
-      <th nzWidth="200px">备注</th>
+      <th nzWidth="100px">备注</th>
       <th colspan="2">操作</th>
     </tr>
   </thead>
@@ -42,6 +43,7 @@
     <tr *ngFor="let data of resultTable.data; let i = index">
       <!-- <ng-container *ngIf="!editCache[data.number].edit; else editTemplate"> -->
         <td>{{ i+1 }}</td>
+        <td>{{ data.roleCode }}</td>
         <td>{{ data.roleName }}</td>
         <td>{{ data.permission.toString() }}</td>
         <td>{{ data.remark }}</td>

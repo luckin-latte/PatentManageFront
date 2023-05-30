@@ -23,7 +23,7 @@ export class AgencyService {
   }
 
   updateData(params: object): Observable<any> {
-    return this.httpClient.patch(`${apiUrl}/agency/updateAgency`, params);
+    return this.httpClient.post(`${apiUrl}/agency/updateAgency`, params);
   }
 
   deleteAgency(agencyCode: string): Observable<any>{

@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
+import { TrademarkBonusService } from '../trademark-bonus.service';
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -10,59 +12,46 @@ import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 })
 export class EditComponent implements OnInit {
 
-  @Input() name!: string;
+  @Input() bonusId!: string;
+  @Input() trademarkBonusInfo!: object;
   EditForm: FormGroup;
   drawerRef!: NzDrawerRef;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private trademarkBonusService: TrademarkBonusService
     ) {
       this.EditForm = this.formBuilder.group({
-        patentCode: ['ZL557'],
-        patentType: ['0'],
-        bonusType: ['0'],
-        status: ['0'],
-        totalBonus: [10000],
-        listOfInventor: this.formBuilder.array([
-          this.formBuilder.group({
-            inventorName: ['发明人1'],
-            actualPay: [100],
-          })
-        ])
+        trademarkCode: ['', [Validators.required]],
+        trademarkName: [''],
+        bonusType: ['', [Validators.required]],
+        releaseStatus: [''],
+        inventorName: [''],
+        actualRelease: [''],
+        bonusId: ['']
       });
   }
 
   ngOnInit(): void {
+    console.log('this.agencyInfo', this.trademarkBonusInfo)
+    this.EditForm.patchValue(this.trademarkBonusInfo)
+    this.EditForm.get('bonusId')?.setValue(this.bonusId);
   }
 
-  public cancel() {
+  public cancel(): void {
+    this.drawerRef.close(false);
   }
 
   public save() {
-    this.drawerRef.close(this.EditForm.getRawValue());
+    Object.keys(this.EditForm.controls).forEach(key => {
+      this.EditForm.controls[key].markAsDirty();
+      this.EditForm.controls[key].updateValueAndValidity();
+    })
+    console.log('修改结果：', this.EditForm.getRawValue())
+
+    this.trademarkBonusService.updateData(this.EditForm.value).subscribe((res: any) =>{
+      console.log('res.data: ', res);
+    })
   }
 
-  
-  get listOfInventor(): FormArray {
-    return this.EditForm.get('listOfInventor') as FormArray;
-  }
-
-  public addField(e?: MouseEvent): void {
-    if (e) {
-      e.preventDefault();
-    }
-    this.listOfInventor.push(
-      this.formBuilder.group({
-        inventorName: [''],
-        actualPay: [100],
-      })
-    );
-  }
-
-  public removeField(i: number, e: MouseEvent): void {
-    e.preventDefault();
-    if (this.listOfInventor.length > 1) {
-      this.listOfInventor.removeAt(i);
-    }
-  }
 }

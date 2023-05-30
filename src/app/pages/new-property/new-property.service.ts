@@ -14,8 +14,16 @@ export class NewPropertyService {
   ) { 
   }
   
-  newData(Data: object) {
-    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
+  newPatent(Data: object): Observable<any> {
+    return this.httpClient.post(`${apiUrl}/patent/newPatent`, Data);
+  }
+
+  newSoftware(Data: object): Observable<any> {
+    return this.httpClient.post(`${apiUrl}/software/newSoftware`, Data);
+  }
+
+  newTrademark(Data: object): Observable<any> {
+    return this.httpClient.post(`${apiUrl}/trademark/newTrademark`, Data);
   }
 
 }

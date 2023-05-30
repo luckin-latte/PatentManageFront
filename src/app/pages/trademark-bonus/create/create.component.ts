@@ -2,6 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
+import { TrademarkBonusService } from '../trademark-bonus.service';
+
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -10,23 +12,23 @@ import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 })
 export class CreateComponent implements OnInit {
 
-  @Input() name!: string;
   CreateForm: FormGroup;
   drawerRef!: NzDrawerRef;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private trademarkBonusService: TrademarkBonusService
     ) {
       this.CreateForm = this.formBuilder.group({
-        patentCode: ['ZL557'],
-        patentType: ['0'],
-        bonusType: ['0'],
-        status: ['0'],
-        totalBonus: [10000],
+        trademarkCode: ['', [Validators.required]],
+        trademarkName: [''],
+        bonusType: ['', [Validators.required]],
+        releaseStatus: [''],
+        bonusAmount: ['', [Validators.required]],
         listOfInventor: this.formBuilder.array([
           this.formBuilder.group({
-            inventorName: ['发明人1'],
-            actualPay: [100],
+            inventorName: [''],
+            actualRelease: ['100'],
           })
         ])
       });
@@ -39,22 +41,29 @@ export class CreateComponent implements OnInit {
   }
 
   public save() {
-    this.drawerRef.close(this.CreateForm.getRawValue());
+    Object.keys(this.CreateForm.controls).forEach(key => {
+      this.CreateForm.controls[key].markAsDirty();
+      this.CreateForm.controls[key].updateValueAndValidity();
+    })
+    console.log('新增数据：', this.CreateForm.value)
+
+    this.trademarkBonusService.newData(this.CreateForm.value).subscribe((res: any) =>{
+      console.log('res.data: ', res);
+    })
   }
 
-  
   get listOfInventor(): FormArray {
     return this.CreateForm.get('listOfInventor') as FormArray;
   }
 
-  public addField(e?: MouseEvent): void {
-    if (e) {
+  public addField(e: MouseEvent): void {
+    // if (e) {
       e.preventDefault();
-    }
+    // }
     this.listOfInventor.push(
       this.formBuilder.group({
         inventorName: [''],
-        actualPay: [100],
+        actualRelease: ['100'],
       })
     );
   }

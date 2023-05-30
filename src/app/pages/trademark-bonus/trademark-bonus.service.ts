@@ -15,19 +15,19 @@ export class TrademarkBonusService {
   }
 
   getList(queryInfo: object): Observable<any>{
-    return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
+    return this.httpClient.post(`${apiUrl}/trademark/getBonusList`, queryInfo);
   }
 
   newData(Data: object) {
-    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
+    return this.httpClient.post(`${apiUrl}/trademark/newBonus`, Data);
   }
 
   updateData(params: object) {
-    return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
+    return this.httpClient.post(`${apiUrl}/trademark/updateBonus`, params);
   }
 
-  deleteAgency(userCode: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
+  deleteAgency(id: string): Observable<any>{
+    return this.httpClient.delete(`${apiUrl}/trademark/deleteBonus/${id}`);
   }
   
 }

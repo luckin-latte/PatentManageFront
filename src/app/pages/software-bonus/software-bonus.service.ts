@@ -23,7 +23,7 @@ export class SoftwareBonusService {
   }
   
   updateData(params: object) {
-    return this.httpClient.patch(`${apiUrl}/software/updateBonus`, params);
+    return this.httpClient.post(`${apiUrl}/software/updateBonus`, params);
   }
 
   deleteAgency(id: string): Observable<any>{

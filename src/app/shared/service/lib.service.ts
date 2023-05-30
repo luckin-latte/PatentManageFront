@@ -33,4 +33,9 @@ export class LibService {
   public getAllPermission(): Observable<any> {
     return this.httpClient.get(`${apiUrl}/user/getPermissionList`);
   }
+
+  // 下拉框获取所有代理机构
+  public getAllAgency(): Observable<any> {
+    return this.httpClient.get(`${apiUrl}/agency/getAgencyList`);
+  }
 }

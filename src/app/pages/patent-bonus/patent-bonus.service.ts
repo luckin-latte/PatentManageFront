@@ -15,19 +15,19 @@ export class PatentBonusService {
   }
 
   getList(queryInfo: object): Observable<any>{
-    return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
+    return this.httpClient.post(`${apiUrl}/patent/getBonusList`, queryInfo);
   }
 
   newData(Data: object) {
-    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
+    return this.httpClient.post(`${apiUrl}/patent/newBonus`, Data);
   }
 
   updateData(params: object) {
-    return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
+    return this.httpClient.post(`${apiUrl}/patent/updateBonus`, params);
   }
 
-  deleteAgency(userCode: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
+  deleteAgency(id: string): Observable<any>{
+    return this.httpClient.delete(`${apiUrl}/patent/deleteBonus/${id}`);
   }
   
 }

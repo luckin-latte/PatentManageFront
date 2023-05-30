@@ -11,7 +11,7 @@
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
+            <nz-form-label [nzSpan]="6" nzRequired>专利编号</nz-form-label>
             <nz-form-control>
               <input nz-input formControlName="patentCode"/>
             </nz-form-control>
@@ -19,20 +19,19 @@
         </div>
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">专利名称</nz-form-label>
+            <nz-form-label [nzSpan]="6" nzRequired>专利名称</nz-form-label>
             <nz-form-control>
               <input nz-input  formControlName="patentName"/>
             </nz-form-control>
           </nz-form-item>
         </div>
       </div>
-    
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
             <nz-form-label [nzSpan]="6">申请号</nz-form-label>
             <nz-form-control>
-              <input nz-input formControlName="applyCode"/>
+              <input nz-input formControlName="applicationCode"/>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -40,18 +39,17 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="6">申请日期</nz-form-label>
             <nz-form-control>
-              <nz-date-picker formControlName="applyDate" style="width: 100%;"></nz-date-picker>
+              <nz-date-picker formControlName="applicationDate" style="width: 100%;"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
       </div>
-    
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
             <nz-form-label [nzSpan]="6">授权号</nz-form-label>
             <nz-form-control>
-              <input nz-input formControlName="empowerCode"/>
+              <input nz-input formControlName="grantCode"/>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -59,129 +57,133 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="6">授权日期</nz-form-label>
             <nz-form-control>
-              <nz-date-picker formControlName="empowerDate" style="width: 100%;"></nz-date-picker>
+              <nz-date-picker formControlName="grantDate" style="width: 100%;"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
       </div>
-    
-      
-  <div formArrayName="listOfInventor" *ngFor="let inventor of listOfInventor.controls; let i = index">
-    <div nz-row [nzGutter]="16" [formGroupName]="i.toString()">
-      
-      <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-        <nz-form-item>
-          <nz-form-label [nzSpan]="6">第{{i+1}}发明人</nz-form-label>
-          <nz-form-control>
-            <input nz-input formControlName="inventorName"/>
-          </nz-form-control>
-        </nz-form-item>
+      <div formArrayName="listOfInventor" *ngFor="let inventor of listOfInventor.controls; let i = index">
+        <div nz-row [nzGutter]="16" [formGroupName]="i.toString()">
+          <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="6">第{{i+1}}发明人</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="inventorName"/>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+            <nz-form-item>
+              <nz-form-label [nzSpan]="6">贡献率</nz-form-label>
+              <nz-form-control>
+                <nz-input-number class="rate-input" formControlName="rate"
+                  [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterPercent" [nzParser]="parserPercent">
+                </nz-input-number>
+                <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(i, $event)"></i>
+              </nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
       </div>
-      <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-        <nz-form-item>
-          <nz-form-label [nzSpan]="6">贡献率</nz-form-label>
-          <nz-form-control>
-            <nz-input-number class="rate-input" formControlName="rate"
-              [nzMin]="1" [nzMax]="100" [nzStep]="1" [nzFormatter]="formatterPercent" [nzParser]="parserPercent">
-            </nz-input-number>
-            <i nz-icon nzType="minus-circle-o" class="dynamic-delete-button" (click)="removeField(i, $event)"></i>
-          </nz-form-control>
-        </nz-form-item>
-      </div>
-
-    </div>
-  </div>
-
-  <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
-      <nz-form-item>
-        <nz-form-control [nzSpan]="24" [nzOffset]="3">
-          <button nz-button nzType="dashed" class="add-button" (click)="addField($event)">
-            <i nz-icon nzType="plus"></i>添加发明人</button>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-  </div>
-    
       <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
+          <nz-form-item>
+            <nz-form-control [nzSpan]="24" [nzOffset]="3">
+              <button nz-button nzType="dashed" class="add-button" (click)="addField($event)">
+                <i nz-icon nzType="plus"></i>添加发明人</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzRequired>所属部门</nz-form-label>
+            <nz-form-control>
+              <nz-select id="departmentName" formControlName="departmentName" (nzOnSearch)="searchDepart($event)"
+                nzShowSearch nzServerSearch nzAllowClear nzPlaceHolder="请选择部门">
+                <nz-option *ngFor="let o of listOfDepart" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
             <nz-form-label [nzSpan]="6">代理机构</nz-form-label>
             <nz-form-control>
-              <nz-select id="agency" nzAllowClear formControlName="agency">
-                <nz-option nzValue="0" nzLabel="全部"></nz-option>
-                <nz-option nzValue="1" nzLabel="星星代理"></nz-option>
-                <nz-option nzValue="2" nzLabel="未来有趣代理"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6">专利类型</nz-form-label>
-            <nz-form-control>
-              <nz-select id="patentType" nzAllowClear formControlName="patentType">
-                <nz-option nzValue="0" nzLabel="全部"></nz-option>
-                <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
-                <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
-                <nz-option nzValue="3" nzLabel="外观设计专利"></nz-option>
+              <nz-select id="agency" formControlName="agency" (nzOnSearch)="searchAgency($event)"
+                nzShowSearch nzServerSearch nzAllowClear nzPlaceHolder="请选择代理机构">
+                <nz-option *ngFor="let o of listOfAgency" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>
       </div>
       <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzRequired>专利类型</nz-form-label>
+            <nz-form-control>
+              <nz-select id="patentType" nzAllowClear formControlName="patentType">
+                <nz-option nzValue="发明专利" nzLabel="发明专利"></nz-option>
+                <nz-option nzValue="实用新型专利" nzLabel="实用新型专利"></nz-option>
+                <nz-option nzValue="外观设计专利" nzLabel="外观设计专利"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
             <nz-form-label [nzSpan]="6">当前程序</nz-form-label>
             <nz-form-control>
-              <nz-select id="process" nzAllowClear formControlName="process">
-                <nz-option nzValue="0" nzLabel="全部"></nz-option>
-                <nz-option nzValue="1" nzLabel="内部作业"></nz-option>
-                <nz-option nzValue="2" nzLabel="委托代理"></nz-option>
-                <nz-option nzValue="3" nzLabel="官方受理"></nz-option>
-                <nz-option nzValue="4" nzLabel="官方初审"></nz-option>
-                <nz-option nzValue="5" nzLabel="补正"></nz-option>
-                <nz-option nzValue="6" nzLabel="官方实审"></nz-option>
-                <nz-option nzValue="7" nzLabel="授权公告"></nz-option>
-                <nz-option nzValue="8" nzLabel="官方发证"></nz-option>
-                <nz-option nzValue="9" nzLabel="驳回通知"></nz-option>
-                <nz-option nzValue="10" nzLabel="复审"></nz-option>
+              <nz-select id="currentProgram" nzAllowClear formControlName="currentProgram">
+                <nz-option nzValue="内部作业" nzLabel="内部作业"></nz-option>
+                <nz-option nzValue="委托代理" nzLabel="委托代理"></nz-option>
+                <nz-option nzValue="官方受理" nzLabel="官方受理"></nz-option>
+                <nz-option nzValue="官方初审" nzLabel="官方初审"></nz-option>
+                <nz-option nzValue="补正" nzLabel="补正"></nz-option>
+                <nz-option nzValue="官方实审" nzLabel="官方实审"></nz-option>
+                <nz-option nzValue="授权公告" nzLabel="授权公告"></nz-option>
+                <nz-option nzValue="官方发证" nzLabel="官方发证"></nz-option>
+                <nz-option nzValue="驳回通知" nzLabel="驳回通知"></nz-option>
+                <nz-option nzValue="复审" nzLabel="复审"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>
+      </div>
+      <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
             <nz-form-label [nzSpan]="6">权力状态</nz-form-label>
             <nz-form-control>
-              <nz-select id="powerStatus" nzAllowClear formControlName="powerStatus">
-                <nz-option nzValue="0" nzLabel="全部"></nz-option>
-                <nz-option nzValue="1" nzLabel="待交"></nz-option>
-                <nz-option nzValue="2" nzLabel="在审"></nz-option>
-                <nz-option nzValue="3" nzLabel="有权"></nz-option>
-                <nz-option nzValue="4" nzLabel="无权"></nz-option>
-                <nz-option nzValue="5" nzLabel="进国家"></nz-option>
+              <nz-select id="rightStatus" nzAllowClear formControlName="rightStatus">
+                <nz-option nzValue="待交" nzLabel="待交"></nz-option>
+                <nz-option nzValue="在审" nzLabel="在审"></nz-option>
+                <nz-option nzValue="有权" nzLabel="有权"></nz-option>
+                <nz-option nzValue="无权" nzLabel="无权"></nz-option>
+                <nz-option nzValue="进国家" nzLabel="进国家"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
         </div>
       </div>
-      
       <div nz-row [nzGutter]="16">
         <div nz-col nzSpan="20" nzOffset="2">
           <button nz-button (click)="resetForm()">重置</button>
-          <button nz-button  [nzType]="'primary'" style="margin-left: 30px;" [disabled]="!patentCreateForm.valid">保存</button>
+          <button nz-button [nzType]="'primary'" style="margin-left: 30px;"
+            (click)="newPatent()" [disabled]="!patentCreateForm.valid">保存</button>
         </div>
       </div>
     </form>
   </nz-tab>
+
   <nz-tab nzTitle="新增软著">
     <form nz-form [formGroup]="sofetwareCreateForm">
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">软著编号</nz-form-label>
+            <nz-form-label [nzSpan]="6" nzRequired>软著编号</nz-form-label>
             <nz-form-control>
               <input nz-input formControlName="softwareCode"/>
             </nz-form-control>
@@ -189,7 +191,7 @@
         </div>
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">软著名称</nz-form-label>
+            <nz-form-label [nzSpan]="6" nzRequired>软著名称</nz-form-label>
             <nz-form-control>
               <input nz-input  formControlName="softwareName"/>
             </nz-form-control>
@@ -200,29 +202,7 @@
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">发明人</nz-form-label>
-            <nz-form-control>
-              <input nz-input formControlName="inventorName"/>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6">代理机构</nz-form-label>
-            <nz-form-control>
-              <nz-select id="agency" nzAllowClear formControlName="agency">
-                <nz-option nzValue="0" nzLabel="全部"></nz-option>
-              </nz-select>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-      </div>
-    
-      
-      <div nz-row [nzGutter]="16">
-        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6">版本号</nz-form-label>
+            <nz-form-label [nzSpan]="6" nzRequired>版本号</nz-form-label>
             <nz-form-control>
               <input nz-input formControlName="version"/>
             </nz-form-control>
@@ -230,9 +210,53 @@
         </div>
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
+            <nz-form-label [nzSpan]="6">发明人</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="inventorName"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6" nzRequired>所属部门</nz-form-label>
+            <nz-form-control>
+              <nz-select id="departmentName" formControlName="departmentName" (nzOnSearch)="searchDepart($event)"
+                nzShowSearch nzServerSearch nzAllowClear nzPlaceHolder="请选择部门">
+                <nz-option *ngFor="let o of listOfDepart" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6">代理机构</nz-form-label>
+            <nz-form-control>
+              <nz-select id="agency" formControlName="agency" (nzOnSearch)="searchAgency($event)"
+                nzShowSearch nzServerSearch nzAllowClear nzPlaceHolder="请选择代理机构">
+                <nz-option *ngFor="let o of listOfAgency" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      
+      <div nz-row [nzGutter]="16">
+        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+          <nz-form-item>
             <nz-form-label [nzSpan]="6">开发方式</nz-form-label>
             <nz-form-control>
-              <input nz-input formControlName="devWay"/>
+              <input nz-input formControlName="developWay"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="6">提案日期</nz-form-label>
+            <nz-form-control>
+              <nz-date-picker formControlName="proposalDate" style="width: 100%;"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -251,7 +275,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="6">申请日期</nz-form-label>
             <nz-form-control>
-              <nz-date-picker formControlName="applyDate" style="width: 100%;"></nz-date-picker>
+              <nz-date-picker formControlName="applicationDate" style="width: 100%;"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -262,7 +286,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="6">证书号</nz-form-label>
             <nz-form-control>
-              <input nz-input formControlName="certiCode"/>
+              <input nz-input formControlName="certificateCode"/>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -270,7 +294,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="6">发证日期</nz-form-label>
             <nz-form-control>
-              <nz-date-picker formControlName="certiDate" style="width: 100%;"></nz-date-picker>
+              <nz-date-picker formControlName="certificateDate" style="width: 100%;"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -281,7 +305,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="6">封存号</nz-form-label>
             <nz-form-control>
-              <input nz-input formControlName="storeCode"/>
+              <input nz-input formControlName="archiveCode"/>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -289,7 +313,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="6">封存日期</nz-form-label>
             <nz-form-control>
-              <nz-date-picker formControlName="storeDate" style="width: 100%;"></nz-date-picker>
+              <nz-date-picker formControlName="archiveDate" style="width: 100%;"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -300,13 +324,12 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="6">权力状态</nz-form-label>
             <nz-form-control>
-              <nz-select id="powerStatus" nzAllowClear formControlName="powerStatus">
-                <nz-option nzValue="0" nzLabel="全部"></nz-option>
-                <nz-option nzValue="1" nzLabel="待交"></nz-option>
-                <nz-option nzValue="2" nzLabel="在审"></nz-option>
-                <nz-option nzValue="3" nzLabel="有权"></nz-option>
-                <nz-option nzValue="4" nzLabel="无权"></nz-option>
-                <nz-option nzValue="5" nzLabel="进国家"></nz-option>
+              <nz-select id="rightStatus" nzAllowClear formControlName="rightStatus">
+                <nz-option nzValue="待交" nzLabel="待交"></nz-option>
+                <nz-option nzValue="在审" nzLabel="在审"></nz-option>
+                <nz-option nzValue="有权" nzLabel="有权"></nz-option>
+                <nz-option nzValue="无权" nzLabel="无权"></nz-option>
+                <nz-option nzValue="进国家" nzLabel="进国家"></nz-option>
               </nz-select>
             </nz-form-control>
           </nz-form-item>
@@ -324,28 +347,17 @@
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">提案日期</nz-form-label>
-            <nz-form-control>
-              <nz-date-picker formControlName="proposalDate" style="width: 100%;"></nz-date-picker>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
-        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-          <nz-form-item>
             <nz-form-label [nzSpan]="6">完成日期</nz-form-label>
             <nz-form-control>
-              <nz-date-picker formControlName="completeDate" style="width: 100%;"></nz-date-picker>
+              <nz-date-picker formControlName="finishDate" style="width: 100%;"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
-      </div>
-    
-      <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
             <nz-form-label [nzSpan]="6">发布日期</nz-form-label>
             <nz-form-control>
-              <nz-date-picker formControlName="releaseDate" style="width: 100%;"></nz-date-picker>
+              <nz-date-picker formControlName="publishDate" style="width: 100%;"></nz-date-picker>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -354,7 +366,8 @@
       <div nz-row [nzGutter]="16">
         <div nz-col nzSpan="20" nzOffset="2">
           <button nz-button (click)="resetForm()">重置</button>
-          <button nz-button  [nzType]="'primary'" style="margin-left: 30px;" [disabled]="!sofetwareCreateForm.valid">保存</button>
+          <button nz-button [nzType]="'primary'" style="margin-left: 30px;"
+            (click)="newSoftware()" [disabled]="!sofetwareCreateForm.valid">保存</button>
         </div>
       </div>
     </form>
@@ -364,15 +377,15 @@
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">商标编号</nz-form-label>
+            <nz-form-label [nzSpan]="6" nzRequired>商标编号</nz-form-label>
             <nz-form-control>
               <input nz-input formControlName="trademarkCode"/>
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+        <div nz-col [nzMd]="10" [nzLg]="10" [nzXl]="10">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">商标名称</nz-form-label>
+            <nz-form-label [nzSpan]="8" nzRequired>商标名称</nz-form-label>
             <nz-form-control>
               <input nz-input  formControlName="trademarkName"/>
             </nz-form-control>
@@ -383,36 +396,39 @@
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">发明人</nz-form-label>
+            <nz-form-label [nzSpan]="6" nzRequired>所属部门</nz-form-label>
+            <nz-form-control>
+              <nz-select id="departmentName" formControlName="departmentName" (nzOnSearch)="searchDepart($event)"
+                nzShowSearch nzServerSearch nzAllowClear nzPlaceHolder="请选择部门">
+                <nz-option *ngFor="let o of listOfDepart" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzMd]="10" [nzLg]="10" [nzXl]="10">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">发明人</nz-form-label>
             <nz-form-control>
               <input nz-input formControlName="inventorName"/>
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-          <nz-form-item>
-            <nz-form-label [nzSpan]="6">商标权人</nz-form-label>
-            <nz-form-control>
-              <input nz-input formControlName="owner"/>
-            </nz-form-control>
-          </nz-form-item>
-        </div>
       </div>
     
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">商标种类</nz-form-label>
+            <nz-form-label [nzSpan]="6" nzRequired>商标种类</nz-form-label>
             <nz-form-control>
               <input nz-input formControlName="trademarkType"/>
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+        <div nz-col [nzMd]="10" [nzLg]="10" [nzXl]="10">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">商标版权号</nz-form-label>
+            <nz-form-label [nzSpan]="8" nzRequired>商标版权号</nz-form-label>
             <nz-form-control>
-              <input nz-input formControlName="copyrightNo"/>
+              <input nz-input formControlName="copyRightCode"/>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -421,23 +437,17 @@
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">当前状态</nz-form-label>
+            <nz-form-label [nzSpan]="6">商标权人</nz-form-label>
             <nz-form-control>
-              <nz-select id="status" nzAllowClear formControlName="status">
-                <nz-option nzValue="0" nzLabel="全部"></nz-option>
-                <nz-option nzValue="1" nzLabel="申请中"></nz-option>
-                <nz-option nzValue="2" nzLabel="生效"></nz-option>
-                <nz-option nzValue="3" nzLabel="无效"></nz-option>
-                <nz-option nzValue="4" nzLabel="放弃"></nz-option>
-              </nz-select>
+              <input nz-input formControlName="trademarkOwner"/>
             </nz-form-control>
           </nz-form-item>
         </div>
-        <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+        <div nz-col [nzMd]="10" [nzLg]="10" [nzXl]="10">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">权力状态</nz-form-label>
+            <nz-form-label [nzSpan]="8">权力状态</nz-form-label>
             <nz-form-control>
-              <nz-select id="powerStatus" nzAllowClear formControlName="powerStatus">
+              <nz-select id="rightStatus" nzAllowClear formControlName="rightStatus">
                 <nz-option nzValue="0" nzLabel="全部"></nz-option>
                 <nz-option nzValue="1" nzLabel="待交"></nz-option>
                 <nz-option nzValue="2" nzLabel="在审"></nz-option>
@@ -454,7 +464,21 @@
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
           <nz-form-item>
-            <nz-form-label [nzSpan]="6">代理机构</nz-form-label>
+            <nz-form-label [nzSpan]="6">当前状态</nz-form-label>
+            <nz-form-control>
+              <nz-select id="currentStatus" nzAllowClear formControlName="currentStatus">
+                <nz-option nzValue="0" nzLabel="全部"></nz-option>
+                <nz-option nzValue="1" nzLabel="申请中"></nz-option>
+                <nz-option nzValue="2" nzLabel="生效"></nz-option>
+                <nz-option nzValue="3" nzLabel="无效"></nz-option>
+                <nz-option nzValue="4" nzLabel="放弃"></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col [nzMd]="10" [nzLg]="10" [nzXl]="10">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">代理机构</nz-form-label>
             <nz-form-control>
               <nz-select id="agency" nzAllowClear formControlName="agency">
                 <nz-option nzValue="0" nzLabel="全部"></nz-option>
@@ -467,7 +491,8 @@
       <div nz-row [nzGutter]="16">
         <div nz-col nzSpan="20" nzOffset="2">
           <button nz-button (click)="resetForm()">重置</button>
-          <button nz-button  [nzType]="'primary'" style="margin-left: 30px;" [disabled]="!trademarkCreateForm.valid">保存</button>
+          <button nz-button [nzType]="'primary'" style="margin-left: 30px;"
+            (click)="newTrademark()" [disabled]="!trademarkCreateForm.valid">保存</button>
         </div>
       </div>
     </form>

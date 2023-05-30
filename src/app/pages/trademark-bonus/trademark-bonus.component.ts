@@ -21,7 +21,6 @@ export class TrademarkBonusComponent implements OnInit {
   public searchForm: FormGroup;
   public searchLoading = true;
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
-  public dateRange = [];
 
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
@@ -33,11 +32,13 @@ export class TrademarkBonusComponent implements OnInit {
     private trademarkBonusService: TrademarkBonusService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('proposer', new FormControl(''));
-    this.searchForm.addControl('status', new FormControl('0'));
-    this.searchForm.addControl('dateRange', new FormControl(''));
+    this.searchForm.addControl('trademarkName', new FormControl(''));
+    this.searchForm.addControl('trademarkCode', new FormControl(''));
+    this.searchForm.addControl('trademarkType', new FormControl(''));
+    this.searchForm.addControl('bonusAmount', new FormControl(''));
+    this.searchForm.addControl('bonusType', new FormControl('0'));
+    this.searchForm.addControl('releaseStatus', new FormControl('0'));
+    this.searchForm.addControl('inventorName', new FormControl(''));
   }
 
   ngOnInit(): void {
@@ -50,11 +51,13 @@ export class TrademarkBonusComponent implements OnInit {
 
   public resetForm(): void {
     this.searchForm.reset({
-      name: '',
-      code: '',
-      proposer: '',
-      type: '0',
-      dateRange: ''
+      trademarkName: '',
+      trademarkCode: '',
+      trademarkType: '',
+      bonusAmount: '',
+      bonusType: '0',
+      releaseStatus: '0',
+      inventorName: ''
     });
   }
   
@@ -92,38 +95,52 @@ export class TrademarkBonusComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'trademarkName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'trademarkName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'code') {
+      } else if (key === 'trademarkCode') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'code',
+            'trademarkCode',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'proposer') {
+      } else if (key === 'trademarkType') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'proposer',
+            'trademarkType',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'type') {
+      } else if (key === 'bonusAmount') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'type',
+            'bonusAmount',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'dateRange') {
+      } else if (key === 'bonusType') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'dateRange',
+            'bonusType',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'releaseStatus') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'releaseStatus',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'inventorName') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'inventorName',
             this.searchForm.controls[key].value
           )
         );
@@ -142,17 +159,56 @@ export class TrademarkBonusComponent implements OnInit {
     this.searchLoading = false;
   }
 
-  public showCreate() {
+  // // 数据相同合并单元格
+  // private mergeTableData(rawDataList): any[] {
+  //   const rowspan = this.mergeFix, mergeColumns = this.mergeColumns;
+
+  //   if (rawDataList.length > 1) {// 长度⼤于1才有资格进⼀步处理
+  //     const arr = rawDataList;
+  //     const aLen = arr.length;
+
+  //     for (let i = mergeColumns.length - 1; i >= 0; i--) {// 先迭代待合并列
+  //       let index = 0;
+  //       const title = mergeColumns[i];
+  //       let span = 1;// 合并列属性默认为1
+
+  //       for (let j = 0; j < aLen; j++) {
+  //         const meragePageIndex = Math.ceil((index + 1) / this.pageSize3);
+  //         const comp = arr[index][title];
+  //         // 不是合并行的project_code会被删掉，用compare_code代替
+  //         const projectCode = arr[index]['compare_code'];
+  //         const projectCode2 = arr[j]['compare_code'];
+  //         if (arr[j][title] === comp && span < this.pageSize3 && (j + 1) % this.pageSize3 !== 1 && projectCode === projectCode2) {
+  //           if (j !== index) {
+  //             // eslint-disable-next-line no-unused-expressions
+  //             delete arr[j][title], span++;
+  //           }
+  //           if (j === aLen - 1) {
+  //             arr[index][rowspan + title] = span;
+  //             arr[index]['meragePageIndex'] = meragePageIndex;
+  //           }
+
+
+  //         } else {
+  //           // eslint-disable-next-line no-unused-expressions
+  //           span > 1 && (arr[index][rowspan + title] = span, arr[index]['meragePageIndex'] = meragePageIndex, span = 1);
+  //           index = j;
+  //         }
+  //       }
+  //     }
+  //     return arr;
+  //   }
+  //   return rawDataList;
+  // }
+  
+  public create() {
     this.drawerRef = this.nzDrawerService.create({
-      nzTitle: '新增专利奖金',
+      nzTitle: '新增商标奖金',
       nzContent: CreateComponent,
-      nzContentParams: {
-        name: 'CreateComponent'
-      },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 640,
+      nzWidth: 680,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -161,7 +217,7 @@ export class TrademarkBonusComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('新增专利奖金');
+      console.log('新增商标奖金');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
@@ -169,17 +225,18 @@ export class TrademarkBonusComponent implements OnInit {
     });
   }
 
-  public showEdit() {
+  public edit(id:string, data: object) {
     this.drawerRef = this.nzDrawerService.create({
-      nzTitle: '编辑专利奖金',
+      nzTitle: '编辑商标奖金',
       nzContent: EditComponent,
       nzContentParams: {
-        name: 'EditComponent'
+        bonusId: id,
+        trademarkBonusInfo: data
       },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 640,
+      nzWidth: 480,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -188,7 +245,7 @@ export class TrademarkBonusComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('编辑专利奖金');
+      console.log('编辑商标奖金');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
@@ -196,12 +253,14 @@ export class TrademarkBonusComponent implements OnInit {
     });
   }
 
-  public showDeleteConfirm(): void {
+  public delete(id: string): void {
     this.nzModalService.confirm({
       nzTitle: '确定删除吗？',
       nzOkText: '删除',
       // nzOkType: 'danger',
-      nzOnOk: () => console.log('OK'),
+      nzOnOk: () => this.trademarkBonusService.deleteAgency(id).subscribe((res: any) =>{
+        console.log('删除数据：', res);
+      }),
       nzCancelText: '取消',
       nzOnCancel: () => console.log('Cancel')
     });

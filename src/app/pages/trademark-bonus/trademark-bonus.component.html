@@ -9,29 +9,59 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
+        <nz-form-label [nzSpan]="6">商标名称</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="patentCode"/>
+          <input nz-input formControlName="trademarkName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="8">专利名称</nz-form-label>
+        <nz-form-label [nzSpan]="6">商标编号</nz-form-label>
         <nz-form-control>
-          <input nz-input  formControlName="patentName"/>
+          <input nz-input formControlName="trademarkCode"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">专利类型</nz-form-label>
+        <nz-form-label [nzSpan]="6">商标类型</nz-form-label>
         <nz-form-control>
-          <nz-select id="patentType" nzAllowClear formControlName="patentType">
+          <input nz-input formControlName="trademarkType"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="24">
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">奖金总额</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="bonusAmount"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">奖金类型</nz-form-label>
+        <nz-form-control>
+          <nz-select id="bonusType" nzAllowClear formControlName="bonusType">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
-            <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
-            <nz-option nzValue="3" nzLabel="外观设计专利"></nz-option>
+            <nz-option nzValue="申请" nzLabel="申请"></nz-option>
+            <nz-option nzValue="授权" nzLabel="授权"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">发放状态</nz-form-label>
+        <nz-form-control>
+          <nz-select id="releaseStatus" nzAllowClear formControlName="releaseStatus">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option nzValue="已发放" nzLabel="已发放"></nz-option>
+            <nz-option nzValue="未发放" nzLabel="未发放"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -47,53 +77,7 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="8">发明人工号</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="inventorCode"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">提案部门</nz-form-label>
-        <nz-form-control>
-          <nz-select id="department" nzAllowClear formControlName="department">
-            <nz-option nzValue="0" nzLabel="全部"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-  </div>
-
-  
-  <div nz-row [nzGutter]="24">
-    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">奖金类型</nz-form-label>
-        <nz-form-control>
-          <nz-select id="bonusType" nzAllowClear formControlName="bonusType">
-            <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="申请"></nz-option>
-            <nz-option nzValue="2" nzLabel="授权"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="8">发放状态</nz-form-label>
-        <nz-form-control>
-          <nz-select id="status" nzAllowClear formControlName="status">
-            <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="已发放"></nz-option>
-            <nz-option nzValue="2" nzLabel="未发放"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8" class="operate-area">
+    <div nz-col [nzSpan]="16" class="operate-area">
       <button nz-button (click)="resetForm()">重置</button>
       <button nz-button [nzType]="'primary'" style="margin-left: 8px;" (click)="search()">搜索</button>
     </div>
@@ -101,40 +85,44 @@
 </form>
 
 <div>
-  <button nz-button nzType="primary" (click)="showCreate()" style="margin-top: 8px;">
-    新增专利奖金</button>
+  <button nz-button nzType="primary" (click)="create()" style="margin-top: 8px;">
+    新增商标奖金</button>
 </div>
 
-<nz-table #resultTable nzBordered nzSize="small"
+<nz-table #resultTable nzBordered nzSize="small" [nzScroll]="{ x: '1200px' }"
   nzShowPagination nzShowSizeChanger [nzData]="dataSet">
   <thead>
     <tr>
-      <th>编号</th>
-      <th>专利编号</th>
-      <th>专利类型</th>
+      <th nzWidth="60px" nzLeft="0px">序号</th>
+      <th nzWidth="120px" nzLeft="60px">商标编号</th>
+      <th>商标名称</th>
+      <th>商标类型</th>
       <th>奖金类型</th>
-      <th>奖金金额</th>
+      <th>奖金总额</th>
       <th>发放状态</th>
-      <th>实发金额</th>
-      <th>发明人</th>
-      <th>发明人位次</th>
-      <th>操作</th>
+
+      <th nzWidth="80px" nzRight="300px">发明人</th>
+      <th nzWidth="60px" nzRight="240px">位次</th>
+      <th nzWidth="80px" nzRight="160px">实发金额</th>
+      <th nzWidth="160px" nzRight="0px">操作</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of resultTable.data">
-      <td>{{ data.number }}</td>
-      <td>{{ data.code }}</td>
-      <td>{{ data.patentType }}</td>
+    <tr *ngFor="let data of resultTable.data; let i = index">
+      <td nzLeft="0px">{{ i+1 }}</td>
+      <td nzLeft="60px">{{ data.trademarkCode }}</td>
+      <td>{{ data.trademarkName }}</td>
+      <td>{{ data.trademarkType }}</td>
       <td>{{ data.bonusType }}</td>
-      <td>{{ data.bonus }}</td>
-      <td>{{ data.status }}</td>
-      <td>{{ data.actualPay }}</td>
-      <td>{{ data.inventor }}</td>
-      <td>{{ data.rank }}</td>
-      <td>
-        <button nz-button (click)="showDeleteConfirm()">删除</button>
-        <button nz-button (click)="showEdit()" style="margin-left: 8px;">编辑</button>
+      <td>{{ data.bonusAmount }}</td>
+      <td>{{ data.releaseStatus }}</td>
+
+      <td nzRight="300px">{{ data.inventorName }}</td>
+      <td nzRight="240px">{{ data.ranking }}</td>
+      <td nzRight="160px">{{ data.actualRelease }}</td>
+      <td nzRight="0px">
+        <button nz-button (click)="delete(data.trademarkId)">删除</button>
+        <button nz-button (click)="edit(data.trademarkId, data)" style="margin-left: 8px;">编辑</button>
       </td>
     </tr>
   </tbody>

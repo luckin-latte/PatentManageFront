@@ -225,17 +225,18 @@ export class SoftwareBonusComponent implements OnInit {
     });
   }
 
-  public edit(data: object) {
+  public edit(id:string, data: object) {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '编辑软著奖金',
       nzContent: EditComponent,
       nzContentParams: {
+        bonusId: id,
         softwareBonusInfo: data
       },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 640,
+      nzWidth: 480,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
