@@ -29,4 +29,8 @@ export class LibService {
     return this.httpClient.get(`${apiUrl}/user/getRoleList`);
   }
 
+  // 下拉框获取所有权限
+  public getAllPermission(): Observable<any> {
+    return this.httpClient.get(`${apiUrl}/user/getPermissionList`);
+  }
 }

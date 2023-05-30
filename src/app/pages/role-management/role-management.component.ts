@@ -60,7 +60,7 @@ export class RoleManagementComponent implements OnInit {
 
     this.roleManagementService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
-      this.dataSet = res.data.list;
+      this.dataSet = res.data.roleList;
       this.onAfterSearch;
     })
 

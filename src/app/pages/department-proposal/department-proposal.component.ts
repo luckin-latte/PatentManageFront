@@ -31,12 +31,12 @@ export class DepartmentProposalComponent implements OnInit {
     private departmentProposalService: DepartmentProposalService
     ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('type', new FormControl('0'));
-    this.searchForm.addControl('proposer', new FormControl(''));
-    this.searchForm.addControl('inventor', new FormControl(''));
-    this.searchForm.addControl('status', new FormControl('0'));
+    this.searchForm.addControl('proposalName', new FormControl(''));
+    this.searchForm.addControl('proposalCode', new FormControl(''));
+    this.searchForm.addControl('proposalType', new FormControl('0'));
+    this.searchForm.addControl('proposerName', new FormControl(''));
+    this.searchForm.addControl('inventorName', new FormControl(''));
+    this.searchForm.addControl('proposalState', new FormControl('0'));
     this.searchForm.addControl('dateRange', new FormControl(''));
   }
 
@@ -51,12 +51,12 @@ export class DepartmentProposalComponent implements OnInit {
   // 重置查询表单
   public resetForm(): void {
     this.searchForm.reset({
-      name: '',
-      code: '',
-      type: '0',
-      proposer: '',
-      inventor: '',
-      status: '0',
+      proposalName: '',
+      proposalCode: '',
+      proposalType: '0',
+      proposerName: '',
+      inventorName: '',
+      proposalState: '0',
       dateRange: ''
     });
   }
@@ -94,56 +94,57 @@ export class DepartmentProposalComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'proposalName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'proposalName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'code') {
+      } else if (key === 'proposalCode') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'code',
+            'proposalCode',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'type') {
+      } else if (key === 'proposalType') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'type',
+            'proposalType',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'proposer') {
+      } else if (key === 'proposerName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'proposer',
+            'proposerName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'inventor') {
+      } else if (key === 'inventorName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'inventor',
+            'inventorName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'status') {
+      } else if (key === 'proposalState') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'status',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'dateRange') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'dateRange',
+            'proposalState',
             this.searchForm.controls[key].value
           )
         );
       }
+      // else if (key === 'dateRange') {
+      //   queryCriteria.addCriteria(
+      //     new QueryCriteriaInfo(
+      //       'dateRange',
+      //       this.searchForm.controls[key].value
+      //     )
+      //   );
+      // }
     }
     
     this.queryInfo.setCriteria(queryCriteria);

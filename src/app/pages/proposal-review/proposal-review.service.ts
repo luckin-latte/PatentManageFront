@@ -19,15 +19,7 @@ export class ProposalReviewService {
   }
 
   newData(Data: object) {
-    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
-  }
-
-  updateData(params: object) {
-    return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
-  }
-
-  deleteAgency(userCode: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
+    return this.httpClient.post(`${apiUrl}/proposal/review`, Data);
   }
   
 }

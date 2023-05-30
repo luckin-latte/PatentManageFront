@@ -7,7 +7,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="8">提案编号</nz-form-label>
             <nz-form-control>
-              <input nz-input />
+              <input nz-input formControlName="proposalCode"/>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -18,7 +18,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="8">提案名称</nz-form-label>
             <nz-form-control>
-              <input nz-input />
+              <input nz-input formControlName="proposalName"/>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -30,7 +30,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="8">提案人</nz-form-label>
             <nz-form-control>
-              <input nz-input />
+              <input nz-input formControlName="proposerName"/>
             </nz-form-control>
           </nz-form-item>
           </div>
@@ -42,7 +42,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="8">提案日期</nz-form-label>
             <nz-form-control>
-              <input nz-input />
+              <input nz-input formControlName="proposalDate"/>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -54,7 +54,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="8">知识产权类型</nz-form-label>
             <nz-form-control>
-              <input nz-input />
+              <input nz-input formControlName="proposalType"/>
             </nz-form-control>
           </nz-form-item>
         </div>
@@ -66,7 +66,7 @@
           <nz-form-item>
             <nz-form-label [nzSpan]="8">技术方案实质内容</nz-form-label>
             <nz-form-control>
-              <textarea nz-input
+              <textarea nz-input formControlName="detailText"
                 [nzAutosize]="{ minRows: 2, maxRows: 100 }"></textarea>
             </nz-form-control>
           </nz-form-item>
@@ -95,9 +95,9 @@
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
           <nz-form-item>
-            <nz-form-label [nzSpan]="8">审批意见</nz-form-label>
+            <nz-form-label [nzSpan]="8" [nzRequired]="true">审批意见</nz-form-label>
             <nz-form-control>
-              <textarea nz-input
+              <textarea nz-input formControlName="suggestion"
                 placeholder="最多可输入200字符"
                 [nzAutosize]="{ minRows: 2, maxRows: 10 }"></textarea>
             </nz-form-control>
@@ -107,13 +107,23 @@
       <div nz-row [nzGutter]="16">
         <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
           <nz-form-item>
-            <nz-form-label [nzSpan]="8">审批结论</nz-form-label>
+            <nz-form-label [nzSpan]="8" [nzRequired]="true">审批结论</nz-form-label>
             <nz-form-control>
-              <nz-select id="patentType">
-                <nz-option nzValue="1" nzLabel="驳回"></nz-option>
-                <nz-option nzValue="2" nzLabel="补充文件"></nz-option>
-                <nz-option nzValue="3" nzLabel="通过"></nz-option>
+              <nz-select id="result" formControlName="result" placeholder="请选择">
+                <nz-option nzValue="驳回" nzLabel="驳回"></nz-option>
+                <nz-option nzValue="补充文件" nzLabel="补充文件"></nz-option>
+                <nz-option nzValue="通过" nzLabel="通过"></nz-option>
               </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row [nzGutter]="16" [hidden]="true">
+        <div nz-col [nzMd]="16" [nzLg]="16" [nzXl]="16">
+          <nz-form-item>
+            <nz-form-label [nzSpan]="8">提案编号</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="proposalCode"/>
             </nz-form-control>
           </nz-form-item>
         </div>

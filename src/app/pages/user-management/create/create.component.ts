@@ -39,7 +39,9 @@ export class CreateComponent implements OnInit {
     this.libService.getCode('U').subscribe((res: any) =>{
       console.log('工号：', res.data);
       this.CreateForm.get('userCode')?.setValue(res.data);
-    })
+    });
+    this.searchDepart(`$event`);
+    this.searchRole(`$event`);
   }
 
   searchDepart(e: string): void {

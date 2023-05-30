@@ -27,7 +27,7 @@
         <nz-form-label [nzSpan]="6" nzRequired>权限</nz-form-label>
         <nz-form-control nzErrorTip="不能为空!">
           <nz-select [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder"
-          nzMode="multiple" nzPlaceHolder="请配置权限">
+          nzMode="multiple" nzPlaceHolder="请配置权限" formControlName="permission">
             <nz-option nzValue="权限一" nzLabel="权限一"></nz-option>
             <nz-option nzValue="权限二" nzLabel="权限二"></nz-option>
             <nz-option nzValue="权限三" nzLabel="权限三"></nz-option>

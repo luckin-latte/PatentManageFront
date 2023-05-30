@@ -19,7 +19,7 @@ export class RoleManagementService {
   }
 
   newData(Data: object) {
-    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
+    return this.httpClient.post(`${apiUrl}/user/addRole`, Data);
   }
 
   updateData(params: object) {

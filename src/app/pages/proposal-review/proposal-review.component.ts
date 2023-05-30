@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
+import { LibService } from 'src/app/shared';
 import { ProposalReviewService } from './proposal-review.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
@@ -21,20 +22,23 @@ export class ProposalReviewComponent implements OnInit {
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
   public dateRange = [];
 
+  listOfDepart: Array<{ value: string; text: string }> = [];
+
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
 
   constructor(
     private formBuilder: FormBuilder,
     private nzDrawerService: NzDrawerService,
+    private libService: LibService,
     private proposalReviewService: ProposalReviewService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('department', new FormControl('0'));
-    this.searchForm.addControl('proposer', new FormControl(''));
-    this.searchForm.addControl('inventor', new FormControl(''));
+    this.searchForm.addControl('proposalName', new FormControl(''));
+    this.searchForm.addControl('proposalCode', new FormControl(''));
+    this.searchForm.addControl('departmentName', new FormControl('0'));
+    this.searchForm.addControl('proposerName', new FormControl(''));
+    this.searchForm.addControl('inventorName', new FormControl(''));
     this.searchForm.addControl('dateRange', new FormControl(''));
   }
 
@@ -42,17 +46,29 @@ export class ProposalReviewComponent implements OnInit {
     this.search(true);
   }
 
+  searchDepart(e: string): void {
+    this.libService.getAllDepartments().subscribe((res: any) => {
+      console.log(res.data)
+      res.data.forEach((item: string) => {
+        this.listOfDepart.push({
+          value: item,
+          text: item
+        });
+      });
+    });
+  }
+  
   public onChange(result: Date): void {
     console.log('onChange: ', result);
   }
 
   public resetForm(): void {
     this.searchForm.reset({
-      name: '',
-      code: '',
-      department: '',
-      proposer: '',
-      inventor: '',
+      proposalName: '',
+      proposalCode: '',
+      departmentName: '',
+      proposerName: '',
+      inventorName: '',
       dateRange: ''
     });
   }
@@ -91,49 +107,50 @@ export class ProposalReviewComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'proposalName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'proposalName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'code') {
+      } else if (key === 'proposalCode') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'code',
+            'proposalCode',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'department') {
+      } else if (key === 'departmentName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'department',
+            'departmentName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'proposer') {
+      } else if (key === 'proposerName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'proposer',
+            'proposerName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'inventor') {
+      } else if (key === 'inventorName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'inventor',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'dateRange') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'dateRange',
+            'inventorName',
             this.searchForm.controls[key].value
           )
         );
       }
+      // else if (key === 'dateRange') {
+      //   queryCriteria.addCriteria(
+      //     new QueryCriteriaInfo(
+      //       'dateRange',
+      //       this.searchForm.controls[key].value
+      //     )
+      //   );
+      // }
     }
     
     this.queryInfo.setCriteria(queryCriteria);
@@ -148,12 +165,13 @@ export class ProposalReviewComponent implements OnInit {
     this.searchLoading = false;
   }
 
-  public approval() {
+  public approval(code: string, data: object) {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '审批详情',
       nzContent: ApprovalComponent,
       nzContentParams: {
-        name: 'This is a param from child'
+        proposalCode: code,
+        proposalInfo: data
       },
       nzClosable: true,
       nzMask: true,

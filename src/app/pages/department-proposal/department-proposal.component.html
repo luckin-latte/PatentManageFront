@@ -11,7 +11,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">提案名称</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="name"/>
+          <input nz-input formControlName="proposalName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -19,7 +19,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">提案编号</nz-form-label>
         <nz-form-control>
-          <input nz-input  formControlName="code"/>
+          <input nz-input  formControlName="proposalCode"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -27,13 +27,13 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">提案类型</nz-form-label>
         <nz-form-control>
-          <nz-select id="type" nzAllowClear formControlName="type">
+          <nz-select id="proposalType" nzAllowClear formControlName="proposalType">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
-            <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
-            <nz-option nzValue="3" nzLabel="外观设计专利"></nz-option>
-            <nz-option nzValue="4" nzLabel="软著"></nz-option>
-            <nz-option nzValue="5" nzLabel="商标"></nz-option>
+            <nz-option nzValue="发明专利" nzLabel="发明专利"></nz-option>
+            <nz-option nzValue="实用新型专利" nzLabel="实用新型专利"></nz-option>
+            <nz-option nzValue="外观设计专利" nzLabel="外观设计专利"></nz-option>
+            <nz-option nzValue="软著" nzLabel="软著"></nz-option>
+            <nz-option nzValue="商标" nzLabel="商标"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -45,7 +45,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">提案人</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="proposer"/>
+          <input nz-input formControlName="proposerName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -53,20 +53,20 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">发明人</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="inventor"/>
+          <input nz-input formControlName="inventorName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">提案状态</nz-form-label>
+        <nz-form-label [nzSpan]="6">审批状态</nz-form-label>
         <nz-form-control>
-          <nz-select id="status" nzAllowClear formControlName="status">
+          <nz-select id="proposalState" nzAllowClear formControlName="proposalState">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="在审"></nz-option>
-            <nz-option nzValue="2" nzLabel="通过"></nz-option>
-            <nz-option nzValue="3" nzLabel="不通过"></nz-option>
-            <nz-option nzValue="4" nzLabel="补充文件"></nz-option>
+            <nz-option nzValue="在审" nzLabel="在审"></nz-option>
+            <nz-option nzValue="通过" nzLabel="通过"></nz-option>
+            <nz-option nzValue="不通过" nzLabel="不通过"></nz-option>
+            <nz-option nzValue="补充文件" nzLabel="补充文件"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -79,7 +79,7 @@
         <nz-form-label [nzSpan]="6">提案日期</nz-form-label>
         <nz-form-control>
           <nz-range-picker [(ngModel)]="dateRange" (ngModelChange)="onChange($event)"
-            formControlName="dateRangePicker" style="width: 100%;"></nz-range-picker>
+            formControlName="dateRange" style="width: 100%;"></nz-range-picker>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -101,8 +101,8 @@
       <th nzWidth="160px">提案日期</th>
       <th nzWidth="160px">提案人</th>
       <th nzWidth="160px">发明人</th>
-      <th nzWidth="160px">部门</th>
-      <th nzWidth="160px">评审状态</th>
+      <th nzWidth="160px">提案部门</th>
+      <th nzWidth="160px">审批状态</th>
       <th nzWidth="160px">提案类型</th>
       <th nzWidth="80px" nzRight="80px">审批流程</th>
       <th nzWidth="80px" nzRight="0px">相关文件</th>
@@ -111,14 +111,14 @@
   <tbody>
     <tr *ngFor="let data of reasultTable.data; let i = index">
       <td nzLeft="0px">{{ i+1 }}</td>
-      <td nzLeft="60px">{{ data.code }}</td>
-      <td nzLeft="180px">{{ data.name }}</td>
-      <td>{{ data.date | date: 'yyyy-MM-dd'}}</td>
-      <td>{{ data.proposer}}</td>
-      <td>{{ data.inventor}}</td>
-      <td>{{ data.department}}</td>
-      <td>{{ data.status}}</td>
-      <td>{{ data.type}}</td>
+      <td nzLeft="60px">{{ data.proposalCode }}</td>
+      <td nzLeft="180px">{{ data.proposalName }}</td>
+      <td>{{ data.proposalDate | date: 'yyyy-MM-dd' }}</td>
+      <td>{{ data.proposerName }}</td>
+      <td>{{ data.inventorNameList.toString() }}</td>
+      <td>{{ data.departmentName }}</td>
+      <td>{{ data.proposalState }}</td>
+      <td>{{ data.proposalType }}</td>
       <td nzRight="80px">
         <button nz-button (click)="showReview()">详情</button>
       </td>
