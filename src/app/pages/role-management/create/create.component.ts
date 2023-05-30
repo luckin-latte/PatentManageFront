@@ -36,11 +36,11 @@ export class CreateComponent implements OnInit {
       console.log('角色号：', res.data);
       this.CreateForm.get('roleCode')?.setValue(res.data);
     })
-    this.searchRole(`$event`);
+    this.searchPermission(`$event`);
   }
 
-  searchRole(e: string): void {
-    this.libService.getAllRoles().subscribe((res: any) => {
+  searchPermission(e: string): void {
+    this.libService.getAllPermission().subscribe((res: any) => {
       console.log(res.data.roleNameList)
       res.data.roleNameList.forEach((item: string) => {
         this.listOfPermission.push({

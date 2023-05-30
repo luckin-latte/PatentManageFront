@@ -26,16 +26,9 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzRequired>权限</nz-form-label>
         <nz-form-control nzErrorTip="不能为空!">
-          <nz-select [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder"
+          <nz-select [nzMaxTagCount]="3" [nzMaxTagPlaceholder]="tagPlaceHolder" (nzOnSearch)="searchPermission($event)"
           nzMode="multiple" nzPlaceHolder="请配置权限" formControlName="permission">
-            <nz-option nzValue="权限一" nzLabel="权限一"></nz-option>
-            <nz-option nzValue="权限二" nzLabel="权限二"></nz-option>
-            <nz-option nzValue="权限三" nzLabel="权限三"></nz-option>
-            <nz-option nzValue="权限四" nzLabel="权限四"></nz-option>
-            <nz-option nzValue="权限五" nzLabel="权限五"></nz-option>
-            <nz-option nzValue="权限六" nzLabel="权限六"></nz-option>
-            <nz-option nzValue="权限七" nzLabel="权限七"></nz-option>
-            <nz-option nzValue="权限八" nzLabel="权限八"></nz-option>
+            <nz-option *ngFor="let o of listOfPermission" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
           </nz-select>
           <ng-template #tagPlaceHolder let-selectedList>+{{ selectedList.length }}</ng-template>
         </nz-form-control>
