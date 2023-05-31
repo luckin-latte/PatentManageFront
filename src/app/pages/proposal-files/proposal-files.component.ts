@@ -5,8 +5,6 @@ import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { ProposalFilesService } from './proposal-files.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
-import { FileListComponent } from './file-list/file-list.component';
-
 @Component({
   selector: 'app-proposal-files',
   templateUrl: './proposal-files.component.html',
@@ -30,10 +28,10 @@ export class ProposalFilesComponent implements OnInit {
     private proposalFilesService: ProposalFilesService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('proposer', new FormControl(''));
-    this.searchForm.addControl('status', new FormControl('0'));
+    this.searchForm.addControl('proposalName', new FormControl(''));
+    this.searchForm.addControl('proposalCode', new FormControl(''));
+    this.searchForm.addControl('fileName', new FormControl(''));
+    this.searchForm.addControl('uploaderName', new FormControl(''));
     this.searchForm.addControl('dateRange', new FormControl(''));
   }
 
@@ -47,10 +45,10 @@ export class ProposalFilesComponent implements OnInit {
 
   public resetForm(): void {
     this.searchForm.reset({
-      name: '',
-      code: '',
-      proposer: '',
-      type: '0',
+      proposalName: '',
+      proposalCode: '',
+      fileName: '',
+      uploaderName: '',
       dateRange: ''
     });
   }
@@ -89,42 +87,43 @@ export class ProposalFilesComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'proposalName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'proposalName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'code') {
+      } else if (key === 'proposalCode') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'code',
+            'proposalCode',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'proposer') {
+      } else if (key === 'fileName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'proposer',
+            'fileName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'type') {
+      } else if (key === 'uploaderName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'type',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'dateRange') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'dateRange',
+            'uploaderName',
             this.searchForm.controls[key].value
           )
         );
       }
+      // else if (key === 'dateRange') {
+      //   queryCriteria.addCriteria(
+      //     new QueryCriteriaInfo(
+      //       'dateRange',
+      //       this.searchForm.controls[key].value
+      //     )
+      //   );
+      // }
     }
     
     this.queryInfo.setCriteria(queryCriteria);
@@ -139,32 +138,5 @@ export class ProposalFilesComponent implements OnInit {
     this.searchLoading = false;
   }
   
-  public create() {}
-
-  public showFile() {
-    this.drawerRef = this.nzDrawerService.create({
-      nzTitle: '文件详情',
-      nzContent: FileListComponent,
-      nzContentParams: {
-        name: 'This is a param from child'
-      },
-      nzClosable: true,
-      nzMask: true,
-      nzMaskClosable: false,
-      nzWidth: 720,
-      nzBodyStyle: {
-        height: 'calc(100% - 55px)',
-        overflow: 'auto',
-        'padding-bottom': '53px'
-      }
-    });
-
-    this.drawerRef.afterOpen.subscribe(() => {
-      console.log('显示文件详情');
-    });
-
-    this.drawerRef.afterClose.subscribe(data => {
-      console.log(data);
-    });
-  }
+  public showFile() {}
 }

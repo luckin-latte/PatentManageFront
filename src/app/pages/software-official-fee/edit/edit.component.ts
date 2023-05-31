@@ -1,7 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
+
+import { SoftwareOfficialFeeService } from '../software-official-fee.service';
 
 @Component({
   selector: 'app-edit',
@@ -11,43 +13,50 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 })
 export class EditComponent implements OnInit {
 
-  fileList: NzUploadFile[] = [
-    {
-      uid: '1',
-      name: 'xxx.png',
-      status: 'done',
-      response: 'Server Error 500',
-      url: 'http://www.baidu.com/xxx.png'
-    }
-  ]
+  fileList: NzUploadFile[] = []
 
-  @Input() name!: string;
+  @Input() softwareOfficialFeeInfo!: object;
   EditForm: FormGroup;
   drawerRef!: NzDrawerRef;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private softwareOfficialFeeService: SoftwareOfficialFeeService
     ) {
       this.EditForm = this.formBuilder.group({
-        patentCode: ['ZL2345'],
-        payer: ['备注'],
-        feeName: ['2018'],
-        status: ['0'],
-        dueFee: ['1200'],
-        date: ['2017-09-04'],
-        actualPay: ['1200'],
-        payDate: ['2017-09-04']
+        softwareCode: ['', [Validators.required]],
+        softwareName: ['', [Validators.required]],
+        feeName: ['', [Validators.required]],
+        officialFeeStatus: [''],
+        dueAmount: ['', [Validators.required]],
+        dueDate: ['', [Validators.required]],
+        actualPay: [''],
+        actualPayDate: [''],
+        remark: [''],
+        id: ['']
       });
   }
 
   ngOnInit(): void {
+    console.log('this.softwareOfficialFeeInfo', this.softwareOfficialFeeInfo)
+    this.EditForm.patchValue(this.softwareOfficialFeeInfo)
   }
 
   cancel() {
+    this.drawerRef.close();
   }
 
   save() {
-    this.drawerRef.close(this.EditForm.getRawValue());
+    Object.keys(this.EditForm.controls).forEach(key => {
+      this.EditForm.controls[key].markAsDirty();
+      this.EditForm.controls[key].updateValueAndValidity();
+    })
+    console.log('修改结果：', this.EditForm.getRawValue())
+
+    this.softwareOfficialFeeService.updateData(this.EditForm.value).subscribe((res: any) =>{
+      console.log('res.data: ', res);
+    })
+    this.drawerRef.close();
   }
 
 }

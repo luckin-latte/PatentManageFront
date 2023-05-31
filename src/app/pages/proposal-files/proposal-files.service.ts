@@ -15,19 +15,7 @@ export class ProposalFilesService {
   }
 
   getList(queryInfo: object): Observable<any>{
-    return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
-  }
-
-  newData(Data: object) {
-    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
-  }
-
-  updateData(params: object) {
-    return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
-  }
-
-  deleteData(userCode: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
+    return this.httpClient.post(`${apiUrl}/proposal/getFileList`, queryInfo);
   }
   
 }

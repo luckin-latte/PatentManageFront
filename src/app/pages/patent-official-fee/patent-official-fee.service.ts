@@ -15,19 +15,19 @@ export class PatentOfficialFeeService {
   }
 
   getList(queryInfo: object): Observable<any>{
-    return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
+    return this.httpClient.post(`${apiUrl}/patent/getOfficialFeeList`, queryInfo);
   }
 
-  newData(Data: object) {
-    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
+  newData(Data: object): Observable<any> {
+    return this.httpClient.post(`${apiUrl}/patent/newOfficialFee`, Data);
   }
 
-  updateData(params: object) {
-    return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
+  updateData(params: object): Observable<any> {
+    return this.httpClient.patch(`${apiUrl}/patent/updateOfficialFee`, params);
   }
 
-  deleteData(userCode: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
+  deleteData(id: string): Observable<any>{
+    return this.httpClient.delete(`${apiUrl}/patent/deleteOfficialFee/${id}`);
   }
   
 }

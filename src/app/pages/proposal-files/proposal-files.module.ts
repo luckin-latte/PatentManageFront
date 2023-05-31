@@ -17,13 +17,11 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 import { ProposalFilesRoutingModule } from './proposal-files-routing.module';
 import { ProposalFilesComponent } from './proposal-files.component';
-import { FileListComponent } from './file-list/file-list.component';
 
 
 @NgModule({
   declarations: [
-    ProposalFilesComponent,
-    FileListComponent
+    ProposalFilesComponent
   ],
   imports: [
     CommonModule,

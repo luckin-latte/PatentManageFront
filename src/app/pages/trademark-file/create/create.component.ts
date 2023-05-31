@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 
-import { LibService } from 'src/app/shared';
 import { TrademarkFileService } from '../trademark-file.service';
 
 @Component({
@@ -16,13 +15,8 @@ export class CreateComponent implements OnInit {
   public CreateForm: FormGroup;
   public drawerRef!: NzDrawerRef;
 
-  listOfDepart: Array<{ value: string; text: string }> = [];
-
-  listOfRole: Array<{ value: string; text: string }> = [];
-
   constructor(
     private formBuilder: FormBuilder,
-    private libService: LibService,
     private trademarkFileService: TrademarkFileService
     ) {
       this.CreateForm = this.formBuilder.group({
@@ -35,34 +29,6 @@ export class CreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.libService.getCode('U').subscribe((res: any) =>{
-      console.log('工号：', res.data);
-      this.CreateForm.get('userCode')?.setValue(res.data);
-    })
-  }
-
-  searchDepart(e: string): void {
-    this.libService.getAllDepartments().subscribe((res: any) => {
-      console.log(res.data)
-      res.data.forEach((item: string) => {
-        this.listOfDepart.push({
-          value: item,
-          text: item
-        });
-      });
-    });
-  }
-
-  searchRole(e: string): void {
-    this.libService.getAllDepartments().subscribe((res: any) => {
-      console.log(res.data)
-      res.data.forEach((item: string) => {
-        this.listOfDepart.push({
-          value: item,
-          text: item
-        });
-      });
-    });
   }
 
   cancel() {

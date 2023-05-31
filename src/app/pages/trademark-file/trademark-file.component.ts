@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzModalService } from 'ng-zorro-antd/modal';
 
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
-
 import { TrademarkFileService } from './trademark-file.service';
 import { CreateComponent } from './create/create.component';
 
@@ -27,6 +27,7 @@ export class TrademarkFileComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private nzDrawerService: NzDrawerService,
+    private modalService: NzModalService,
     private trademarkFileService: TrademarkFileService
   ) {
     this.searchForm = this.formBuilder.group({});
@@ -35,7 +36,7 @@ export class TrademarkFileComponent implements OnInit {
     this.searchForm.addControl('fileName', new FormControl(''));
     this.searchForm.addControl('fileType', new FormControl('0'));
     this.searchForm.addControl('uploaderName', new FormControl(''));
-    this.searchForm.addControl('dateRage', new FormControl(''));
+    this.searchForm.addControl('dateRange', new FormControl(''));
   }
 
   ngOnInit(): void {
@@ -126,14 +127,15 @@ export class TrademarkFileComponent implements OnInit {
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'dateRange') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'dateRange',
-            this.searchForm.controls[key].value
-          )
-        );
       }
+      // else if (key === 'dateRange') {
+      //   queryCriteria.addCriteria(
+      //     new QueryCriteriaInfo(
+      //       'dateRange',
+      //       this.searchForm.controls[key].value
+      //     )
+      //   );
+      // }
     }
     
     this.queryInfo.setCriteria(queryCriteria);
@@ -164,11 +166,27 @@ export class TrademarkFileComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      // console.log('新增用户');
+      // console.log('新增商标文件');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
       console.log(data);
+    });
+  }
+
+  public download(id: string) {
+  }
+  
+  public delete(id: string): void {
+    this.modalService.confirm({
+      nzTitle: '确定删除吗？',
+      nzOkText: '删除',
+      // nzOkType: 'danger',
+      nzOnOk: () => this.trademarkFileService.deleteData(id).subscribe((res: any) =>{
+        console.log('删除数据：', res);
+      }),
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('取消删除')
     });
   }
 

@@ -3,6 +3,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 
+import { PatentAnnualFeeService } from '../patent-annual-fee.service';
+
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
@@ -11,34 +13,24 @@ import { NzUploadFile } from 'ng-zorro-antd/upload';
 })
 export class CreateComponent implements OnInit {
 
-  fileList: NzUploadFile[] = [
-    {
-      uid: '1',
-      name: 'xxx.png',
-      status: 'done',
-      response: 'Server Error 500',
-      url: 'http://www.baidu.com/xxx.png'
-    }
-  ]
+  fileList: NzUploadFile[] = []
 
-  @Input() name!: string;
   CreateForm: FormGroup;
   drawerRef!: NzDrawerRef;
 
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private patentAnnualFeeService: PatentAnnualFeeService
     ) {
       this.CreateForm = this.formBuilder.group({
-        annualFee: ['1000'],
-        overdue: ['200'],
-        totalFee: ['1200'],
-        status: ['0'],
-        annual: ['2018'],
-        dueFee: ['1200'],
-        date: ['2017-09-04'],
-        actualPay: ['1200'],
-        payDate: ['2017-09-04'],
-        remark: ['备注']
+        patentCode: ['', [Validators.required]],
+        patentName: ['', [Validators.required]],
+        feeStatus: [''],
+        annual: ['', [Validators.required]],
+        dueDate: ['', [Validators.required]],
+        actualPay: [''],
+        actualPayDate: [''],
+        remark: [''],
       });
   }
 
@@ -49,6 +41,15 @@ export class CreateComponent implements OnInit {
   }
 
   save() {
-    this.drawerRef.close(this.CreateForm.getRawValue());
+    Object.keys(this.CreateForm.controls).forEach(key => {
+      this.CreateForm.controls[key].markAsDirty();
+      this.CreateForm.controls[key].updateValueAndValidity();
+    })
+    console.log('修改结果：', this.CreateForm.getRawValue())
+
+    this.patentAnnualFeeService.newData(this.CreateForm.value).subscribe((res: any) =>{
+      console.log('res.data: ', res);
+    })
+    this.drawerRef.close();
   }
 }

@@ -19,16 +19,14 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 import { PatentOfficialFeeRoutingModule } from './patent-official-fee-routing.module';
 import { PatentOfficialFeeComponent } from './patent-official-fee.component';
-import { DetailComponent } from './detail/detail.component';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
     PatentOfficialFeeComponent,
-    DetailComponent,
     CreateComponent,
-    EditComponent,
+    EditComponent
   ],
   imports: [
     CommonModule,

@@ -1,11 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+
+import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
+import { InvoiceComponent } from 'src/app/shared/component/invoice/invoice.component';
 
 import { SoftwareOfficialFeeService } from './software-official-fee.service';
-import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
-
-import { DetailComponent } from './detail/detail.component';
+import { CreateComponent } from './create/create.component';
+import { EditComponent } from './edit/edit.component';
 
 @Component({
   selector: 'app-software-official-fee',
@@ -19,20 +22,24 @@ export class SoftwareOfficialFeeComponent implements OnInit {
   public searchForm: FormGroup;
   public searchLoading = true;
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
+  public dateRange = [];
 
   drawerRef!: NzDrawerRef;
+  modalRef!: NzModalRef;
   pageIndex: number = 1;
 
   constructor(
     private formBuilder: FormBuilder,
-    private nzDrawerService: NzDrawerService,
+    private drawerService: NzDrawerService,
+    private modalService: NzModalService,
     private softwareOfficialFeeService: SoftwareOfficialFeeService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('total', new FormControl(''));
-    this.searchForm.addControl('proposer', new FormControl(''));
+    this.searchForm.addControl('softwareName', new FormControl(''));
+    this.searchForm.addControl('softwareCode', new FormControl(''));
+    this.searchForm.addControl('totalAmount', new FormControl(''));
+    this.searchForm.addControl('feeName', new FormControl(''));
+    this.searchForm.addControl('officialFeeStatus', new FormControl('0'));
   }
 
   ngOnInit(): void {
@@ -45,10 +52,11 @@ export class SoftwareOfficialFeeComponent implements OnInit {
 
   public resetForm(): void {
     this.searchForm.reset({
-      name: '',
-      code: '',
-      total: '',
-      proposer: '',
+      softwareName: '',
+      softwareCode: '',
+      totalAmount: '',
+      feeName: '',
+      officialFeeStatus: '0'
     });
   }
   
@@ -86,31 +94,38 @@ export class SoftwareOfficialFeeComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'softwareName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'softwareName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'code') {
+      } else if (key === 'softwareCode') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'code',
+            'softwareCode',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'total') {
+      } else if (key === 'totalAmount') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'total',
+            'totalAmount',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'proposer') {
+      } else if (key === 'feeName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'proposer',
+            'feeName',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'officialFeeStatus') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'officialFeeStatus',
             this.searchForm.controls[key].value
           )
         );
@@ -129,17 +144,14 @@ export class SoftwareOfficialFeeComponent implements OnInit {
     this.searchLoading = false;
   }
   
-  public showDetail() {
-    this.drawerRef = this.nzDrawerService.create({
-      nzTitle: '专利官费详情',
-      nzContent: DetailComponent,
-      nzContentParams: {
-        name: 'This is a param from child'
-      },
+  public create() {
+    this.drawerRef = this.drawerService.create({
+      nzTitle: '新增软著官费',
+      nzContent: CreateComponent,
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 860,
+      nzWidth: 680,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -148,12 +160,76 @@ export class SoftwareOfficialFeeComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('专利官费详情');
+      // console.log('新增软著官费');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
       console.log(data);
     });
   }
-  
+
+  public showInvoice() {
+    this.modalRef = this.modalService.create({
+      nzTitle: '发票详情',
+      nzContent: InvoiceComponent,
+      nzClosable: true,
+      nzMask: true,
+      nzMaskClosable: false,
+      nzWidth: 640,
+      nzBodyStyle: {
+        height: 'calc(100% - 55px)',
+        overflow: 'auto',
+        'padding-bottom': '53px'
+      }
+    });
+
+    this.modalRef.afterOpen.subscribe(() => {
+      // console.log('查看发票详情');
+    });
+
+    this.modalRef.afterClose.subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  public edit(data: object) {
+    this.drawerRef = this.drawerService.create({
+      nzTitle: '编辑软著官费',
+      nzContent: EditComponent,
+      nzContentParams: {
+        softwareOfficialFeeInfo: data
+      },
+      nzClosable: true,
+      nzMask: true,
+      nzMaskClosable: false,
+      nzWidth: 680,
+      nzBodyStyle: {
+        height: 'calc(100% - 55px)',
+        overflow: 'auto',
+        'padding-bottom': '53px'
+      }
+    });
+
+    this.drawerRef.afterOpen.subscribe(() => {
+      // console.log('编辑软著官费');
+    });
+
+    this.drawerRef.afterClose.subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  public delete(code: string): void {
+    this.modalService.confirm({
+      nzTitle: '确定删除吗？',
+      nzOkText: '删除',
+      // nzOkType: 'danger',
+      nzOnOk: () => this.softwareOfficialFeeService.deleteData(code).subscribe((res: any) =>{
+        console.log('删除数据：', res);
+      }),
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('取消删除')
+    });
+  }
+
 }

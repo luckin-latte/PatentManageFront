@@ -2,9 +2,28 @@
   <div nz-row [nzGutter]="16">
     <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">官费名称</nz-form-label>
+        <nz-form-label [nzSpan]="6" nzRequired>专利编号</nz-form-label>
         <nz-form-control>
-          <input nz-input  formControlName="feeName"/>
+          <input nz-input  formControlName="patentCode"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>专利名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input  formControlName="patentName"/>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <div nz-row [nzGutter]="16">
+    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzRequired>费用名称</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="feeName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -12,11 +31,11 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">缴费状态</nz-form-label>
         <nz-form-control>
-          <nz-select id="status" formControlName="status" nzAllowClear placeholder="请选择">
-            <nz-option nzValue="0" nzLabel="已缴费"></nz-option>
-            <nz-option nzValue="1" nzLabel="未缴费"></nz-option>
-            <nz-option nzValue="2" nzLabel="已回执"></nz-option>
-            <nz-option nzValue="3" nzLabel="不缴费(放弃)"></nz-option>
+          <nz-select id="officialFeeStatus" formControlName="officialFeeStatus" nzAllowClear placeholder="请选择">
+            <nz-option nzValue="已缴费" nzLabel="已缴费"></nz-option>
+            <nz-option nzValue="未缴费" nzLabel="未缴费"></nz-option>
+            <nz-option nzValue="已回执" nzLabel="已回执"></nz-option>
+            <nz-option nzValue="不缴费(放弃)" nzLabel="不缴费(放弃)"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -26,17 +45,17 @@
   <div nz-row [nzGutter]="16">
     <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">应缴金额</nz-form-label>
+        <nz-form-label [nzSpan]="6" nzRequired>应缴金额</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="dueFee"/>
+          <input nz-input formControlName="dueAmount"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
       <nz-form-item>
-        <nz-form-label [nzSpan]="6">应缴日期</nz-form-label>
+        <nz-form-label [nzSpan]="6" nzRequired>应缴日期</nz-form-label>
         <nz-form-control>
-          <nz-date-picker formControlName="date"
+          <nz-date-picker formControlName="dueDate"
             nzFormat="yyyy-MM-dd" value-format="yyyy-MM-dd" style="width: 100%;"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
@@ -56,7 +75,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">实缴日期</nz-form-label>
         <nz-form-control>
-          <nz-date-picker formControlName="payDate"
+          <nz-date-picker formControlName="actualPayDate"
             nzFormat="yyyy-MM-dd" value-format="yyyy-MM-dd" style="width: 100%;"></nz-date-picker>
         </nz-form-control>
       </nz-form-item>
@@ -64,17 +83,14 @@
   </div>
 
   <div nz-row [nzGutter]="16">
-    <div nz-col [nzMd]="24" [nzLg]="24" [nzXl]="24">
+    <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
       <nz-form-item>
-        <nz-form-label [nzSpan]="3">备注</nz-form-label>
+        <nz-form-label [nzSpan]="6">备注</nz-form-label>
         <nz-form-control>
           <input nz-input formControlName="remark"/>
         </nz-form-control>
       </nz-form-item>
     </div>
-  </div>
-
-  <div nz-row [nzGutter]="16">
     <div nz-col [nzMd]="12" [nzLg]="12" [nzXl]="12">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">发票</nz-form-label>
@@ -90,7 +106,8 @@
   <div nz-row [nzGutter]="16">
     <div nz-col [nzSpan]="24" class="operate-area">
       <button nz-button (click)="cancel()">取消</button>
-      <button nz-button [nzType]="'primary'" style="margin-left: 8px;" (click)="save()">保存</button>
+      <button nz-button [nzType]="'primary'" style="margin-left: 8px;"
+        [disabled]="!CreateForm.valid" (click)="save()">保存</button>
     </div>
   </div>
 </form>

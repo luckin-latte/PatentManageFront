@@ -15,6 +15,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 import { TrademarkFileRoutingModule } from './trademark-file-routing.module';
 import { TrademarkFileComponent } from './trademark-file.component';
@@ -43,6 +44,7 @@ import { CreateComponent } from './create/create.component';
     NzEmptyModule,
     NzDrawerModule,
     NzUploadModule,
+    NzModalModule,
     TrademarkFileRoutingModule
   ]
 })

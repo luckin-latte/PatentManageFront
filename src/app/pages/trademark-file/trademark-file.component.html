@@ -107,10 +107,10 @@
       <td nzRight="260px">{{ data.uploaderName }}</td>
       <td nzRight="160px">{{ data.uploadDate }}</td>
       <td nzRight="80px">
-        <button nz-button>查看</button>
+        <button nz-button (click)="download(data.fileId)">下载</button>
       </td>
       <td nzRight="0px">
-        <button nz-button>删除</button>
+        <button nz-button (click)="delete(data.fileId)">删除</button>
       </td>
     </tr>
   </tbody>

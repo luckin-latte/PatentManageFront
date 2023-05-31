@@ -3,12 +3,12 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 
-import { TrademarkOfficialFeeService } from './trademark-official-fee.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
+import { InvoiceComponent } from 'src/app/shared/component/invoice/invoice.component';
 
+import { TrademarkOfficialFeeService } from './trademark-official-fee.service';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
-import { InvoiceComponent } from 'src/app/shared/component/invoice/invoice.component';
 
 @Component({
   selector: 'app-trademark-official-fee',
@@ -148,13 +148,10 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     this.drawerRef = this.drawerService.create({
       nzTitle: '新增商标官费',
       nzContent: CreateComponent,
-      nzContentParams: {
-        name: 'CreateComponent'
-      },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 640,
+      nzWidth: 680,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -195,9 +192,9 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     });
   }
 
-  public edit(code: string, data: object) {
+  public edit(data: object) {
     this.drawerRef = this.drawerService.create({
-      nzTitle: '编辑代理机构',
+      nzTitle: '编辑商标官费',
       nzContent: EditComponent,
       nzContentParams: {
         trademarkOfficialFeeInfo: data
@@ -205,7 +202,7 @@ export class TrademarkOfficialFeeComponent implements OnInit {
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 540,
+      nzWidth: 680,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -214,7 +211,7 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      // console.log('编辑代理机构');
+      // console.log('编辑商标官费');
     });
 
     this.drawerRef.afterClose.subscribe(data => {

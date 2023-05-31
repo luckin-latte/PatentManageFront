@@ -1,11 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+
+import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
+import { InvoiceComponent } from 'src/app/shared/component/invoice/invoice.component';
 
 import { PatentAnnualFeeService } from './patent-annual-fee.service';
-import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
-
-import { DetailComponent } from './detail/detail.component';
+import { CreateComponent } from './create/create.component';
+import { EditComponent } from './edit/edit.component';
 
 @Component({
   selector: 'app-patent-annual-fee',
@@ -19,19 +22,23 @@ export class PatentAnnualFeeComponent implements OnInit {
   public searchForm: FormGroup;
   public searchLoading = true;
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
+  public dateRange = [];
 
   drawerRef!: NzDrawerRef;
+  modalRef!: NzModalRef;
   pageIndex: number = 1;
 
   constructor(
     private formBuilder: FormBuilder,
-    private nzDrawerService: NzDrawerService,
+    private drawerService: NzDrawerService,
+    private modalService: NzModalService,
     private patentAnnualFeeService: PatentAnnualFeeService
-    ) {
+  ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('type', new FormControl('0'));
+    this.searchForm.addControl('patentName', new FormControl(''));
+    this.searchForm.addControl('patentCode', new FormControl(''));
+    this.searchForm.addControl('annual', new FormControl(''));
+    this.searchForm.addControl('feeStatus', new FormControl('0'));
   }
 
   ngOnInit(): void {
@@ -42,12 +49,12 @@ export class PatentAnnualFeeComponent implements OnInit {
     console.log('onChange: ', result);
   }
 
-  // 重置查询表单
   public resetForm(): void {
     this.searchForm.reset({
-      name: '',
-      code: '',
-      type: '0'
+      patentName: '',
+      patentCode: '',
+      annual: '',
+      feeStatus: '0'
     });
   }
   
@@ -67,6 +74,7 @@ export class PatentAnnualFeeComponent implements OnInit {
       this.dataSet = res.data.list;
       this.onAfterSearch;
     })
+
   }
   
   // 获取查询条件
@@ -84,24 +92,31 @@ export class PatentAnnualFeeComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'patentName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'patentName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'code') {
+      } else if (key === 'patentCode') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'code',
+            'patentCode',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'type') {
+      } else if (key === 'annual') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'type',
+            'annual',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'feeStatus') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'feeStatus',
             this.searchForm.controls[key].value
           )
         );
@@ -120,17 +135,16 @@ export class PatentAnnualFeeComponent implements OnInit {
     this.searchLoading = false;
   }
 
-  public showDetail() {
-    this.drawerRef = this.nzDrawerService.create({
-      nzTitle: '专利年费详情',
-      nzContent: DetailComponent,
+  public create() {
+    this.drawerRef = this.drawerService.create({
+      nzTitle: '新增专利年费',
+      nzContent: CreateComponent,
       nzContentParams: {
-        name: 'This is a param from child'
       },
       nzClosable: true,
       nzMask: true,
       nzMaskClosable: false,
-      nzWidth: 860,
+      nzWidth: 680,
       nzBodyStyle: {
         height: 'calc(100% - 55px)',
         overflow: 'auto',
@@ -139,11 +153,76 @@ export class PatentAnnualFeeComponent implements OnInit {
     });
 
     this.drawerRef.afterOpen.subscribe(() => {
-      console.log('专利官费详情');
+      // console.log('新增专利年费');
     });
 
     this.drawerRef.afterClose.subscribe(data => {
       console.log(data);
     });
   }
+
+  public showInvoice() {
+    this.modalRef = this.modalService.create({
+      nzTitle: '发票详情',
+      nzContent: InvoiceComponent,
+      nzClosable: true,
+      nzMask: true,
+      nzMaskClosable: false,
+      nzWidth: 640,
+      nzBodyStyle: {
+        height: 'calc(100% - 55px)',
+        overflow: 'auto',
+        'padding-bottom': '53px'
+      }
+    });
+
+    this.modalRef.afterOpen.subscribe(() => {
+      // console.log('查看发票详情');
+    });
+
+    this.modalRef.afterClose.subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  public edit(data: object) {
+    this.drawerRef = this.drawerService.create({
+      nzTitle: '编辑专利年费',
+      nzContent: EditComponent,
+      nzContentParams: {
+        patentOfficialFeeInfo: data
+      },
+      nzClosable: true,
+      nzMask: true,
+      nzMaskClosable: false,
+      nzWidth: 680,
+      nzBodyStyle: {
+        height: 'calc(100% - 55px)',
+        overflow: 'auto',
+        'padding-bottom': '53px'
+      }
+    });
+
+    this.drawerRef.afterOpen.subscribe(() => {
+      // console.log('编辑专利年费');
+    });
+
+    this.drawerRef.afterClose.subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  public delete(code: string): void {
+    this.modalService.confirm({
+      nzTitle: '确定删除吗？',
+      nzOkText: '删除',
+      // nzOkType: 'danger',
+      nzOnOk: () => this.patentAnnualFeeService.deleteData(code).subscribe((res: any) =>{
+        console.log('删除数据：', res);
+      }),
+      nzCancelText: '取消',
+      nzOnCancel: () => console.log('取消删除')
+    });
+  }
+
 }

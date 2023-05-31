@@ -22,14 +22,12 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { PatentAnnualFeeRoutingModule } from './patent-annual-fee-routing.module';
 import { PatentAnnualFeeComponent } from './patent-annual-fee.component';
 import { CreateComponent } from './create/create.component';
-import { DetailComponent } from './detail/detail.component';
 import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [
     PatentAnnualFeeComponent,
     CreateComponent,
-    DetailComponent,
     EditComponent
   ],
   imports: [

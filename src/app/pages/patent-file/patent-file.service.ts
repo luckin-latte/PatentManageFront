@@ -14,7 +14,7 @@ export class PatentFileService {
   }
 
   getList(queryInfo: object): Observable<any> {
-    return this.httpClient.post(`${apiUrl}/patent/getFileList`, queryInfo);
+    return this.httpClient.post(`${apiUrl}/patent/getFileInfo`, queryInfo);
   }
 
   newData(Data: object): Observable<any> {

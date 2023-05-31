@@ -19,15 +19,15 @@ export class TrademarkOfficialFeeService {
   }
 
   newData(Data: object) {
-    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
+    return this.httpClient.post(`${apiUrl}/trademark/newOfficialFee`, Data);
   }
 
   updateData(params: object) {
-    return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
+    return this.httpClient.patch(`${apiUrl}/trademark/updateOfficialFee`, params);
   }
 
-  deleteData(userCode: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
+  deleteData(id: string): Observable<any>{
+    return this.httpClient.delete(`${apiUrl}/trademark/deleteOfficialFee/${id}`);
   }
   
 }
