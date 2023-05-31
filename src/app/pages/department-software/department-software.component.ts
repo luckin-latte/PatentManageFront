@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
+import { LibService } from 'src/app/shared';
 import { DepartmentSoftwareService } from './department-software.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
@@ -19,31 +20,59 @@ export class DepartmentSoftwareComponent implements OnInit {
   public dataSet: any; // 查询列表资料
   public searchForm: FormGroup;
   public searchLoading = true;
-  public proposalDateRange = [];
-  public applyDateRange = [];
+  public applicationDateRange = [];
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
 
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
 
+  // 下拉搜索框数据
+  listOfDepart: Array<{ value: string; text: string }> = [];
+  listOfAgency: Array<{ value: string; text: string }> = [];
+
   constructor(
     private formBuilder: FormBuilder,
+    private libService: LibService,
     private nzDrawerService: NzDrawerService,
     private departmentSoftwareService: DepartmentSoftwareService
     ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('inventor', new FormControl(''));
+    this.searchForm.addControl('softwareName', new FormControl(''));
+    this.searchForm.addControl('softwareCode', new FormControl(''));
+    this.searchForm.addControl('inventorName', new FormControl(''));
     this.searchForm.addControl('agency', new FormControl('0'));
-    this.searchForm.addControl('devWay', new FormControl('0'));
-    this.searchForm.addControl('status', new FormControl('0'));
-    this.searchForm.addControl('proposalDateRange', new FormControl(''));
-    this.searchForm.addControl('applyDateRange', new FormControl(''));
+    this.searchForm.addControl('developWay', new FormControl('0'));
+    this.searchForm.addControl('rightStatus', new FormControl('0'));
+    this.searchForm.addControl('departmentName', new FormControl('0'));
+    this.searchForm.addControl('applicationDateRange', new FormControl(''));
   }
 
   ngOnInit(): void {
     this.search(true);
+  }
+
+  searchDepart(e: string): void {
+    this.libService.getAllDepartments().subscribe((res: any) => {
+      // console.log('部门列表', res.data)
+      res.data.forEach((item: string) => {
+        this.listOfDepart.push({
+          value: item,
+          text: item
+        });
+      });
+    });
+  }
+
+  searchAgency(e: string): void {
+    this.libService.getAllAgency().subscribe((res: any) => {
+      // console.log('代理机构列表', .data)
+      res.data.agencyNameList.forEach((item: string) => {
+        this.listOfAgency.push({
+          value: item,
+          text: item
+        });
+      });
+    });
   }
 
   public onChange(result: Date): void {
@@ -53,14 +82,14 @@ export class DepartmentSoftwareComponent implements OnInit {
   // 重置查询表单
   public resetForm(): void {
     this.searchForm.reset({
-      name: '',
-      code: '',
-      inventor: '',
+      softwareName: '',
+      softwareCode: '',
+      inventorName: '',
       agency: '0',
-      devWay: '0',
-      status: '0',
-      proposalDateRange: '',
-      applyDateRange: ''
+      developWay: '0',
+      rightStatus: '0',
+      departmentName: '0',
+      applicationDateRange: ''
     });
   }
   
@@ -97,17 +126,17 @@ export class DepartmentSoftwareComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'softwareName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'softwareName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'code') {
+      } else if (key === 'softwareCode') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'code',
+            'softwareCode',
             this.searchForm.controls[key].value
           )
         );
@@ -118,31 +147,31 @@ export class DepartmentSoftwareComponent implements OnInit {
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'devWay') {
+      } else if (key === 'developWay') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'devWay',
+            'developWay',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'status') {
+      } else if (key === 'rightStatus') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'status',
+            'rightStatus',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'proposalDateRange') {
+      } else if (key === 'departmentName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'proposalDateRange',
+            'departmentName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'applyDateRange') {
+      } else if (key === 'applicationDateRange') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'applyDateRange',
+            'applicationDateRange',
             this.searchForm.controls[key].value
           )
         );

@@ -227,7 +227,7 @@ export class TrademarkOfficialFeeComponent implements OnInit {
       nzTitle: '确定删除吗？',
       nzOkText: '删除',
       // nzOkType: 'danger',
-      nzOnOk: () => this.trademarkOfficialFeeService.deleteAgency(code).subscribe((res: any) =>{
+      nzOnOk: () => this.trademarkOfficialFeeService.deleteData(code).subscribe((res: any) =>{
         console.log('删除数据：', res);
       }),
       nzCancelText: '取消',

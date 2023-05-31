@@ -258,7 +258,7 @@ export class TrademarkBonusComponent implements OnInit {
       nzTitle: '确定删除吗？',
       nzOkText: '删除',
       // nzOkType: 'danger',
-      nzOnOk: () => this.trademarkBonusService.deleteAgency(id).subscribe((res: any) =>{
+      nzOnOk: () => this.trademarkBonusService.deleteData(id).subscribe((res: any) =>{
         console.log('删除数据：', res);
       }),
       nzCancelText: '取消',

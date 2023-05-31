@@ -13,20 +13,16 @@ export class TrademarkFileService {
   ) { 
   }
 
-  getList(queryInfo: object): Observable<any>{
+  getList(queryInfo: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/trademark/getFileList`, queryInfo);
   }
 
-  newData(Data: object) {
-    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
+  newData(Data: object): Observable<any> {
+    return this.httpClient.post(`${apiUrl}/trademark/newFileInfo`, Data);
   }
 
-  updateData(params: object) {
-    return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
-  }
-
-  deleteAgency(userCode: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
+  deleteData(id: string): Observable<any> {
+    return this.httpClient.delete(`${apiUrl}/trademark/deleteFile/${id}`);
   }
   
 }

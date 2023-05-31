@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
+import { LibService } from 'src/app/shared';
 import { DepartmentTrademarkService } from './department-trademark.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
@@ -24,24 +25,53 @@ export class DepartmentTrademarkComponent implements OnInit {
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
 
+  // 下拉搜索框数据
+  listOfDepart: Array<{ value: string; text: string }> = [];
+  listOfAgency: Array<{ value: string; text: string }> = [];
+
   constructor(
     private formBuilder: FormBuilder,
+    private libService: LibService,
     private nzDrawerService: NzDrawerService,
     private departmentTrademarkService: DepartmentTrademarkService
     ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('inventor', new FormControl(''));
-    this.searchForm.addControl('owner', new FormControl(''));
-    this.searchForm.addControl('copyright', new FormControl(''));
-    this.searchForm.addControl('type', new FormControl(''));
-    this.searchForm.addControl('status', new FormControl('0'));
+    this.searchForm.addControl('trademarkName', new FormControl(''));
+    this.searchForm.addControl('trademarkCode', new FormControl(''));
+    this.searchForm.addControl('inventorName', new FormControl(''));
+    this.searchForm.addControl('trademarkOwner', new FormControl(''));
+    this.searchForm.addControl('trademarkType', new FormControl(''));
+    this.searchForm.addControl('currentStatus', new FormControl('0'));
+    this.searchForm.addControl('departmentName', new FormControl('0'));
     this.searchForm.addControl('agency', new FormControl('0'));
   }
 
   ngOnInit(): void {
     this.search(true);
+  }
+
+  searchDepart(e: string): void {
+    this.libService.getAllDepartments().subscribe((res: any) => {
+      // console.log('部门列表', res.data)
+      res.data.forEach((item: string) => {
+        this.listOfDepart.push({
+          value: item,
+          text: item
+        });
+      });
+    });
+  }
+
+  searchAgency(e: string): void {
+    this.libService.getAllAgency().subscribe((res: any) => {
+      // console.log('代理机构列表', .data)
+      res.data.agencyNameList.forEach((item: string) => {
+        this.listOfAgency.push({
+          value: item,
+          text: item
+        });
+      });
+    });
   }
 
   public onChange(result: Date): void {
@@ -51,13 +81,13 @@ export class DepartmentTrademarkComponent implements OnInit {
   // 重置查询表单
   public resetForm(): void {
     this.searchForm.reset({
-      name: '',
-      code: '',
-      inventor: '',
-      owner: '',
-      copyright: '',
-      type: '0',
-      status: '0',
+      trademarkName: '',
+      trademarkCode: '',
+      inventorName: '',
+      trademarkOwner: '',
+      trademarkType: '0',
+      currentStatus: '0',
+      departmentName: '0',
       agency: '0',
     });
   }
@@ -95,52 +125,52 @@ export class DepartmentTrademarkComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'trademarkName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'trademarkName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'code') {
+      } else if (key === 'trademarkCode') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'code',
+            'trademarkCode',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'inventor') {
+      } else if (key === 'inventorName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'inventor',
+            'inventorName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'owner') {
+      } else if (key === 'trademarkOwner') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'owner',
+            'trademarkOwner',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'copyright') {
+      } else if (key === 'trademarkType') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'copyright',
+            'trademarkType',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'type') {
+      } else if (key === 'currentStatus') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'type',
+            'currentStatus',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'status') {
+      } else if (key === 'departmentName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'status',
+            'departmentName',
             this.searchForm.controls[key].value
           )
         );

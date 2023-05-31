@@ -40,14 +40,14 @@ export class LoginComponent implements OnInit {
       this.loginForm.controls[i].updateValueAndValidity();
     }
     
+    // console.log(this.loginForm.value);
     // 处理表单数据
-    console.log(this.loginForm.value);
     const { userName, password } = this.loginForm.value;
     const loginRequest: LoginRequest = { userName, password }
 
     // 请求后端登录
     this.loginService.login(loginRequest).subscribe((res: any) =>{
-      console.log('登录成功', res);
+      // console.log('登录成功', res);
       // 存储token
       // localStorage.setItem('token', res.data.token)
       const token = res.data.token;

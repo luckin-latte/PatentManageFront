@@ -26,8 +26,8 @@ export class AgencyService {
     return this.httpClient.post(`${apiUrl}/agency/updateAgency`, params);
   }
 
-  deleteAgency(agencyCode: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/agency/deleteAgency/${agencyCode}`);
+  deleteData(agencyCode: string): Observable<any>{
+    return this.httpClient.delete(`${apiUrl}/agency/deleteData/${agencyCode}`);
   }
   
 }

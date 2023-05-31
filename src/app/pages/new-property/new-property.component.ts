@@ -82,22 +82,22 @@ export class NewPropertyComponent implements OnInit {
 
   ngOnInit(): void {
     this.libService.getCode('ZL').subscribe((res: any) =>{
-      console.log('专利编号：', res.data);
+      // console.log('专利编号：', res.data);
       this.patentCreateForm.get('patentCode')?.setValue(res.data);
     })
     this.libService.getCode('RZ').subscribe((res: any) =>{
-      console.log('软著编号：', res.data);
+      // console.log('软著编号：', res.data);
       this.sofetwareCreateForm.get('softwareCode')?.setValue(res.data);
     })
     this.libService.getCode('TM').subscribe((res: any) =>{
-      console.log('商标编号：', res.data);
+      // console.log('商标编号：', res.data);
       this.trademarkCreateForm.get('trademarkCode')?.setValue(res.data);
     })
   }
 
   searchDepart(e: string): void {
     this.libService.getAllDepartments().subscribe((res: any) => {
-      console.log(res.data)
+      // console.log('部门列表', res.data)
       res.data.forEach((item: string) => {
         this.listOfDepart.push({
           value: item,
@@ -109,7 +109,7 @@ export class NewPropertyComponent implements OnInit {
 
   searchAgency(e: string): void {
     this.libService.getAllAgency().subscribe((res: any) => {
-      console.log(res.data)
+      // console.log('代理机构列表', .data)
       res.data.agencyNameList.forEach((item: string) => {
         this.listOfAgency.push({
           value: item,
@@ -118,6 +118,7 @@ export class NewPropertyComponent implements OnInit {
       });
     });
   }
+  
   public get listOfInventor(): FormArray {
     return this.patentCreateForm.get('listOfInventor') as FormArray;
   }
@@ -160,7 +161,7 @@ export class NewPropertyComponent implements OnInit {
   }
 
   public newSoftware() {
-    Object.keys(this.patentCreateForm.controls).forEach(key => {
+    Object.keys(this.sofetwareCreateForm.controls).forEach(key => {
       this.sofetwareCreateForm.controls[key].markAsDirty();
       this.sofetwareCreateForm.controls[key].updateValueAndValidity();
     })
@@ -172,7 +173,7 @@ export class NewPropertyComponent implements OnInit {
   }
 
   public newTrademark() {
-    Object.keys(this.patentCreateForm.controls).forEach(key => {
+    Object.keys(this.trademarkCreateForm.controls).forEach(key => {
       this.trademarkCreateForm.controls[key].markAsDirty();
       this.trademarkCreateForm.controls[key].updateValueAndValidity();
     })

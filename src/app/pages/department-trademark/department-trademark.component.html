@@ -11,15 +11,15 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">商标名称</nz-form-label>
         <nz-form-control>
-          <input nz-input  formControlName="name"/>
+          <input nz-input  formControlName="trademarkName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="8">商标编号</nz-form-label>
+        <nz-form-label [nzSpan]="6">商标编号</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="code"/>
+          <input nz-input formControlName="trademarkCode"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -27,7 +27,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">发明人</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="inventor"/>
+          <input nz-input formControlName="inventorName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -38,15 +38,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">商标权人</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="owner"/>
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="8">商标版权号</nz-form-label>
-        <nz-form-control>
-          <input nz-input formControlName="copyright"/>
+          <input nz-input formControlName="trademarkOwner"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -54,19 +46,16 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">商标种类</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="type"/>
+          <input nz-input formControlName="trademarkType"/>
           <!-- 0101~0145 -->
         </nz-form-control>
       </nz-form-item>
     </div>
-  </div>
-
-  <div nz-row [nzGutter]="24">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">当前状态</nz-form-label>
         <nz-form-control>
-          <nz-select id="status" nzAllowClear formControlName="status">
+          <nz-select id="currentStatus" nzAllowClear formControlName="currentStatus">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
             <nz-option nzValue="1" nzLabel="申请中"></nz-option>
             <nz-option nzValue="2" nzLabel="生效"></nz-option>
@@ -76,12 +65,29 @@
         </nz-form-control>
       </nz-form-item>
     </div>
+  </div>
+
+  <div nz-row [nzGutter]="24">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
-        <nz-form-label [nzSpan]="8">代理机构</nz-form-label>
+        <nz-form-label [nzSpan]="6">部门名称</nz-form-label>
         <nz-form-control>
-          <nz-select id="agency" nzAllowClear formControlName="agency">
+          <nz-select id="departmentName" formControlName="departmentName" (nzOnSearch)="searchDepart($event)"
+            nzShowSearch nzServerSearch nzAllowClear nzPlaceHolder="请选择部门">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option *ngFor="let o of listOfDepart" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">代理机构</nz-form-label>
+        <nz-form-control>
+          <nz-select id="agency" formControlName="agency" (nzOnSearch)="searchAgency($event)"
+            nzShowSearch nzServerSearch nzAllowClear nzPlaceHolder="请选择代理机构">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option *ngFor="let o of listOfAgency" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -100,11 +106,11 @@
       <th nzWidth="60px" nzLeft="0px">编号</th>
       <th nzWidth="120px" nzLeft="60px">商标编号</th>
       <th nzWidth="120px" nzLeft="180px">商标名称</th>
-      <th>当前状态</th>
+      <th>商标种类</th>
       <th>发明人</th>
       <th>商标权人</th>
       <th>商标版权号</th>
-      <th>商标种类</th>
+      <th>当前状态</th>
       <th>权力状态</th>
       <th nzWidth="80px" nzRight="80px">商标奖金</th>
       <th nzWidth="80px" nzRight="0px">相关文件</th>
@@ -113,14 +119,14 @@
   <tbody>
     <tr *ngFor="let data of resultTable.data; let i = index">
       <td nzLeft="0px">{{ i+1 }}</td>
-      <td nzLeft="60px">{{ data.code }}</td>
-      <td nzLeft="180px">{{ data.name }}</td>
-      <td>{{ data.status }}</td>
-      <td>{{ data.inventor}}</td>
-      <td>{{ data.owner }}</td>
-      <td>{{ data.copyrightNo }}</td>
-      <td>{{ data.type }}</td>
-      <td>{{ data.powerStatus }}</td>
+      <td nzLeft="60px">{{ data.trademarkCode }}</td>
+      <td nzLeft="180px">{{ data.trademarkName }}</td>
+      <td>{{ data.trademarkType }}</td>
+      <td>{{ data.inventorName }}</td>
+      <td>{{ data.trademarkOwner }}</td>
+      <td>{{ data.copyRightCode }}</td>
+      <td>{{ data.currentStatus }}</td>
+      <td>{{ data.rightStatus }}</td>
       <td nzRight="80px">
         <button nz-button  (click)="showBonus()">详情</button>
       </td>

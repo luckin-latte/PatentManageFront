@@ -26,7 +26,7 @@ export class TrademarkBonusService {
     return this.httpClient.post(`${apiUrl}/trademark/updateBonus`, params);
   }
 
-  deleteAgency(id: string): Observable<any>{
+  deleteData(id: string): Observable<any>{
     return this.httpClient.delete(`${apiUrl}/trademark/deleteBonus/${id}`);
   }
   

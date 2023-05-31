@@ -11,7 +11,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">专利名称</nz-form-label>
         <nz-form-control>
-          <input nz-input  formControlName="name"/>
+          <input nz-input  formControlName="patentName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -19,7 +19,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">专利编号</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="code"/>
+          <input nz-input formControlName="patentCode"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -27,7 +27,7 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">发明人</nz-form-label>
         <nz-form-control>
-          <input nz-input formControlName="inventor"/>
+          <input nz-input formControlName="inventorName"/>
         </nz-form-control>
       </nz-form-item>
     </div>
@@ -38,11 +38,11 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">专利类型</nz-form-label>
         <nz-form-control>
-          <nz-select id="type" nzAllowClear formControlName="type">
+          <nz-select id="patentType" nzAllowClear formControlName="patentType">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="发明专利"></nz-option>
-            <nz-option nzValue="2" nzLabel="实用新型专利"></nz-option>
-            <nz-option nzValue="3" nzLabel="外观设计专利"></nz-option>
+            <nz-option nzValue="发明专利" nzLabel="发明专利"></nz-option>
+            <nz-option nzValue="实用新型专利" nzLabel="实用新型专利"></nz-option>
+            <nz-option nzValue="外观设计专利" nzLabel="外观设计专利"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -51,18 +51,18 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">当前程序</nz-form-label>
         <nz-form-control>
-          <nz-select id="process" nzAllowClear formControlName="process">
+          <nz-select id="currentProgram" nzAllowClear formControlName="currentProgram">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="内部作业"></nz-option>
-            <nz-option nzValue="2" nzLabel="委托代理"></nz-option>
-            <nz-option nzValue="3" nzLabel="官方受理"></nz-option>
-            <nz-option nzValue="4" nzLabel="官方初审"></nz-option>
-            <nz-option nzValue="5" nzLabel="补正"></nz-option>
-            <nz-option nzValue="6" nzLabel="官方实审"></nz-option>
-            <nz-option nzValue="7" nzLabel="授权公告"></nz-option>
-            <nz-option nzValue="8" nzLabel="官方发证"></nz-option>
-            <nz-option nzValue="9" nzLabel="驳回通知"></nz-option>
-            <nz-option nzValue="10" nzLabel="复审"></nz-option>
+            <nz-option nzValue="内部作业" nzLabel="内部作业"></nz-option>
+            <nz-option nzValue="委托代理" nzLabel="委托代理"></nz-option>
+            <nz-option nzValue="官方受理" nzLabel="官方受理"></nz-option>
+            <nz-option nzValue="官方初审" nzLabel="官方初审"></nz-option>
+            <nz-option nzValue="补正" nzLabel="补正"></nz-option>
+            <nz-option nzValue="官方实审" nzLabel="官方实审"></nz-option>
+            <nz-option nzValue="授权公告" nzLabel="授权公告"></nz-option>
+            <nz-option nzValue="官方发证" nzLabel="官方发证"></nz-option>
+            <nz-option nzValue="驳回通知" nzLabel="驳回通知"></nz-option>
+            <nz-option nzValue="复审" nzLabel="复审"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -71,13 +71,13 @@
       <nz-form-item>
         <nz-form-label [nzSpan]="6">权力状态</nz-form-label>
         <nz-form-control>
-          <nz-select id="status" nzAllowClear formControlName="status">
+          <nz-select id="rightStatus" nzAllowClear formControlName="rightStatus">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
-            <nz-option nzValue="1" nzLabel="待交"></nz-option>
-            <nz-option nzValue="2" nzLabel="在审"></nz-option>
-            <nz-option nzValue="3" nzLabel="有权"></nz-option>
-            <nz-option nzValue="4" nzLabel="无权"></nz-option>
-            <nz-option nzValue="5" nzLabel="进国家"></nz-option>
+            <nz-option nzValue="待交" nzLabel="待交"></nz-option>
+            <nz-option nzValue="在审" nzLabel="在审"></nz-option>
+            <nz-option nzValue="有权" nzLabel="有权"></nz-option>
+            <nz-option nzValue="无权" nzLabel="无权"></nz-option>
+            <nz-option nzValue="进国家" nzLabel="进国家"></nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -87,10 +87,24 @@
   <div nz-row [nzGutter]="24">
     <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
       <nz-form-item>
+        <nz-form-label [nzSpan]="6">部门名称</nz-form-label>
+        <nz-form-control>
+          <nz-select id="departmentName" formControlName="departmentName" (nzOnSearch)="searchDepart($event)"
+            nzShowSearch nzServerSearch nzAllowClear nzPlaceHolder="请选择部门">
+            <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option *ngFor="let o of listOfDepart" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col [nzMd]="8" [nzLg]="8" [nzXl]="8">
+      <nz-form-item>
         <nz-form-label [nzSpan]="6">代理机构</nz-form-label>
         <nz-form-control>
-          <nz-select id="agency" nzAllowClear formControlName="agency">
+          <nz-select id="agency" formControlName="agency" (nzOnSearch)="searchAgency($event)"
+            nzShowSearch nzServerSearch nzAllowClear nzPlaceHolder="请选择代理机构">
             <nz-option nzValue="0" nzLabel="全部"></nz-option>
+            <nz-option *ngFor="let o of listOfAgency" [nzLabel]="o.text" [nzValue]="o.value"> </nz-option>
           </nz-select>
         </nz-form-control>
       </nz-form-item>
@@ -124,16 +138,16 @@
   <tbody>
     <tr *ngFor="let data of reasultTable.data; let i = index">
       <td nzLeft="0px">{{ i+1 }}</td>
-      <td nzLeft="60px">{{ data.code }}</td>
-      <td nzLeft="180px">{{ data.name }}</td>
-      <td>{{ data.inventor}}</td>
-      <td>{{ data.type }}</td>
-      <td>{{ data.process }}</td>
-      <td>{{ data.status }}</td>
-      <td>{{ data.applyCode}}</td>
-      <td>{{ data.applyDate | date: 'yyyy-MM-dd'}}</td>
-      <td>{{ data.empowerCode}}</td>
-      <td>{{ data.empowerDate | date: 'yyyy-MM-dd'}}</td>
+      <td nzLeft="60px">{{ data.patentCode }}</td>
+      <td nzLeft="180px">{{ data.patentName }}</td>
+      <td>{{ data.inventorNameList.toString() }}</td>
+      <td>{{ data.patentType }}</td>
+      <td>{{ data.currentProgram }}</td>
+      <td>{{ data.rightStatus }}</td>
+      <td>{{ data.applicationCode }}</td>
+      <td>{{ data.applicationDate | date: 'yyyy-MM-dd' }}</td>
+      <td>{{ data.grantCode }}</td>
+      <td>{{ data.grantDate | date: 'yyyy-MM-dd' }}</td>
       <td nzRight="80px">
         <button nz-button (click)="showBonus()">详情</button>
       </td>

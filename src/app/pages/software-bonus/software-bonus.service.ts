@@ -26,7 +26,7 @@ export class SoftwareBonusService {
     return this.httpClient.post(`${apiUrl}/software/updateBonus`, params);
   }
 
-  deleteAgency(id: string): Observable<any>{
+  deleteData(id: string): Observable<any>{
     return this.httpClient.delete(`${apiUrl}/software/deleteBonus/${id}`);
   }
 }

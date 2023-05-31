@@ -258,7 +258,7 @@ export class PatentBonusComponent implements OnInit {
       nzTitle: '确定删除吗？',
       nzOkText: '删除',
       // nzOkType: 'danger',
-      nzOnOk: () => this.patentBonusService.deleteAgency(id).subscribe((res: any) =>{
+      nzOnOk: () => this.patentBonusService.deleteData(id).subscribe((res: any) =>{
         console.log('删除数据：', res);
       }),
       nzCancelText: '取消',

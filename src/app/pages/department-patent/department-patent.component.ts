@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
+import { LibService } from 'src/app/shared';
 import { DepartmentPatentService } from './department-patent.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
@@ -23,26 +24,54 @@ export class DepartmentPatentComponent implements OnInit {
 
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
-  public applyDateRange = [];
-  public empowerDateRange = [];
+
+  // 下拉搜索框数据
+  listOfDepart: Array<{ value: string; text: string }> = [];
+  listOfAgency: Array<{ value: string; text: string }> = [];
 
   constructor(
     private formBuilder: FormBuilder,
+    private libService: LibService,
     private nzDrawerService: NzDrawerService,
     private departmentPatentService: DepartmentPatentService
   ) {
     this.searchForm = this.formBuilder.group({});
-    this.searchForm.addControl('name', new FormControl(''));
-    this.searchForm.addControl('code', new FormControl(''));
-    this.searchForm.addControl('inventor', new FormControl(''));
-    this.searchForm.addControl('type', new FormControl('0'));
-    this.searchForm.addControl('process', new FormControl('0'));
-    this.searchForm.addControl('status', new FormControl('0'));
+    this.searchForm.addControl('patentName', new FormControl(''));
+    this.searchForm.addControl('patentCode', new FormControl(''));
+    this.searchForm.addControl('inventorName', new FormControl(''));
+    this.searchForm.addControl('patentType', new FormControl('0'));
+    this.searchForm.addControl('currentProgram', new FormControl('0'));
+    this.searchForm.addControl('rightStatus', new FormControl('0'));
+    this.searchForm.addControl('departmentName', new FormControl('0'));
     this.searchForm.addControl('agency', new FormControl('0'));
   }
 
   ngOnInit(): void {
     this.search(true);
+  }
+
+  searchDepart(e: string): void {
+    this.libService.getAllDepartments().subscribe((res: any) => {
+      // console.log('部门列表', res.data)
+      res.data.forEach((item: string) => {
+        this.listOfDepart.push({
+          value: item,
+          text: item
+        });
+      });
+    });
+  }
+
+  searchAgency(e: string): void {
+    this.libService.getAllAgency().subscribe((res: any) => {
+      // console.log('代理机构列表', .data)
+      res.data.agencyNameList.forEach((item: string) => {
+        this.listOfAgency.push({
+          value: item,
+          text: item
+        });
+      });
+    });
   }
 
   public onChange(result: Date): void {
@@ -51,12 +80,13 @@ export class DepartmentPatentComponent implements OnInit {
 
   public resetForm(): void {
     this.searchForm.reset({
-      code: '',
-      name: '',
-      inventor: '',
-      type: '0',
-      process: '0',
-      status: '0',
+      patentCode: '',
+      patentName: '',
+      inventorName: '',
+      patentType: '0',
+      currentProgram: '0',
+      rightStatus: '0',
+      departmentName: '0',
       agency: '0'
     });
   }
@@ -94,45 +124,52 @@ export class DepartmentPatentComponent implements OnInit {
         continue;
       }
 
-      if (key === 'code') {
+      if (key === 'patentCode') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'code',
+            'patentCode',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'name') {
+      } else if (key === 'patentName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'patentName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'inventor') {
+      } else if (key === 'inventorName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'inventor',
+            'inventorName',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'type') {
+      } else if (key === 'patentType') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'type',
+            'patentType',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'process') {
+      } else if (key === 'currentProgram') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'process',
+            'currentProgram',
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'status') {
+      } else if (key === 'rightStatus') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'status',
+            'rightStatus',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'departmentName') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'departmentName',
             this.searchForm.controls[key].value
           )
         );

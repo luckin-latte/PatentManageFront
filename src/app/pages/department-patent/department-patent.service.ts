@@ -15,7 +15,7 @@ export class DepartmentPatentService {
   }
 
   getList(queryInfo: object): Observable<any>{
-    return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
+    return this.httpClient.post(`${apiUrl}/patent/getList`, queryInfo);
   }
 
   newData(Data: object) {
@@ -26,7 +26,7 @@ export class DepartmentPatentService {
     return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
   }
 
-  deleteAgency(userCode: string): Observable<any>{
+  deleteData(userCode: string): Observable<any>{
     return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
   }
   
