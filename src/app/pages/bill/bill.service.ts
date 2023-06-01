@@ -26,8 +26,8 @@ export class BillService {
     return this.httpClient.patch(`${apiUrl}/bill/updateBill`, params);
   }
 
-  deleteData(id: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/bill/deleteBill/${id}`);
+  deleteData(billCode: string): Observable<any>{
+    return this.httpClient.delete(`${apiUrl}/bill/deleteBill/${billCode}`);
   }
   
 }

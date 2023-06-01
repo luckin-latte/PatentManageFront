@@ -27,6 +27,7 @@ export class CreateComponent implements OnInit {
         patentName: ['', [Validators.required]],
         feeStatus: [''],
         annual: ['', [Validators.required]],
+        dueAmount: ['', [Validators.required]],
         dueDate: ['', [Validators.required]],
         actualPay: [''],
         actualPayDate: [''],

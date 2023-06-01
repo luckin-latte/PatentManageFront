@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
 
+import { LibService } from 'src/app/shared';
 import { BillService } from './bill.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
@@ -20,36 +21,44 @@ export class BillComponent implements OnInit {
   public dataSet: any; // 查询列表资料
   public searchForm: FormGroup;
   public searchLoading = true;
-  public payDateRange = [];
+  public dateRange = [];
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
 
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
 
+  // 下拉搜索框数据
+  listOfAgency: Array<{ value: string; text: string }> = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private drawerService: NzDrawerService,
     private modalService: NzModalService,
+    private libService: LibService,
     private billService: BillService
     ) {
       this.searchForm = this.formBuilder.group({});
+      this.searchForm.addControl('proposalName', new FormControl(''));
       this.searchForm.addControl('agency', new FormControl('0'));
       this.searchForm.addControl('billCode', new FormControl(''));
-      this.searchForm.addControl('proposalCode', new FormControl(''));
-      this.searchForm.addControl('dueFee', new FormControl(''));
-      this.searchForm.addControl('actualPay', new FormControl(''));
-      this.searchForm.addControl('payDateRange', new FormControl(''));
-      this.searchForm.addControl('type', new FormControl('0'));
-      this.searchForm.addControl('status', new FormControl('0'));
+      this.searchForm.addControl('payStatus', new FormControl('0'));
+      this.searchForm.addControl('dateRange', new FormControl(''));
   }
 
   ngOnInit(): void {
     this.search(true);
   }
 
-  // 选择器远程搜索
-  formDropListSearch(): void {
-    const getAgencyList = '';
+  searchAgency(e: string): void {
+    this.libService.getAllAgency().subscribe((res: any) => {
+      // console.log('代理机构列表', .data)
+      res.data.agencyNameList.forEach((item: string) => {
+        this.listOfAgency.push({
+          value: item,
+          text: item
+        });
+      });
+    });
   }
 
   public onChange(result: Date): void {
@@ -59,14 +68,11 @@ export class BillComponent implements OnInit {
   // 重置查询表单
   public resetForm(): void {
     this.searchForm.reset({
-      agency: '0',
+      proposalName: '0',
+      agency: '',
       billCode: '',
-      proposalCode: '',
-      dueFee: '',
-      actualPay: '',
-      payDateRange: '',
-      type: '0',
-      status: '0'
+      payStatus: '',
+      dateRange: '',
     });
   }
   
@@ -103,10 +109,17 @@ export class BillComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'proposalName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'proposalName',
+            this.searchForm.controls[key].value
+          )
+        );
+      } else if (key === 'agency') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'agency',
             this.searchForm.controls[key].value
           )
         );
@@ -117,49 +130,22 @@ export class BillComponent implements OnInit {
             this.searchForm.controls[key].value
           )
         );
-      } else if (key === 'proposalCode') {
+      } else if (key === 'payStatus') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'proposalCode',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'dueFee') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'dueFee',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'actualPay') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'actualPay',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'payDateRange') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'payDateRange',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'type') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'type',
-            this.searchForm.controls[key].value
-          )
-        );
-      } else if (key === 'status') {
-        queryCriteria.addCriteria(
-          new QueryCriteriaInfo(
-            'status',
+            'payStatus',
             this.searchForm.controls[key].value
           )
         );
       }
+      // else if (key === 'dateRange') {
+      //   queryCriteria.addCriteria(
+      //     new QueryCriteriaInfo(
+      //       'dateRange',
+      //       this.searchForm.controls[key].value
+      //     )
+      //   );
+      // }
     }
     
     this.queryInfo.setCriteria(queryCriteria);
@@ -201,12 +187,12 @@ export class BillComponent implements OnInit {
     });
   }
 
-  public edit() {
+  public edit(data: object) {
     this.drawerRef = this.drawerService.create({
       nzTitle: '编辑账单',
       nzContent: EditComponent,
       nzContentParams: {
-        name: 'EditComponent'
+        billInfo: data
       },
       nzClosable: true,
       nzMask: true,
@@ -228,12 +214,14 @@ export class BillComponent implements OnInit {
     });
   }
 
-  public delete(): void {
+  public delete(code: string): void {
     this.modalService.confirm({
       nzTitle: '确定删除吗？',
       nzOkText: '删除',
       // nzOkType: 'danger',
-      nzOnOk: () => console.log('OK'),
+      nzOnOk: () => this.billService.deleteData(code).subscribe((res: any) =>{
+        console.log('删除数据：', res);
+      }),
       nzCancelText: '取消',
       nzOnCancel: () => console.log('Cancel')
     });

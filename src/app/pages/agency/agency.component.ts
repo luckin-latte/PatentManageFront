@@ -127,7 +127,7 @@ export class AgencyComponent implements OnInit {
     });
   }
 
-  public edit(code: string, data: object) {
+  public edit(data: object) {
     this.drawerRef = this.drawerService.create({
       nzTitle: '编辑代理机构',
       nzContent: EditComponent,
