@@ -13,7 +13,7 @@ import { EditComponent } from './edit/edit.component';
   selector: 'app-trademark-bonus',
   templateUrl: './trademark-bonus.component.html',
   styleUrls: ['./trademark-bonus.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrademarkBonusComponent implements OnInit {
 
@@ -75,7 +75,7 @@ export class TrademarkBonusComponent implements OnInit {
     this.trademarkBonusService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
 
   }

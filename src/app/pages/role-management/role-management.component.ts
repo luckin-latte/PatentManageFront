@@ -11,7 +11,7 @@ import { CreateComponent } from './create/create.component';
   selector: 'app-role-management',
   templateUrl: './role-management.component.html',
   styleUrls: ['./role-management.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RoleManagementComponent implements OnInit {
 
@@ -61,7 +61,7 @@ export class RoleManagementComponent implements OnInit {
     this.roleManagementService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.roleList;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
 
   }

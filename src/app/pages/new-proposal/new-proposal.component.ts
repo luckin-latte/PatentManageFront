@@ -12,7 +12,7 @@ import { NewProposalService } from './new-proposal.service';
   selector: 'app-new-proposal',
   templateUrl: './new-proposal.component.html',
   styleUrls: ['./new-proposal.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NewProposalComponent implements OnInit {
 
@@ -50,6 +50,7 @@ export class NewProposalComponent implements OnInit {
     this.libService.getCode('TA').subscribe((res: any) =>{
       // console.log('提案编号：', res.data);
       this.CreateForm.get('proposalCode')?.setValue(res.data);
+      this.CreateForm.get('proposalCode')?.disable();
     })
   }
 

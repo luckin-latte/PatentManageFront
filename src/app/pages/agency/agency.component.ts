@@ -13,7 +13,7 @@ import { EditComponent } from './edit/edit.component';
   selector: 'app-agency',
   templateUrl: './agency.component.html',
   styleUrls: ['./agency.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AgencyComponent implements OnInit {
 
@@ -57,10 +57,11 @@ export class AgencyComponent implements OnInit {
 
     this.queryData();
 
-    this.agencyService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
+    this.agencyService.getList(this.queryInfo.getRawValue()).subscribe(res =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
+
     })
   }
 
@@ -102,7 +103,6 @@ export class AgencyComponent implements OnInit {
     this.searchLoading = false;
   }
 
-  
   public create() {
     this.drawerRef = this.drawerService.create({
       nzTitle: '新增代理机构',
@@ -124,6 +124,7 @@ export class AgencyComponent implements OnInit {
 
     this.drawerRef.afterClose.subscribe(data => {
       console.log(data);
+      this.search(true);
     });
   }
 
@@ -151,6 +152,7 @@ export class AgencyComponent implements OnInit {
 
     this.drawerRef.afterClose.subscribe(data => {
       console.log(data);
+      this.search(true);
     });
   }
 
@@ -161,6 +163,7 @@ export class AgencyComponent implements OnInit {
       // nzOkType: 'danger',
       nzOnOk: () => this.agencyService.deleteData(code).subscribe((res: any) =>{
         console.log('删除数据：', res);
+        this.search(true);
       }),
       nzCancelText: '取消',
       nzOnCancel: () => console.log('取消删除')

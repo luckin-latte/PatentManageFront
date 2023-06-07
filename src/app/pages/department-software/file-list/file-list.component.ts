@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   selector: 'app-file-list',
   templateUrl: './file-list.component.html',
   styleUrls: ['./file-list.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FileListComponent implements OnInit {
 
@@ -18,6 +18,7 @@ export class FileListComponent implements OnInit {
 
   @Input() name!: string;
   createForm: FormGroup;
+  public searchLoading = true;
 
   constructor(
     private formBuilder: FormBuilder

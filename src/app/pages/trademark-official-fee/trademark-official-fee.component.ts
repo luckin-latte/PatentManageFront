@@ -14,7 +14,7 @@ import { EditComponent } from './edit/edit.component';
   selector: 'app-trademark-official-fee',
   templateUrl: './trademark-official-fee.component.html',
   styleUrls: ['./trademark-official-fee.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TrademarkOfficialFeeComponent implements OnInit {
 
@@ -74,7 +74,7 @@ export class TrademarkOfficialFeeComponent implements OnInit {
     this.trademarkOfficialFeeService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
 
   }

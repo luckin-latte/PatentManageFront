@@ -61,7 +61,7 @@
 </div>
 
 <nz-table #resultTable nzBordered nzSize="small" [nzScroll]="{ x: '1800px' }"
-  nzShowPagination nzShowSizeChanger [nzData]="dataSet">
+  nzShowPagination nzShowSizeChanger [nzData]="dataSet" [nzLoading]="searchLoading">
   <thead>
     <tr>
       <th nzWidth="60px" nzLeft="0px">序号</th>

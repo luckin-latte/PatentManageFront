@@ -11,7 +11,7 @@ import { CreateComponent } from './create/create.component';
   selector: 'app-user-management',
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserManagementComponent implements OnInit {
 
@@ -60,7 +60,7 @@ export class UserManagementComponent implements OnInit {
     this.userManagementService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
 
   }

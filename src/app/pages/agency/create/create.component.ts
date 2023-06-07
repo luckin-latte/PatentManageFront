@@ -9,7 +9,7 @@ import { AgencyService } from '../agency.service';
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateComponent implements OnInit {
 
@@ -46,6 +46,7 @@ export class CreateComponent implements OnInit {
     this.libService.getCode('DL').subscribe((res: any) =>{
       // console.log('代理机构编号：', res.data);
       this.CreateForm.get('agencyCode')?.setValue(res.data);
+      this.CreateForm.get('agencyCode')?.disable();
     })
 
     // this.CreateForm.get('agencyName')?.setValidators([Validators.required])
@@ -54,7 +55,8 @@ export class CreateComponent implements OnInit {
     // this.CreateForm.get('agencyCode')?.disabled;
   }
 
-  public cancel() {
+  public cancel(e: any): void {
+    this.drawerRef.close(false);
   }
 
   public save(): void {
@@ -62,7 +64,7 @@ export class CreateComponent implements OnInit {
       this.CreateForm.controls[key].markAsDirty();
       this.CreateForm.controls[key].updateValueAndValidity();
     })
-    console.log('新增数据：', this.CreateForm.value)
+    console.log('新增代理机构：', this.CreateForm.value)
 
     this.agencyService.newData(this.CreateForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);

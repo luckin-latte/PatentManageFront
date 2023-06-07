@@ -9,7 +9,7 @@ import { BillService } from '../bill.service';
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateComponent implements OnInit {
 
@@ -41,6 +41,7 @@ export class CreateComponent implements OnInit {
     this.libService.getCode('ZD').subscribe((res: any) =>{
       // console.log('账单编号：', res.data);
       this.CreateForm.get('billCode')?.setValue(res.data);
+      this.CreateForm.get('billCode')?.disable();
     })
   }
 

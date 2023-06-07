@@ -9,7 +9,7 @@ import { RoleManagementService } from '../role-management.service';
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CreateComponent implements OnInit {
 
@@ -35,6 +35,7 @@ export class CreateComponent implements OnInit {
     this.libService.getCode('R').subscribe((res: any) =>{
       console.log('角色号：', res.data);
       this.CreateForm.get('roleCode')?.setValue(res.data);
+      this.CreateForm.get('roleCode')?.disable();
     })
     // this.searchPermission(`$event`);
   }

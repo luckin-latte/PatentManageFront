@@ -8,7 +8,7 @@ import { ProposalReviewService } from '../proposal-review.service';
   selector: 'app-approval',
   templateUrl: './approval.component.html',
   styleUrls: ['./approval.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ApprovalComponent implements OnInit {
 

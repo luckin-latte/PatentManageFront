@@ -13,7 +13,7 @@ import { FileListComponent } from './file-list/file-list.component';
   selector: 'app-department-patent',
   templateUrl: './department-patent.component.html',
   styleUrls: ['./department-patent.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DepartmentPatentComponent implements OnInit {
 
@@ -105,7 +105,7 @@ export class DepartmentPatentComponent implements OnInit {
     this.departmentPatentService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
   }
   

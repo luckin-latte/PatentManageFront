@@ -12,7 +12,7 @@ import { FileListComponent } from './file-list/file-list.component';
   selector: 'app-my-proposal',
   templateUrl: './my-proposal.component.html',
   styleUrls: ['./my-proposal.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyProposalComponent implements OnInit {
 
@@ -73,7 +73,7 @@ export class MyProposalComponent implements OnInit {
     this.myProposalService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
   }
   

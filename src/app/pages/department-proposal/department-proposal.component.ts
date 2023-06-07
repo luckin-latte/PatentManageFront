@@ -2,9 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
-import { DepartmentProposalService } from './department-proposal.service';
+import { LibService } from 'src/app/shared';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
+import { DepartmentProposalService } from './department-proposal.service';
 import { ReviewComponent } from './review/review.component';
 import { FileListComponent } from './file-list/file-list.component';
 
@@ -12,7 +13,7 @@ import { FileListComponent } from './file-list/file-list.component';
   selector: 'app-department-proposal',
   templateUrl: './department-proposal.component.html',
   styleUrls: ['./department-proposal.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DepartmentProposalComponent implements OnInit {
 
@@ -22,12 +23,15 @@ export class DepartmentProposalComponent implements OnInit {
   public dateRange = [];
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
 
+  listOfDepart: Array<{ value: string; text: string }> = [];
+
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
 
   constructor(
     private formBuilder: FormBuilder,
     private nzDrawerService: NzDrawerService,
+    private libService: LibService,
     private departmentProposalService: DepartmentProposalService
     ) {
     this.searchForm = this.formBuilder.group({});
@@ -37,11 +41,24 @@ export class DepartmentProposalComponent implements OnInit {
     this.searchForm.addControl('proposerName', new FormControl(''));
     this.searchForm.addControl('inventorName', new FormControl(''));
     this.searchForm.addControl('proposalState', new FormControl('0'));
+    this.searchForm.addControl('departmentName', new FormControl('0'));
     this.searchForm.addControl('dateRange', new FormControl(''));
   }
 
   ngOnInit(): void {
     this.search(true);
+  }
+
+  searchDepart(e: string): void {
+    this.libService.getAllDepartments().subscribe((res: any) => {
+      console.log(res.data)
+      res.data.forEach((item: string) => {
+        this.listOfDepart.push({
+          value: item,
+          text: item
+        });
+      });
+    });
   }
 
   public onChange(result: Date): void {
@@ -57,6 +74,7 @@ export class DepartmentProposalComponent implements OnInit {
       proposerName: '',
       inventorName: '',
       proposalState: '0',
+      departmentName: '0',
       dateRange: ''
     });
   }
@@ -75,7 +93,7 @@ export class DepartmentProposalComponent implements OnInit {
     this.departmentProposalService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
   }
   
@@ -136,6 +154,13 @@ export class DepartmentProposalComponent implements OnInit {
             this.searchForm.controls[key].value
           )
         );
+      } else if (key === 'departmentName') {
+        queryCriteria.addCriteria(
+          new QueryCriteriaInfo(
+            'departmentName',
+            this.searchForm.controls[key].value
+          )
+        );
       }
       // else if (key === 'dateRange') {
       //   queryCriteria.addCriteria(
@@ -159,12 +184,12 @@ export class DepartmentProposalComponent implements OnInit {
     this.searchLoading = false;
   }
 
-  public showReview() {
+  public showReview(code: string) {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '审批详情',
       nzContent: ReviewComponent,
       nzContentParams: {
-        name: 'review'
+        proposalCode: code
       },
       nzClosable: true,
       nzMask: true,

@@ -1,4 +1,4 @@
-<nz-table #myProposalTable nzBordered nzSize="small" [nzData]="dataSet">
+<nz-table #resultTable nzBordered nzSize="small" [nzData]="dataSet" [nzLoading]="searchLoading">
   <thead>
     <tr>
       <th>序号</th>
@@ -9,12 +9,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of myProposalTable.data">
-      <td>{{ data.number }}</td>
-      <td>{{ data.approver }}</td>
-      <td>{{ data.process }}</td>
-      <td>{{ data.date}}</td>
-      <td>{{ data.result}}</td>
+    <tr *ngFor="let data of resultTable.data; let i = index">
+      <td>{{ i+1 }}</td>
+      <td>{{ data.reviewerName }}</td>
+      <td>{{ data.reviewerRoleName }}</td>
+      <td>{{ data.reviewDate}}</td>
+      <td>{{ data.reviewResult}}</td>
     </tr>
   </tbody>
 </nz-table>

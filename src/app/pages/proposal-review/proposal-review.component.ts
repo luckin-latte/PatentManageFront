@@ -3,16 +3,16 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
 import { LibService } from 'src/app/shared';
-import { ProposalReviewService } from './proposal-review.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
+import { ProposalReviewService } from './proposal-review.service';
 import { ApprovalComponent } from './approval/approval.component';
 
 @Component({
   selector: 'app-proposal-review',
   templateUrl: './proposal-review.component.html',
   styleUrls: ['./proposal-review.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProposalReviewComponent implements OnInit {
 
@@ -66,7 +66,7 @@ export class ProposalReviewComponent implements OnInit {
     this.searchForm.reset({
       proposalName: '',
       proposalCode: '',
-      departmentName: '',
+      departmentName: '0',
       proposerName: '',
       inventorName: '',
       dateRange: ''
@@ -87,7 +87,7 @@ export class ProposalReviewComponent implements OnInit {
     this.proposalReviewService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
 
   }

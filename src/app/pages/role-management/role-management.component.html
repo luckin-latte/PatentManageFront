@@ -28,7 +28,7 @@
 </div>
 
 <nz-table #resultTable nzBordered nzSize="small" nzShowPagination nzShowSizeChanger
-  [nzData]="dataSet" nzTableLayout="fixed">
+  [nzData]="dataSet" [nzLoading]="searchLoading" nzTableLayout="fixed">
   <thead>
     <tr>
       <th nzWidth="60px">序号</th>

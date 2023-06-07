@@ -12,7 +12,7 @@ import { FileListComponent } from './file-list/file-list.component';
   selector: 'app-participated-proposal',
   templateUrl: './participated-proposal.component.html',
   styleUrls: ['./participated-proposal.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ParticipatedProposalComponent implements OnInit {
 
@@ -75,7 +75,7 @@ export class ParticipatedProposalComponent implements OnInit {
     this.participatedProposalService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
   }
   
@@ -159,12 +159,12 @@ export class ParticipatedProposalComponent implements OnInit {
     this.searchLoading = false;
   }
 
-  public showReview() {
+  public showReview(code: string) {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '审批详情',
       nzContent: ReviewComponent,
       nzContentParams: {
-        name: 'This is a param from child'
+        proposalCode: code
       },
       nzClosable: true,
       nzMask: true,

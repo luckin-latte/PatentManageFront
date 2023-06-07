@@ -1,38 +1,37 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+
+import { ParticipatedProposalService } from '../participated-proposal.service';
 
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReviewComponent implements OnInit {
+  
+  public searchLoading = true;
+  public dataSet: any; // 查询列表资料
 
-  dataSet = [
-    {
-      number: '1',
-      approver: '审批人',
-      process: '主管',
-      date: '2023-03-09',
-      result: '通过'
-    }
-  ];
-
-  @Input() name!: string;
-  createForm: FormGroup;
+  @Input() proposalCode!: string;
 
   constructor(
-    private formBuilder: FormBuilder
+    private participatedProposalService: ParticipatedProposalService
   ) {
-    this.createForm = this.formBuilder.group({
-      name: [ null ],
-      description: [ null ],
-      deadline: [ new Date() ]
-    });
   }
 
   ngOnInit() {
+    this.search();
+  }
+
+  
+  // 查询
+  public search(): void {
+    this.participatedProposalService.getReviewList(this.proposalCode).subscribe((res: any) =>{
+      console.log('返回数据：', res);
+      this.dataSet = res.data;
+      this.searchLoading = false;
+    })
   }
 
 }

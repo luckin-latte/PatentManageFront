@@ -9,7 +9,7 @@ import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
   selector: 'app-proposal-files',
   templateUrl: './proposal-files.component.html',
   styleUrls: ['./proposal-files.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProposalFilesComponent implements OnInit {
 
@@ -67,7 +67,7 @@ export class ProposalFilesComponent implements OnInit {
     this.proposalFilesService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
 
   }

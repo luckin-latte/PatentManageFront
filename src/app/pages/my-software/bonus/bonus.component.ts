@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   selector: 'app-bonus',
   templateUrl: './bonus.component.html',
   styleUrls: ['./bonus.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BonusComponent implements OnInit {
   dataSet = [
@@ -17,6 +17,7 @@ export class BonusComponent implements OnInit {
 
   @Input() name!: string;
   createForm: FormGroup;
+  public searchLoading = true;
 
   constructor(
     private formBuilder: FormBuilder

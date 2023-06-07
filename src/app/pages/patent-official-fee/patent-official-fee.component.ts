@@ -14,7 +14,7 @@ import { EditComponent } from './edit/edit.component';
   selector: 'app-patent-official-fee',
   templateUrl: './patent-official-fee.component.html',
   styleUrls: ['./patent-official-fee.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PatentOfficialFeeComponent implements OnInit {
 
@@ -73,7 +73,7 @@ export class PatentOfficialFeeComponent implements OnInit {
     this.patentOfficialFeeService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
 
   }

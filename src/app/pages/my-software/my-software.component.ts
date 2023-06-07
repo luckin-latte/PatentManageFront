@@ -14,7 +14,7 @@ import { FileListComponent } from './file-list/file-list.component';
   selector: 'app-my-software',
   templateUrl: './my-software.component.html',
   styleUrls: ['./my-software.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MySoftwareComponent implements OnInit {
 
@@ -93,7 +93,7 @@ export class MySoftwareComponent implements OnInit {
     this.mySoftwareService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
   }
   

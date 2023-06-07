@@ -13,7 +13,7 @@ import { FileListComponent } from './file-list/file-list.component';
   selector: 'app-department-trademark',
   templateUrl: './department-trademark.component.html',
   styleUrls: ['./department-trademark.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DepartmentTrademarkComponent implements OnInit {
 
@@ -106,7 +106,7 @@ export class DepartmentTrademarkComponent implements OnInit {
     this.departmentTrademarkService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
   }
   

@@ -84,14 +84,17 @@ export class NewPropertyComponent implements OnInit {
     this.libService.getCode('ZL').subscribe((res: any) =>{
       // console.log('专利编号：', res.data);
       this.patentCreateForm.get('patentCode')?.setValue(res.data);
+      this.patentCreateForm.get('patentCode')?.disable();
     })
     this.libService.getCode('RZ').subscribe((res: any) =>{
       // console.log('软著编号：', res.data);
       this.sofetwareCreateForm.get('softwareCode')?.setValue(res.data);
+      this.sofetwareCreateForm.get('softwareCode')?.disable();
     })
     this.libService.getCode('TM').subscribe((res: any) =>{
       // console.log('商标编号：', res.data);
       this.trademarkCreateForm.get('trademarkCode')?.setValue(res.data);
+      this.trademarkCreateForm.get('trademarkCode')?.disable();
     })
   }
 

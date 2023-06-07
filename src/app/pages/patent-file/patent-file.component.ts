@@ -11,7 +11,7 @@ import { CreateComponent } from './create/create.component';
   selector: 'app-patent-file',
   templateUrl: './patent-file.component.html',
   styleUrls: ['./patent-file.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PatentFileComponent implements OnInit {
 
@@ -72,7 +72,7 @@ export class PatentFileComponent implements OnInit {
     this.patentFileService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
 
   }

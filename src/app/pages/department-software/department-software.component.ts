@@ -13,7 +13,7 @@ import { FileListComponent } from './file-list/file-list.component';
   selector: 'app-department-software',
   templateUrl: './department-software.component.html',
   styleUrls: ['./department-software.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DepartmentSoftwareComponent implements OnInit {
 
@@ -107,7 +107,7 @@ export class DepartmentSoftwareComponent implements OnInit {
     this.departmentSoftwareService.getList(this.queryInfo.getRawValue()).subscribe((res: any) =>{
       console.log('返回数据：', res);
       this.dataSet = res.data.list;
-      this.onAfterSearch;
+      this.onAfterSearch();
     })
   }
   

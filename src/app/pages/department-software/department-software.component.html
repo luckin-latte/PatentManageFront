@@ -105,7 +105,7 @@
 </form>
 
 <nz-table #myProposalTable nzBordered nzSize="small" [nzScroll]="{ x: '2200px' }"
-  nzShowPagination nzShowSizeChanger [nzData]="dataSet">
+  nzShowPagination nzShowSizeChanger [nzData]="dataSet" [nzLoading]="searchLoading">
   <thead>
     <tr>
       <th nzWidth="60px" nzLeft="0px">序号</th>
