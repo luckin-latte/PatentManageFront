@@ -29,7 +29,7 @@ export class ReviewComponent implements OnInit {
   public search(): void {
     this.participatedProposalService.getReviewList(this.proposalCode).subscribe((res: any) =>{
       console.log('返回数据：', res);
-      this.dataSet = res.data;
+      this.dataSet = res.data.list;
       this.searchLoading = false;
     })
   }
