@@ -21,3 +21,15 @@ h2 {
 .login-form-forgot {
   float: right;
 }
+
+
+
+.login-picture {
+  width: 120px;
+  height: 30px;
+  .picture-canvas {
+    width: 100%;
+    height: 100%;
+    border: 1px solid black;
+  }
+}

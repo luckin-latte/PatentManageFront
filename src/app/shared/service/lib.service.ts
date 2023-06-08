@@ -37,5 +37,12 @@ export class LibService {
   // 下拉框获取所有代理机构
   public getAllAgency(): Observable<any> {
     return this.httpClient.get(`${apiUrl}/agency/getAgencyList`);
+  } 
+  
+  public callMessage<T = any>(
+    xType: string,
+    xMessage: string,
+  ) {
+    
   }
 }
