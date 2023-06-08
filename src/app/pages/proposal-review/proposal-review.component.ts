@@ -22,10 +22,9 @@ export class ProposalReviewComponent implements OnInit {
   public queryInfo: QueryInfo = new QueryInfo(); // 创建产生查询条件类
   public dateRange = [];
 
-  listOfDepart: Array<{ value: string; text: string }> = [];
-
   drawerRef!: NzDrawerRef;
   pageIndex: number = 1;
+  listOfDepart: Array<{ value: string; text: string }> = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -152,7 +151,13 @@ export class ProposalReviewComponent implements OnInit {
       //   );
       // }
     }
-    
+    queryCriteria.addCriteria(
+      new QueryCriteriaInfo(
+        'proposalState',
+        '在审'
+      )
+    );
+
     this.queryInfo.setCriteria(queryCriteria);
     console.log('查询条件：',this.queryInfo)
   }

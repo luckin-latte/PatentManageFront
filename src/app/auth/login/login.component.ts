@@ -20,10 +20,10 @@ export class LoginComponent implements OnInit {
   verifyCode!: ElementRef;
   @Output() private outer = new EventEmitter();
   public captchaCode: string = ''
-  public verifyCodeLine: number = 8;//线条数
+  public verifyCodeLine: number = 6;//线条数
   public verifyCodeNum: number = 4;//验证码字符长度
-  public verifyCodeWidth: any = 140;//验证码宽度
-  public verifyCodeHeight: any = 48;//验证码高度
+  public verifyCodeWidth: any = 120;//验证码宽度
+  public verifyCodeHeight: any = 40;//验证码高度
   
   constructor(
     private formBuilder: FormBuilder,
@@ -64,10 +64,9 @@ export class LoginComponent implements OnInit {
         const msg = res.message;
         if (msg === '登录成功') {
           // 存储token
-          // localStorage.setItem('token', res.data.token)
-          const token = res.data.token;
-          const userId = res.data.userId;
-          const userInfo: UserInfo = { token, userId };
+          const { token, userId, userRole } = res.data
+          const userInfo: UserInfo = { token, userId, userRole, userName };
+          // console.log('userInfo', userInfo);
           sessionStorage.setItem('UserInfo', JSON.stringify(userInfo));
           // 路由跳转
           this.router.navigate(['/indexProposal']);

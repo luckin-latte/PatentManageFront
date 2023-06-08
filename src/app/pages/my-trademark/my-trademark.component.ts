@@ -31,8 +31,8 @@ export class MyTrademarkComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private libService: LibService,
     private nzDrawerService: NzDrawerService,
+    private libService: LibService,
     private myTrademarkService: MyTrademarkService
     ) {
     this.searchForm = this.formBuilder.group({});

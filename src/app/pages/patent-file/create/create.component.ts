@@ -13,10 +13,10 @@ import { PatentFileService } from '../patent-file.service';
 export class CreateComponent implements OnInit {
 
   public CreateForm: FormGroup;
-  public drawerRef!: NzDrawerRef;
 
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private patentFileService: PatentFileService
     ) {
       this.CreateForm = this.formBuilder.group({
@@ -32,6 +32,7 @@ export class CreateComponent implements OnInit {
   }
 
   cancel() {
+    this.drawerRef.close(false);
   }
 
   save() {
@@ -44,5 +45,6 @@ export class CreateComponent implements OnInit {
     this.patentFileService.newData(this.CreateForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
+    this.drawerRef.close(true);
   }
 }

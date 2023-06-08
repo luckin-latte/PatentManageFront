@@ -13,14 +13,13 @@ import { PatentOfficialFeeService } from '../patent-official-fee.service';
 })
 export class EditComponent implements OnInit {
 
-  fileList: NzUploadFile[] = []
-
   @Input() patentOfficialFeeInfo!: object;
   EditForm: FormGroup;
-  drawerRef!: NzDrawerRef;
+  fileList: NzUploadFile[] = []
 
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private patentOfficialFeeService: PatentOfficialFeeService
     ) {
       this.EditForm = this.formBuilder.group({
@@ -43,7 +42,7 @@ export class EditComponent implements OnInit {
   }
 
   cancel() {
-    this.drawerRef.close();
+    this.drawerRef.close(false);
   }
 
   save() {
@@ -56,7 +55,7 @@ export class EditComponent implements OnInit {
     this.patentOfficialFeeService.updateData(this.EditForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
-    this.drawerRef.close();
+    this.drawerRef.close(true);
   }
 
 }

@@ -18,7 +18,7 @@ export class ApprovalComponent implements OnInit {
   ApprovalForm!: FormGroup;
 
   constructor(
-    private nzDrawerRef: NzDrawerRef,
+    private drawerRef: NzDrawerRef,
     private formBuilder: FormBuilder,
     private proposalReviewService: ProposalReviewService
     ) {
@@ -48,6 +48,7 @@ export class ApprovalComponent implements OnInit {
   }
 
   public cancel() {
+    this.drawerRef.close(false);
   }
 
   public submit() {
@@ -60,6 +61,7 @@ export class ApprovalComponent implements OnInit {
     this.proposalReviewService.newData(this.ApprovalForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
+    this.drawerRef.close(true);
   }
   
 }

@@ -12,10 +12,10 @@ export class EditComponent implements OnInit {
 
   @Input() name!: string;
   EditForm: FormGroup;
-  drawerRef!: NzDrawerRef;
-
+  
   constructor(
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     ) {
       this.EditForm = this.formBuilder.group({
         patentCode: ['patentCode'],
@@ -36,10 +36,11 @@ export class EditComponent implements OnInit {
   }
 
   cancel() {
+    this.drawerRef.close(false);
   }
 
   save() {
-    this.drawerRef.close(this.EditForm.getRawValue());
+    this.drawerRef.close(false);
   }
 
 }

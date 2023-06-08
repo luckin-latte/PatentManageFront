@@ -5,5 +5,7 @@ export interface LoginRequest {
 
 export interface UserInfo {
   token: string,
-  userId: string
+  userId: string,
+  userRole: string,
+  userName: string
 }

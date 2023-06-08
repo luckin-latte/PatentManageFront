@@ -31,8 +31,8 @@ export class DepartmentTrademarkComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private libService: LibService,
     private nzDrawerService: NzDrawerService,
+    private libService: LibService,
     private departmentTrademarkService: DepartmentTrademarkService
     ) {
     this.searchForm = this.formBuilder.group({});

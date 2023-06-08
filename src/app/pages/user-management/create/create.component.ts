@@ -14,7 +14,6 @@ import { UserManagementService } from '../user-management.service';
 export class CreateComponent implements OnInit {
 
   public CreateForm: FormGroup;
-  public drawerRef!: NzDrawerRef;
 
   // 下拉搜索框数据
   listOfDepart: Array<{ value: string; text: string }> = [];
@@ -22,6 +21,7 @@ export class CreateComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private libService: LibService,
     private userManagementService: UserManagementService
     ) {
@@ -70,6 +70,7 @@ export class CreateComponent implements OnInit {
   }
 
   public cancel() {
+    this.drawerRef.close(false);
   }
 
   public save() {
@@ -82,5 +83,6 @@ export class CreateComponent implements OnInit {
     this.userManagementService.newData(this.CreateForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
+    this.drawerRef.close(true);
   }
 }

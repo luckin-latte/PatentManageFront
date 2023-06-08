@@ -15,13 +15,14 @@ export class EditComponent implements OnInit {
 
   @Input() billInfo!: object;
   EditForm: FormGroup;
-  drawerRef!: NzDrawerRef;
+  
 
   // 下拉搜索框数据
   listOfAgency: Array<{ value: string; text: string }> = [];
 
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private libService: LibService,
     private billService: BillService
     ) {
@@ -55,6 +56,7 @@ export class EditComponent implements OnInit {
   }
 
   public cancel() {
+    this.drawerRef.close(false);
   }
 
   public save() {
@@ -67,6 +69,7 @@ export class EditComponent implements OnInit {
     this.billService.updateData(this.EditForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
+    this.drawerRef.close(false);
   }
 
 }

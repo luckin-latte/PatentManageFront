@@ -13,10 +13,10 @@ import { SoftwareBonusService } from '../software-bonus.service';
 export class CreateComponent implements OnInit {
 
   CreateForm: FormGroup;
-  drawerRef!: NzDrawerRef;
 
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private softwareBonusService: SoftwareBonusService
     ) {
       this.CreateForm = this.formBuilder.group({
@@ -38,6 +38,7 @@ export class CreateComponent implements OnInit {
   }
 
   public cancel() {
+    this.drawerRef.close(false);
   }
 
   public save() {
@@ -50,6 +51,7 @@ export class CreateComponent implements OnInit {
     this.softwareBonusService.newData(this.CreateForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
+    this.drawerRef.close(true);
   }
 
   get listOfInventor(): FormArray {

@@ -7,7 +7,8 @@
             [nzTrigger]="null">
     <div class="sidebar-logo">
       <nz-avatar nzIcon="user" style="background-color:cadetblue;"></nz-avatar>
-      <span style="color: aliceblue;">系统管理员</span>
+      <span style="color: aliceblue;">{{ userName }}</span>
+      <span style="color: aliceblue;margin-left: 8px;">{{ userRole }}</span>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="首页" nzIcon="dashboard">

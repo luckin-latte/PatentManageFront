@@ -17,10 +17,10 @@ export class EditComponent implements OnInit {
 
   @Input() patentOfficialFeeInfo!: object;
   EditForm: FormGroup;
-  drawerRef!: NzDrawerRef;
-
+  
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private patentAnnualFeeService: PatentAnnualFeeService
     ) {
       this.EditForm = this.formBuilder.group({
@@ -42,7 +42,7 @@ export class EditComponent implements OnInit {
   }
 
   cancel() {
-    this.drawerRef.close();
+    this.drawerRef.close(false);
   }
 
   save() {
@@ -55,7 +55,7 @@ export class EditComponent implements OnInit {
     this.patentAnnualFeeService.updateData(this.EditForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
-    this.drawerRef.close();
+    this.drawerRef.close(true);
   }
 
 }

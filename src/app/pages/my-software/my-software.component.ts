@@ -32,8 +32,8 @@ export class MySoftwareComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private libService: LibService,
     private nzDrawerService: NzDrawerService,
+    private libService: LibService,
     private mySoftwareService: MySoftwareService
     ) {
     this.searchForm = this.formBuilder.group({});

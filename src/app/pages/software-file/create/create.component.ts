@@ -13,10 +13,10 @@ import { SoftwareFileService } from '../software-file.service';
 export class CreateComponent implements OnInit {
 
   public CreateForm: FormGroup;
-  public drawerRef!: NzDrawerRef;
 
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private softwareFileService: SoftwareFileService
     ) {
       this.CreateForm = this.formBuilder.group({
@@ -32,6 +32,7 @@ export class CreateComponent implements OnInit {
   }
 
   cancel() {
+    this.drawerRef.close(false);
   }
 
   save() {
@@ -44,5 +45,6 @@ export class CreateComponent implements OnInit {
     this.softwareFileService.newData(this.CreateForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
+    this.drawerRef.close(true);
   }
 }

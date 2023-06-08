@@ -14,10 +14,10 @@ import { AgencyService } from '../agency.service';
 export class CreateComponent implements OnInit {
 
   CreateForm: FormGroup;
-  drawerRef!: NzDrawerRef;
 
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private libService: LibService,
     private agencyService: AgencyService
     ) {
@@ -55,11 +55,11 @@ export class CreateComponent implements OnInit {
     // this.CreateForm.get('agencyCode')?.disabled;
   }
 
-  public cancel(e: any): void {
+  public cancel(e: MouseEvent): void {
     this.drawerRef.close(false);
   }
 
-  public save(): void {
+  public save(e: MouseEvent): void {
     Object.keys(this.CreateForm.controls).forEach(key => {
       this.CreateForm.controls[key].markAsDirty();
       this.CreateForm.controls[key].updateValueAndValidity();
@@ -69,5 +69,7 @@ export class CreateComponent implements OnInit {
     this.agencyService.newData(this.CreateForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
+    
+    this.drawerRef.close(false);
   }
 }

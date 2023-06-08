@@ -31,8 +31,8 @@ export class MyPatentComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private libService: LibService,
     private nzDrawerService: NzDrawerService,
+    private libService: LibService,
     private myPatentService: MyPatentService
     ) {
     this.searchForm = this.formBuilder.group({});

@@ -15,13 +15,13 @@ export class CreateComponent implements OnInit {
 
   @Input() name!: string;
   CreateForm: FormGroup;
-  drawerRef!: NzDrawerRef;
 
   // 下拉搜索框数据
   listOfAgency: Array<{ value: string; text: string }> = [];
 
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private libService: LibService,
     private billService: BillService
     ) {
@@ -58,6 +58,7 @@ export class CreateComponent implements OnInit {
   }
 
   public cancel() {
+    this.drawerRef.close(false);
   }
 
   public save(): void {
@@ -70,5 +71,6 @@ export class CreateComponent implements OnInit {
     this.billService.newData(this.CreateForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
+    this.drawerRef.close(false);
   }
 }

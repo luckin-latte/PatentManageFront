@@ -15,10 +15,10 @@ export class EditComponent implements OnInit {
   @Input() bonusId!: string;
   @Input() trademarkBonusInfo!: object;
   EditForm: FormGroup;
-  drawerRef!: NzDrawerRef;
 
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private trademarkBonusService: TrademarkBonusService
     ) {
       this.EditForm = this.formBuilder.group({
@@ -52,6 +52,7 @@ export class EditComponent implements OnInit {
     this.trademarkBonusService.updateData(this.EditForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
+    this.drawerRef.close(true);
   }
 
 }

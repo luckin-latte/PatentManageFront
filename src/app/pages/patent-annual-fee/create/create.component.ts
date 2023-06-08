@@ -16,10 +16,10 @@ export class CreateComponent implements OnInit {
   fileList: NzUploadFile[] = []
 
   CreateForm: FormGroup;
-  drawerRef!: NzDrawerRef;
-
+  
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private patentAnnualFeeService: PatentAnnualFeeService
     ) {
       this.CreateForm = this.formBuilder.group({
@@ -39,6 +39,7 @@ export class CreateComponent implements OnInit {
   }
 
   cancel() {
+    this.drawerRef.close(false);
   }
 
   save() {
@@ -51,6 +52,6 @@ export class CreateComponent implements OnInit {
     this.patentAnnualFeeService.newData(this.CreateForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
-    this.drawerRef.close();
+    this.drawerRef.close(true);
   }
 }

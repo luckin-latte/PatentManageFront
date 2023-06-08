@@ -14,10 +14,10 @@ export class EditComponent implements OnInit {
 
   @Input() agencyInfo!: object;
   EditForm: FormGroup;
-  drawerRef!: NzDrawerRef;
 
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private agencyService: AgencyService
     ) {
       this.EditForm = this.formBuilder.group({
@@ -54,6 +54,7 @@ export class EditComponent implements OnInit {
     this.agencyService.updateData(this.EditForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
+    this.drawerRef.close(false);
   }
 
 }

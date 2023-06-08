@@ -14,13 +14,13 @@ import { RoleManagementService } from '../role-management.service';
 export class CreateComponent implements OnInit {
 
   CreateForm: FormGroup;
-  drawerRef!: NzDrawerRef;
 
   // 下拉搜索框数据
   listOfPermission: Array<{ value: string; text: string }> = [];
 
   constructor(
     private formBuilder: FormBuilder,
+    private drawerRef: NzDrawerRef,
     private libService: LibService,
     private roleManagementService: RoleManagementService
     ) {
@@ -53,6 +53,7 @@ export class CreateComponent implements OnInit {
   }
 
   cancel() {
+    this.drawerRef.close(false);
   }
 
   save() {
@@ -65,5 +66,6 @@ export class CreateComponent implements OnInit {
     this.roleManagementService.newData(this.CreateForm.value).subscribe((res: any) =>{
       console.log('res.data: ', res);
     })
+    this.drawerRef.close(true);
   }
 }

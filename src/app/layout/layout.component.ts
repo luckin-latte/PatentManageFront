@@ -9,10 +9,19 @@ import { Router } from '@angular/router';
 export class LayoutComponent implements OnInit {
 
   isCollapsed = true;
+  public userRole: string = '';
+  public userName: string = '';
 
   constructor(
     private router: Router
-  ) { }
+  ) { 
+    const userInfoString = sessionStorage.getItem('UserInfo');
+    if (userInfoString) {
+      const userInfo = JSON.parse(userInfoString);
+      this.userRole = userInfo.userRole;
+      this.userName = userInfo.userName;
+    }
+  }
 
   ngOnInit(): void {
   }

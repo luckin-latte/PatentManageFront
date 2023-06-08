@@ -32,8 +32,8 @@ export class DepartmentSoftwareComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private libService: LibService,
     private nzDrawerService: NzDrawerService,
+    private libService: LibService,
     private departmentSoftwareService: DepartmentSoftwareService
     ) {
     this.searchForm = this.formBuilder.group({});
