@@ -19,6 +19,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { DepartmentSoftwareRoutingModule } from './department-software-routing.module';
 import { DepartmentSoftwareComponent } from './department-software.component';
 import { BonusComponent } from './bonus/bonus.component';
+import { EditComponent } from './edit/edit.component';
 import { FileListComponent } from './file-list/file-list.component';
 
 
@@ -26,6 +27,7 @@ import { FileListComponent } from './file-list/file-list.component';
   declarations: [
     DepartmentSoftwareComponent,
     BonusComponent,
+    EditComponent,
     FileListComponent
   ],
   imports: [

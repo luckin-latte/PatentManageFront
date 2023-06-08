@@ -17,17 +17,5 @@ export class MyPatentService {
   getList(queryInfo: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/patent/getList`, queryInfo);
   }
-
-  newData(Data: object): Observable<any> {
-    return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
-  }
-
-  updateData(params: object): Observable<any> {
-    return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
-  }
-
-  deleteData(userCode: string): Observable<any> {
-    return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
-  }
   
 }

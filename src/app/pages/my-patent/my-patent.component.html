@@ -119,9 +119,8 @@
       <th>申请日期</th>
       <th>授权号</th>
       <th>授权日期</th>
-      <th nzWidth="80px" nzRight="160px">专利奖金</th>
-      <th nzWidth="80px" nzRight="80px">相关文件</th>
-      <th nzWidth="80px" nzRight="0px">操作</th>
+      <th nzWidth="80px" nzRight="80px">专利奖金</th>
+      <th nzWidth="80px" nzRight="0px">相关文件</th>
     </tr>
   </thead>
   <tbody>
@@ -137,14 +136,11 @@
       <td>{{ data.applicationDate | date: 'yyyy-MM-dd' }}</td>
       <td>{{ data.grantCode}}</td>
       <td>{{ data.grantDate | date: 'yyyy-MM-dd' }}</td>
-      <td nzRight="160px">
-        <button nz-button (click)="showBonus()">详情</button>
-      </td>
       <td nzRight="80px">
-        <button nz-button (click)="showFile()">详情</button>
+        <button nz-button (click)="showBonus($event)">详情</button>
       </td>
       <td nzRight="0px">
-        <button nz-button (click)="edit()">编辑</button>
+        <button nz-button (click)="showFile($event)">详情</button>
       </td>
     </tr>
   </tbody>

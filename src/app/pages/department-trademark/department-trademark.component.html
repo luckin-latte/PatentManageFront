@@ -112,8 +112,9 @@
       <th>商标版权号</th>
       <th>当前状态</th>
       <th>权力状态</th>
-      <th nzWidth="80px" nzRight="80px">商标奖金</th>
-      <th nzWidth="80px" nzRight="0px">相关文件</th>
+      <th nzWidth="80px" nzRight="160px">商标奖金</th>
+      <th nzWidth="80px" nzRight="80px">相关文件</th>
+      <th nzWidth="80px" nzRight="0px">操作</th>
     </tr>
   </thead>
   <tbody>
@@ -127,11 +128,14 @@
       <td>{{ data.copyRightCode }}</td>
       <td>{{ data.currentStatus }}</td>
       <td>{{ data.rightStatus }}</td>
+      <td nzRight="160px">
+        <button nz-button (click)="showBonus($event)">详情</button>
+      </td>
       <td nzRight="80px">
-        <button nz-button  (click)="showBonus()">详情</button>
+        <button nz-button (click)="showFile($event)">详情</button>
       </td>
       <td nzRight="0px">
-        <button nz-button  (click)="showFile()">详情</button>
+        <button nz-button (click)="edit(data)">编辑</button>
       </td>
     </tr>
   </tbody>

@@ -7,7 +7,6 @@ import { MyTrademarkService } from './my-trademark.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 
 import { BonusComponent } from './bonus/bonus.component';
-import { EditComponent } from './edit/edit.component';
 import { FileListComponent } from './file-list/file-list.component';
 
 @Component({
@@ -195,7 +194,7 @@ export class MyTrademarkComponent implements OnInit {
     this.searchLoading = false;
   }
 
-  public showBonus() {
+  public showBonus(e: MouseEvent) {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '奖金详情',
       nzContent: BonusComponent,
@@ -222,7 +221,7 @@ export class MyTrademarkComponent implements OnInit {
     });
   }
 
-  public showFile() {
+  public showFile(e: MouseEvent) {
     this.drawerRef = this.nzDrawerService.create({
       nzTitle: '文件详情',
       nzContent: FileListComponent,
@@ -249,31 +248,4 @@ export class MyTrademarkComponent implements OnInit {
     });
   }
   
-  public edit() {
-    this.drawerRef = this.nzDrawerService.create({
-      nzTitle: '编辑专利信息',
-      nzContent: EditComponent,
-      nzContentParams: {
-        name: 'This is a param from child'
-      },
-      nzClosable: true,
-      nzMask: true,
-      nzMaskClosable: false,
-      nzWidth: 720,
-      nzBodyStyle: {
-        height: 'calc(100% - 55px)',
-        overflow: 'auto',
-        'padding-bottom': '53px'
-      }
-    });
-
-    this.drawerRef.afterOpen.subscribe(() => {
-      console.log('编辑专利信息');
-    });
-
-    this.drawerRef.afterClose.subscribe(data => {
-      console.log(data);
-    });
-  }
-
 }

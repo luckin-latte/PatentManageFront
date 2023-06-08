@@ -11,7 +11,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 })
 export class EditComponent implements OnInit {
 
-  @Input() name!: string;
+  @Input() patentInfo!: object;
   EditForm: FormGroup;
   
   constructor(

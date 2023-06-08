@@ -19,6 +19,7 @@ import { NzMessageModule } from 'ng-zorro-antd/message';
 import { DepartmentTrademarkRoutingModule } from './department-trademark-routing.module';
 import { DepartmentTrademarkComponent } from './department-trademark.component';
 import { BonusComponent } from './bonus/bonus.component';
+import { EditComponent } from './edit/edit.component';
 import { FileListComponent } from './file-list/file-list.component';
 
 
@@ -26,6 +27,7 @@ import { FileListComponent } from './file-list/file-list.component';
   declarations: [
     DepartmentTrademarkComponent,
     BonusComponent,
+    EditComponent,
     FileListComponent
   ],
   imports: [

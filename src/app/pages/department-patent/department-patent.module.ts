@@ -20,13 +20,15 @@ import { DepartmentPatentRoutingModule } from './department-patent-routing.modul
 import { DepartmentPatentComponent } from './department-patent.component';
 import { BonusComponent } from './bonus/bonus.component';
 import { FileListComponent } from './file-list/file-list.component';
+import { EditComponent } from './edit/edit.component';
 
 
 @NgModule({
   declarations: [
     DepartmentPatentComponent,
     BonusComponent,
-    FileListComponent
+    FileListComponent,
+    EditComponent,
   ],
   imports: [
     CommonModule,
