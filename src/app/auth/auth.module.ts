@@ -7,6 +7,7 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { LoginRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
@@ -24,7 +25,8 @@ import { LoginComponent } from './login/login.component';
     NzInputModule,
     NzButtonModule,
     NzCheckboxModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    NzMessageModule
   ]
 })
 export class AuthModule { }

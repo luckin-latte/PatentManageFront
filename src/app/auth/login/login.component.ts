@@ -1,7 +1,9 @@
 import { Component, OnInit, ElementRef, Output, ViewChild, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
+import { LibService } from 'src/app/shared';
 import { LoginService } from './login.service';
 import { LoginRequest, UserInfo } from '../../shared/model/login';
 
@@ -26,7 +28,9 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private loginService: LoginService
+    private nzMessageService: NzMessageService,
+    private loginService: LoginService,
+    private libService: LibService
     ) {
       this.loginForm = this.formBuilder.group({
         // userName: [null, [Validators.required]],
@@ -57,17 +61,27 @@ export class LoginComponent implements OnInit {
     if (captcha == this.captchaCode) {
       // 请求后端登录
       this.loginService.login(loginRequest).subscribe((res: any) =>{
-        // console.log('登录成功', res);
-        // 存储token
-        // localStorage.setItem('token', res.data.token)
-        const token = res.data.token;
-        const userId = res.data.userId;
-        const userInfo: UserInfo = { token, userId };
-        sessionStorage.setItem('UserInfo', JSON.stringify(userInfo));
-        // 路由跳转
-        this.router.navigate(['/indexProposal']);
+        const msg = res.message;
+        if (msg === '登录成功') {
+          // 存储token
+          // localStorage.setItem('token', res.data.token)
+          const token = res.data.token;
+          const userId = res.data.userId;
+          const userInfo: UserInfo = { token, userId };
+          sessionStorage.setItem('UserInfo', JSON.stringify(userInfo));
+          // 路由跳转
+          this.router.navigate(['/indexProposal']);
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('登录失败！');
+          }
+        }
       })
     } else {
+      // this.libService.callMessage('error', '验证码错误')
+      this.nzMessageService.error('验证码错误！');
       this.getCaptcha(new MouseEvent('click'));
     }
 

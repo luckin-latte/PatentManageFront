@@ -80,10 +80,10 @@ export class UserManagementComponent implements OnInit {
         continue;
       }
 
-      if (key === 'name') {
+      if (key === 'userName') {
         queryCriteria.addCriteria(
           new QueryCriteriaInfo(
-            'name',
+            'userName',
             this.searchForm.controls[key].value
           )
         );

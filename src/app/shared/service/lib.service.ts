@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+// import { NzMessageService, NzMessageRef, NzMessageDataOptions } from 'ng-zorro-antd/message';
 import { apiUrl } from 'src/app/config';
 
 @Injectable({
@@ -10,7 +11,8 @@ import { apiUrl } from 'src/app/config';
 export class LibService {
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
+    // private nzMessageService: NzMessageService
   ) { 
   }
   
@@ -39,10 +41,23 @@ export class LibService {
     return this.httpClient.get(`${apiUrl}/agency/getAgencyList`);
   } 
   
-  public callMessage<T = any>(
-    xType: string,
-    xMessage: string,
-  ) {
-    
-  }
+  // public callMessage(
+  //   xType: string,
+  //   xMessage: string,
+  //   options?: NzMessageDataOptions
+  // ):NzMessageRef | undefined {
+  //   // xType: success|error|info|warning|loading
+  //   // this.nzMessageService.create(xType, xMessage);
+  //   if (xType === 'success') {
+  //     return this.nzMessageService.success(xMessage, options);
+  //   } else if (xType === 'error') {
+  //     return this.nzMessageService.error(xMessage, options);
+  //   } else if (xType === 'info') {
+  //     return this.nzMessageService.info(xMessage, options);
+  //   } else if (xType === 'warning') {
+  //     return this.nzMessageService.warning(xMessage, options);
+  //   } else if (xType === 'loading') {
+  //     return this.nzMessageService.loading(xMessage, options);
+  //   }
+  // }
 }
