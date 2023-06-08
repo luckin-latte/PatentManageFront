@@ -14,6 +14,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { DepartmentSoftwareRoutingModule } from './department-software-routing.module';
 import { DepartmentSoftwareComponent } from './department-software.component';
@@ -43,6 +44,7 @@ import { FileListComponent } from './file-list/file-list.component';
     NzTableModule,
     NzEmptyModule,
     NzDrawerModule,
+    NzMessageModule,
     DepartmentSoftwareRoutingModule
   ]
 })

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { AgencyService } from './agency.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
@@ -29,6 +30,7 @@ export class AgencyComponent implements OnInit {
     private formBuilder: FormBuilder,
     private drawerService: NzDrawerService,
     private modalService: NzModalService,
+    private nzMessageService: NzMessageService,
     private agencyService: AgencyService
     ) {
     this.searchForm = this.formBuilder.group({});
@@ -58,10 +60,18 @@ export class AgencyComponent implements OnInit {
     this.queryData();
 
     this.agencyService.getList(this.queryInfo.getRawValue()).subscribe(res =>{
-      console.log('返回数据：', res);
-      this.dataSet = res.data.list;
+      // console.log('返回数据：', res);
+      const msg = res.message;
+      if (res.code === '200') {
+        this.dataSet = res.data.list;
+      } else {
+        if (msg) {
+          this.nzMessageService.error(msg);
+        } else {
+          this.nzMessageService.error('查询失败！');
+        }
+      }
       this.onAfterSearch();
-
     })
   }
 
@@ -162,8 +172,18 @@ export class AgencyComponent implements OnInit {
       nzOkText: '删除',
       // nzOkType: 'danger',
       nzOnOk: () => this.agencyService.deleteData(code).subscribe((res: any) =>{
-        console.log('删除数据：', res);
-        this.search(true);
+        // console.log('res.data: ', res);
+        const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('删除成功！');
+          this.search(true);
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('删除失败！');
+          }
+        }
       }),
       nzCancelText: '取消',
       nzOnCancel: () => console.log('取消删除')

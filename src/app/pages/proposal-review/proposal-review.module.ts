@@ -15,11 +15,11 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { ProposalReviewRoutingModule } from './proposal-review-routing.module';
 import { ProposalReviewComponent } from './proposal-review.component';
 import { ApprovalComponent } from './approval/approval.component';
-
 
 @NgModule({
   declarations: [
@@ -43,6 +43,7 @@ import { ApprovalComponent } from './approval/approval.component';
     NzUploadModule,
     NzDrawerModule,
     NzTabsModule,
+    NzMessageModule,
     ProposalReviewRoutingModule
   ]
 })

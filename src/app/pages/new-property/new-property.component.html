@@ -172,7 +172,7 @@
         <div nz-col nzSpan="20" nzOffset="2">
           <button nz-button (click)="resetForm()">重置</button>
           <button nz-button [nzType]="'primary'" style="margin-left: 30px;"
-            (click)="newPatent()" [disabled]="!patentCreateForm.valid">保存</button>
+            (click)="newPatent($event)" [disabled]="!patentCreateForm.valid">保存</button>
         </div>
       </div>
     </form>
@@ -370,7 +370,7 @@
         <div nz-col nzSpan="20" nzOffset="2">
           <button nz-button (click)="resetForm()">重置</button>
           <button nz-button [nzType]="'primary'" style="margin-left: 30px;"
-            (click)="newSoftware()" [disabled]="!sofetwareCreateForm.valid">保存</button>
+            (click)="newSoftware($event)" [disabled]="!sofetwareCreateForm.valid">保存</button>
         </div>
       </div>
     </form>
@@ -495,7 +495,7 @@
         <div nz-col nzSpan="20" nzOffset="2">
           <button nz-button (click)="resetForm()">重置</button>
           <button nz-button [nzType]="'primary'" style="margin-left: 30px;"
-            (click)="newTrademark()" [disabled]="!trademarkCreateForm.valid">保存</button>
+            (click)="newTrademark($event)" [disabled]="!trademarkCreateForm.valid">保存</button>
         </div>
       </div>
     </form>

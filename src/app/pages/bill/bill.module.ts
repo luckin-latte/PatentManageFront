@@ -15,6 +15,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { BillRoutingModule } from './bill-routing.module';
 import { BillComponent } from './bill.component';
@@ -44,9 +45,8 @@ import { EditComponent } from './edit/edit.component';
     NzTableModule,
     NzEmptyModule,
     NzDrawerModule,
-    NzPageHeaderModule,
-    NzBreadCrumbModule,
     NzModalModule,
+    NzMessageModule,
     BillRoutingModule
   ]
 })

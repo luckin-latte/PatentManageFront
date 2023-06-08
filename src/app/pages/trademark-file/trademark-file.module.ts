@@ -16,11 +16,11 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { TrademarkFileRoutingModule } from './trademark-file-routing.module';
 import { TrademarkFileComponent } from './trademark-file.component';
 import { CreateComponent } from './create/create.component';
-
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { CreateComponent } from './create/create.component';
     NzDrawerModule,
     NzUploadModule,
     NzModalModule,
+    NzMessageModule,
     TrademarkFileRoutingModule
   ]
 })

@@ -14,7 +14,7 @@ export class ProposalFilesService {
   ) { 
   }
 
-  getList(queryInfo: object): Observable<any>{
+  getList(queryInfo: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/proposal/getFileList`, queryInfo);
   }
   

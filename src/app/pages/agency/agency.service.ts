@@ -27,7 +27,7 @@ export class AgencyService {
   }
 
   deleteData(agencyCode: string): Observable<any>{
-    return this.httpClient.delete(`${apiUrl}/agency/deleteData/${agencyCode}`);
+    return this.httpClient.delete(`${apiUrl}/agency/deleteAgency/${agencyCode}`);
   }
   
 }

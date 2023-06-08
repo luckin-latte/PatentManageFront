@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { LibService } from 'src/app/shared';
 import { NewPropertyService } from './new-property.service';
-
 
 @Component({
   selector: 'app-new-property',
@@ -24,6 +24,7 @@ export class NewPropertyComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private nzMessageService: NzMessageService,
     private libService: LibService,
     private newPropertyService: NewPropertyService
   ) {
@@ -84,17 +85,17 @@ export class NewPropertyComponent implements OnInit {
     this.libService.getCode('ZL').subscribe((res: any) =>{
       // console.log('专利编号：', res.data);
       this.patentCreateForm.get('patentCode')?.setValue(res.data);
-      this.patentCreateForm.get('patentCode')?.disable();
+      // this.patentCreateForm.get('patentCode')?.disable();
     })
     this.libService.getCode('RZ').subscribe((res: any) =>{
       // console.log('软著编号：', res.data);
       this.sofetwareCreateForm.get('softwareCode')?.setValue(res.data);
-      this.sofetwareCreateForm.get('softwareCode')?.disable();
+      // this.sofetwareCreateForm.get('softwareCode')?.disable();
     })
     this.libService.getCode('TM').subscribe((res: any) =>{
       // console.log('商标编号：', res.data);
       this.trademarkCreateForm.get('trademarkCode')?.setValue(res.data);
-      this.trademarkCreateForm.get('trademarkCode')?.disable();
+      // this.trademarkCreateForm.get('trademarkCode')?.disable();
     })
   }
 
@@ -148,44 +149,70 @@ export class NewPropertyComponent implements OnInit {
   public resetForm(): void {
   }
 
-  public submitForm(): void {
-  }
-
-  public newPatent() {
+  public newPatent(e: MouseEvent) {
     Object.keys(this.patentCreateForm.controls).forEach(key => {
       this.patentCreateForm.controls[key].markAsDirty();
       this.patentCreateForm.controls[key].updateValueAndValidity();
     })
-    console.log('新增专利：', this.patentCreateForm.value)
+    // console.log('新增专利：', this.patentCreateForm.value)
 
     this.newPropertyService.newPatent(this.patentCreateForm.value).subscribe((res: any) =>{
-      console.log('新增专利结果: ', res);
+      // console.log('res.data: ', res);
+      const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('保存成功！');
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('保存失败！');
+          }
+        }
     })
   }
 
-  public newSoftware() {
+  public newSoftware(e: MouseEvent) {
     Object.keys(this.sofetwareCreateForm.controls).forEach(key => {
       this.sofetwareCreateForm.controls[key].markAsDirty();
       this.sofetwareCreateForm.controls[key].updateValueAndValidity();
     })
-    console.log('新增软著：', this.sofetwareCreateForm.value)
+    // console.log('新增软著：', this.sofetwareCreateForm.value)
 
     this.newPropertyService.newSoftware(this.sofetwareCreateForm.value).subscribe((res: any) =>{
-      console.log('新增软著结果： ', res);
+      // console.log('res.data: ', res);
+      const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('保存成功！');
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('保存失败！');
+          }
+        }
     })
   }
 
-  public newTrademark() {
+  public newTrademark(e: MouseEvent) {
     Object.keys(this.trademarkCreateForm.controls).forEach(key => {
       this.trademarkCreateForm.controls[key].markAsDirty();
       this.trademarkCreateForm.controls[key].updateValueAndValidity();
     })
-    console.log('新增商标：', this.trademarkCreateForm.value)
+    // console.log('新增商标：', this.trademarkCreateForm.value)
 
     this.newPropertyService.newTrademark(this.trademarkCreateForm.value).subscribe((res: any) =>{
-      console.log('新增商标结果： ', res);
+      // console.log('res.data: ', res);
+      const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('保存成功！');
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('保存失败！');
+          }
+        }
     })
   }
-
 
 }

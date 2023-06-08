@@ -14,7 +14,7 @@ export class PatentOfficialFeeService {
   ) { 
   }
 
-  getList(queryInfo: object): Observable<any>{
+  getList(queryInfo: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/patent/getOfficialFeeList`, queryInfo);
   }
 
@@ -26,7 +26,7 @@ export class PatentOfficialFeeService {
     return this.httpClient.patch(`${apiUrl}/patent/updateOfficialFee`, params);
   }
 
-  deleteData(id: string): Observable<any>{
+  deleteData(id: string): Observable<any> {
     return this.httpClient.delete(`${apiUrl}/patent/deleteOfficialFee/${id}`);
   }
   

@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { PatentOfficialFeeService } from '../patent-official-fee.service';
 
@@ -19,6 +20,7 @@ export class CreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private drawerRef: NzDrawerRef,
+    private nzMessageService: NzMessageService,
     private patentOfficialFeeService: PatentOfficialFeeService
     ) {
       this.CreateForm = this.formBuilder.group({
@@ -37,20 +39,30 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  cancel() {
+  public cancel(e: MouseEvent) {
     this.drawerRef.close(false);
   }
 
-  save() {
+  public save(e: MouseEvent) {
     Object.keys(this.CreateForm.controls).forEach(key => {
       this.CreateForm.controls[key].markAsDirty();
       this.CreateForm.controls[key].updateValueAndValidity();
     })
-    console.log('修改结果：', this.CreateForm.getRawValue())
+    console.log('新增专利官费：', this.CreateForm.getRawValue())
 
     this.patentOfficialFeeService.newData(this.CreateForm.value).subscribe((res: any) =>{
-      console.log('res.data: ', res);
+      // console.log('res.data: ', res);
+      const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('保存成功！');
+          this.drawerRef.close(true);
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('保存失败！');
+          }
+        }
     })
-    this.drawerRef.close(true);
   }
 }

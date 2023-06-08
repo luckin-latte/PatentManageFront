@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { SoftwareBonusService } from './software-bonus.service';
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
@@ -29,6 +30,7 @@ export class SoftwareBonusComponent implements OnInit {
     private formBuilder: FormBuilder,
     private nzDrawerService: NzDrawerService,
     private nzModalService: NzModalService,
+    private nzMessageService: NzMessageService,
     private softwareBonusService: SoftwareBonusService
   ) {
     this.searchForm = this.formBuilder.group({});
@@ -259,7 +261,18 @@ export class SoftwareBonusComponent implements OnInit {
       nzOkText: '删除',
       // nzOkType: 'danger',
       nzOnOk: () => this.softwareBonusService.deleteData(id).subscribe((res: any) =>{
-        console.log('删除数据：', res);
+        // console.log('res.data: ', res);
+        const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('删除成功！');
+          this.search(true);
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('删除失败！');
+          }
+        }
       }),
       nzCancelText: '取消',
       nzOnCancel: () => console.log('Cancel')

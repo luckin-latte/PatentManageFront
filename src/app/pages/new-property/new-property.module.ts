@@ -13,10 +13,10 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { NewPropertyRoutingModule } from './new-property-routing.module';
 import { NewPropertyComponent } from './new-property.component';
-
 
 @NgModule({
   declarations: [
@@ -37,6 +37,7 @@ import { NewPropertyComponent } from './new-property.component';
     NzButtonModule,
     NzIconModule,
     NzInputNumberModule,
+    NzMessageModule,
     NewPropertyRoutingModule
   ]
 })

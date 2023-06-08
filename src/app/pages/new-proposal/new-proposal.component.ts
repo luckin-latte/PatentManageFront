@@ -1,7 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input  } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
-import { formatDate } from '@angular/common';
-
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzUploadChangeParam } from 'ng-zorro-antd/upload';
 
@@ -25,7 +23,7 @@ export class NewProposalComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    // private msg: NzMessageService,
+    private nzMessageService: NzMessageService,
     private libService: LibService,
     private newProposalService: NewProposalService
   ) {
@@ -50,7 +48,7 @@ export class NewProposalComponent implements OnInit {
     this.libService.getCode('TA').subscribe((res: any) =>{
       // console.log('提案编号：', res.data);
       this.CreateForm.get('proposalCode')?.setValue(res.data);
-      this.CreateForm.get('proposalCode')?.disable();
+      // this.CreateForm.get('proposalCode')?.disable();
     })
   }
 
@@ -118,7 +116,7 @@ export class NewProposalComponent implements OnInit {
     });
   }
 
-  public submitForm() {
+  public submitForm(e: MouseEvent) {
     Object.keys(this.CreateForm.controls).forEach(key => {
       this.CreateForm.controls[key].markAsDirty();
       this.CreateForm.controls[key].updateValueAndValidity();
@@ -126,7 +124,17 @@ export class NewProposalComponent implements OnInit {
     // console.log('新增技术提案：', this.CreateForm.value)
 
     this.newProposalService.newData(this.CreateForm.value).subscribe((res: any) =>{
-      // console.log('result: ', res);
+      // console.log('res.data: ', res);
+      const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('保存成功！');
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('保存失败！');
+          }
+        }
     })
   }
 

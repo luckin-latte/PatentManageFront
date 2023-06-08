@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { LibService } from 'src/app/shared';
 import { AgencyService } from '../agency.service';
@@ -18,13 +19,13 @@ export class CreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private drawerRef: NzDrawerRef,
+    private nzMessageService: NzMessageService,
     private libService: LibService,
     private agencyService: AgencyService
     ) {
       this.CreateForm = this.formBuilder.group({
         agencyName: ['', [Validators.required]],
         agencyCode: ['', [Validators.required]],
-        agentName: [''],
         agencyHolder: [''],
         agencyPhone: [''],
         agencyEmail: ['', [Validators.email]],
@@ -46,7 +47,7 @@ export class CreateComponent implements OnInit {
     this.libService.getCode('DL').subscribe((res: any) =>{
       // console.log('代理机构编号：', res.data);
       this.CreateForm.get('agencyCode')?.setValue(res.data);
-      this.CreateForm.get('agencyCode')?.disable();
+      // this.CreateForm.get('agencyCode')?.disable();
     })
 
     // this.CreateForm.get('agencyName')?.setValidators([Validators.required])
@@ -64,12 +65,21 @@ export class CreateComponent implements OnInit {
       this.CreateForm.controls[key].markAsDirty();
       this.CreateForm.controls[key].updateValueAndValidity();
     })
-    console.log('新增代理机构：', this.CreateForm.value)
-
-    this.agencyService.newData(this.CreateForm.value).subscribe((res: any) =>{
-      console.log('res.data: ', res);
-    })
+    // console.log('新增代理机构：', this.CreateForm.value)
     
-    this.drawerRef.close(false);
+    this.agencyService.newData(this.CreateForm.value).subscribe((res: any) =>{
+      // console.log('res.data: ', res);
+      const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('保存成功！');
+          this.drawerRef.close(true);
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('保存失败！');
+          }
+        }
+    })
   }
 }

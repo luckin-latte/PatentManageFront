@@ -16,12 +16,12 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { TrademarkBonusRoutingModule } from './trademark-bonus-routing.module';
 import { TrademarkBonusComponent } from './trademark-bonus.component';
 import { EditComponent } from './edit/edit.component';
 import { CreateComponent } from './create/create.component';
-
 
 @NgModule({
   declarations: [
@@ -47,6 +47,7 @@ import { CreateComponent } from './create/create.component';
     NzDrawerModule,
     NzModalModule,
     NzInputNumberModule,
+    NzMessageModule,
     TrademarkBonusRoutingModule
   ]
 })

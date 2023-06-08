@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 import { InvoiceComponent } from 'src/app/shared/component/invoice/invoice.component';
@@ -31,6 +32,7 @@ export class PatentOfficialFeeComponent implements OnInit {
     private formBuilder: FormBuilder,
     private drawerService: NzDrawerService,
     private modalService: NzModalService,
+    private nzMessageService: NzMessageService,
     private patentOfficialFeeService: PatentOfficialFeeService
   ) {
     this.searchForm = this.formBuilder.group({});
@@ -226,7 +228,18 @@ export class PatentOfficialFeeComponent implements OnInit {
       nzOkText: '删除',
       // nzOkType: 'danger',
       nzOnOk: () => this.patentOfficialFeeService.deleteData(code).subscribe((res: any) =>{
-        console.log('删除数据：', res);
+        // console.log('res.data: ', res);
+        const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('删除成功！');
+          this.search(true);
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('删除失败！');
+          }
+        }
       }),
       nzCancelText: '取消',
       nzOnCancel: () => console.log('取消删除')

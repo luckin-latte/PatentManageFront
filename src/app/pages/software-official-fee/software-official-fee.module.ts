@@ -16,6 +16,7 @@ import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { SoftwareOfficialFeeRoutingModule } from './software-official-fee-routing.module';
 import { SoftwareOfficialFeeComponent } from './software-official-fee.component';
@@ -46,6 +47,7 @@ import { EditComponent } from './edit/edit.component';
     NzDrawerModule,
     NzModalModule,
     NzUploadModule,
+    NzMessageModule,
     SoftwareOfficialFeeRoutingModule
   ]
 })

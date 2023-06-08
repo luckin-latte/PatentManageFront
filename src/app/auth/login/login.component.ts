@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
-import { LibService } from 'src/app/shared';
 import { LoginService } from './login.service';
 import { LoginRequest, UserInfo } from '../../shared/model/login';
 
@@ -29,8 +28,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private nzMessageService: NzMessageService,
-    private loginService: LoginService,
-    private libService: LibService
+    private loginService: LoginService
     ) {
       this.loginForm = this.formBuilder.group({
         // userName: [null, [Validators.required]],
@@ -62,14 +60,14 @@ export class LoginComponent implements OnInit {
       // 请求后端登录
       this.loginService.login(loginRequest).subscribe((res: any) =>{
         const msg = res.message;
-        if (msg === '登录成功') {
+        if (res.code === '200') {
           // 存储token
           const { token, userId, userRole } = res.data
           const userInfo: UserInfo = { token, userId, userRole, userName };
           // console.log('userInfo', userInfo);
           sessionStorage.setItem('UserInfo', JSON.stringify(userInfo));
           // 路由跳转
-          this.router.navigate(['/indexProposal']);
+          this.router.navigate(['/newProposal']);
         } else {
           if (msg) {
             this.nzMessageService.error(msg);

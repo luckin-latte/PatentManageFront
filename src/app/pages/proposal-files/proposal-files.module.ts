@@ -14,10 +14,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { ProposalFilesRoutingModule } from './proposal-files-routing.module';
 import { ProposalFilesComponent } from './proposal-files.component';
-
 
 @NgModule({
   declarations: [
@@ -39,6 +39,7 @@ import { ProposalFilesComponent } from './proposal-files.component';
     NzTableModule,
     NzUploadModule,
     NzDrawerModule,
+    NzMessageModule,
     ProposalFilesRoutingModule
   ]
 })

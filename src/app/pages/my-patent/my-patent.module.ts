@@ -14,13 +14,13 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { MyPatentRoutingModule } from './my-patent-routing.module';
 import { MyPatentComponent } from './my-patent.component';
 import { BonusComponent } from './bonus/bonus.component';
 import { EditComponent } from './edit/edit.component';
 import { FileListComponent } from './file-list/file-list.component';
-
 
 @NgModule({
   declarations: [
@@ -45,6 +45,7 @@ import { FileListComponent } from './file-list/file-list.component';
     NzTableModule,
     NzEmptyModule,
     NzDrawerModule,
+    NzMessageModule,
     MyPatentRoutingModule
   ]
 })

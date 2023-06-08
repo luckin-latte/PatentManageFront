@@ -14,19 +14,19 @@ export class TrademarkOfficialFeeService {
   ) { 
   }
 
-  getList(queryInfo: object): Observable<any>{
+  getList(queryInfo: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/trademark/getOfficialFeeList`, queryInfo);
   }
 
-  newData(Data: object) {
+  newData(Data: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/trademark/newOfficialFee`, Data);
   }
 
-  updateData(params: object) {
+  updateData(params: object): Observable<any> {
     return this.httpClient.patch(`${apiUrl}/trademark/updateOfficialFee`, params);
   }
 
-  deleteData(id: string): Observable<any>{
+  deleteData(id: string): Observable<any> {
     return this.httpClient.delete(`${apiUrl}/trademark/deleteOfficialFee/${id}`);
   }
   

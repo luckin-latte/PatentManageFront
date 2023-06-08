@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { AgencyService } from '../agency.service';
 
@@ -18,6 +19,7 @@ export class EditComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private drawerRef: NzDrawerRef,
+    private nzMessageService: NzMessageService,
     private agencyService: AgencyService
     ) {
       this.EditForm = this.formBuilder.group({
@@ -40,21 +42,30 @@ export class EditComponent implements OnInit {
     // })
   }
 
-  public cancel(): void {
+  public cancel(e: MouseEvent): void {
     this.drawerRef.close(false);
   }
 
-  public save() {
+  public save(e: MouseEvent) {
     Object.keys(this.EditForm.controls).forEach(key => {
       this.EditForm.controls[key].markAsDirty();
       this.EditForm.controls[key].updateValueAndValidity();
     })
-    console.log('修改结果：', this.EditForm.getRawValue())
-
+    // console.log('修改结果：', this.EditForm.getRawValue());
     this.agencyService.updateData(this.EditForm.value).subscribe((res: any) =>{
-      console.log('res.data: ', res);
+      // console.log('res.data: ', res);
+      const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('编辑成功！');
+          this.drawerRef.close(true);
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('编辑失败！');
+          }
+        }
     })
-    this.drawerRef.close(false);
   }
 
 }

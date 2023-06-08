@@ -14,11 +14,11 @@ export class ProposalReviewService {
   ) { 
   }
 
-  getList(queryInfo: object): Observable<any>{
+  getList(queryInfo: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/proposal/getProposalList1`, queryInfo);
   }
 
-  newData(Data: object) {
+  newData(Data: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/proposal/review`, Data);
   }
   

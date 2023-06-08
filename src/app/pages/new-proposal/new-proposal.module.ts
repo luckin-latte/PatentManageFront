@@ -13,10 +13,10 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { NewProposalRoutingModule } from './new-proposal-routing.module';
 import { NewProposalComponent } from './new-proposal.component';
-
 
 @NgModule({
   declarations: [
@@ -37,6 +37,7 @@ import { NewProposalComponent } from './new-proposal.component';
     NzIconModule,
     NzInputNumberModule,
     NzUploadModule,
+    NzMessageModule,
     NewProposalRoutingModule
   ]
 })

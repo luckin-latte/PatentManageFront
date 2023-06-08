@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { LibService } from 'src/app/shared';
 import { RoleManagementService } from '../role-management.service';
@@ -21,6 +22,7 @@ export class CreateComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private drawerRef: NzDrawerRef,
+    private nzMessageService: NzMessageService,
     private libService: LibService,
     private roleManagementService: RoleManagementService
     ) {
@@ -35,7 +37,7 @@ export class CreateComponent implements OnInit {
     this.libService.getCode('R').subscribe((res: any) =>{
       console.log('角色号：', res.data);
       this.CreateForm.get('roleCode')?.setValue(res.data);
-      this.CreateForm.get('roleCode')?.disable();
+      // this.CreateForm.get('roleCode')?.disable();
     })
     // this.searchPermission(`$event`);
   }
@@ -52,20 +54,30 @@ export class CreateComponent implements OnInit {
     });
   }
 
-  cancel() {
+  public cancel(e: MouseEvent) {
     this.drawerRef.close(false);
   }
 
-  save() {
+  public save(e: MouseEvent) {
     Object.keys(this.CreateForm.controls).forEach(key => {
       this.CreateForm.controls[key].markAsDirty();
       this.CreateForm.controls[key].updateValueAndValidity();
     })
-    console.log('新增数据：', this.CreateForm.value)
+    console.log('新增角色：', this.CreateForm.value)
 
     this.roleManagementService.newData(this.CreateForm.value).subscribe((res: any) =>{
-      console.log('res.data: ', res);
+      // console.log('res.data: ', res);
+      const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('保存成功！');
+          this.drawerRef.close(true);
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('保存失败！');
+          }
+        }
     })
-    this.drawerRef.close(true);
   }
 }

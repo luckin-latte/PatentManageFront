@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { ProposalReviewService } from '../proposal-review.service';
 
@@ -20,6 +21,7 @@ export class ApprovalComponent implements OnInit {
   constructor(
     private drawerRef: NzDrawerRef,
     private formBuilder: FormBuilder,
+    private nzMessageService: NzMessageService,
     private proposalReviewService: ProposalReviewService
     ) {
       this.InfoForm = this.formBuilder.group({
@@ -47,21 +49,30 @@ export class ApprovalComponent implements OnInit {
     // })
   }
 
-  public cancel() {
+  public cancel(e: MouseEvent) {
     this.drawerRef.close(false);
   }
 
-  public submit() {
+  public submit(e: MouseEvent) {
     Object.keys(this.ApprovalForm.controls).forEach(key => {
       this.ApprovalForm.controls[key].markAsDirty();
       this.ApprovalForm.controls[key].updateValueAndValidity();
     })
-    console.log('新增数据：', this.ApprovalForm.value)
+    // console.log('新增提案审批：', this.ApprovalForm.value)
 
     this.proposalReviewService.newData(this.ApprovalForm.value).subscribe((res: any) =>{
-      console.log('res.data: ', res);
+      // console.log('res.data: ', res);
+      const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('保存成功！');
+          this.drawerRef.close(true);
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('保存失败！');
+          }
+        }
     })
-    this.drawerRef.close(true);
   }
-  
 }

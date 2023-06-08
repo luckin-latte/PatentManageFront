@@ -14,11 +14,11 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { UserManagementRoutingModule } from './user-management-routing.module';
 import { UserManagementComponent } from './user-management.component';
 import { CreateComponent } from './create/create.component';
-
 
 @NgModule({
   declarations: [
@@ -41,6 +41,7 @@ import { CreateComponent } from './create/create.component';
     NzDrawerModule,
     NzModalModule,
     NzPopconfirmModule,
+    NzMessageModule,
     UserManagementRoutingModule
   ]
 })

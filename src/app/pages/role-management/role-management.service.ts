@@ -14,19 +14,19 @@ export class RoleManagementService {
   ) { 
   }
 
-  getList(queryInfo: object): Observable<any>{
+  getList(queryInfo: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/user/getRole`, queryInfo);
   }
 
-  newData(Data: object) {
+  newData(Data: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/user/addRole`, Data);
   }
 
-  updateData(params: object) {
+  updateData(params: object): Observable<any> {
     return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
   }
 
-  deleteData(roleName: string): Observable<any>{
+  deleteData(roleName: string): Observable<any> {
     return this.httpClient.delete(`${apiUrl}/user/deleteRole/${roleName}`);
   }
   

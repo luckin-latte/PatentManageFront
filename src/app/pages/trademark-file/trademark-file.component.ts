@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 import { QueryInfo, QueryCriteria, QueryCriteriaInfo } from 'src/app/shared';
 import { TrademarkFileService } from './trademark-file.service';
@@ -28,6 +29,7 @@ export class TrademarkFileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private nzDrawerService: NzDrawerService,
     private modalService: NzModalService,
+    private nzMessageService: NzMessageService,
     private trademarkFileService: TrademarkFileService
   ) {
     this.searchForm = this.formBuilder.group({});
@@ -183,7 +185,18 @@ export class TrademarkFileComponent implements OnInit {
       nzOkText: '删除',
       // nzOkType: 'danger',
       nzOnOk: () => this.trademarkFileService.deleteData(id).subscribe((res: any) =>{
-        console.log('删除数据：', res);
+        // console.log('res.data: ', res);
+        const msg = res.message;
+        if (res.code === '200') {
+          this.nzMessageService.success('删除成功！');
+          this.search(true);
+        } else {
+          if (msg) {
+            this.nzMessageService.error(msg);
+          } else {
+            this.nzMessageService.error('删除失败！');
+          }
+        }
       }),
       nzCancelText: '取消',
       nzOnCancel: () => console.log('取消删除')

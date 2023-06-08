@@ -14,19 +14,19 @@ export class MySoftwareService {
   ) { 
   }
 
-  getList(queryInfo: object): Observable<any>{
+  getList(queryInfo: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/software/getList`, queryInfo);
   }
 
-  newData(Data: object) {
+  newData(Data: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/user/addUser`, Data);
   }
 
-  updateData(params: object) {
+  updateData(params: object): Observable<any> {
     return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
   }
 
-  deleteData(userCode: string): Observable<any>{
+  deleteData(userCode: string): Observable<any> {
     return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
   }
   

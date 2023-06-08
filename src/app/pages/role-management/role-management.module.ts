@@ -13,11 +13,11 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { RoleManagementRoutingModule } from './role-management-routing.module';
 import { RoleManagementComponent } from './role-management.component';
 import { CreateComponent } from './create/create.component';
-
 
 @NgModule({
   declarations: [
@@ -39,6 +39,7 @@ import { CreateComponent } from './create/create.component';
     NzTableModule,
     NzDrawerModule,
     NzPopconfirmModule,
+    NzMessageModule,
     RoleManagementRoutingModule
   ]
 })

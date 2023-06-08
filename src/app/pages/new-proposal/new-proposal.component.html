@@ -141,7 +141,7 @@
   <div nz-row [nzGutter]="16">
     <div nz-col nzSpan="20" nzOffset="4">
       <button nz-button (click)="reset($event)">重置</button>
-      <button nz-button [disabled]="!CreateForm.valid" (click)="submitForm()"
+      <button nz-button [disabled]="!CreateForm.valid" (click)="submitForm($event)"
        [nzType]="'primary'" style="margin-left: 30px;">提交审批</button>
     </div>
   </div>

@@ -18,6 +18,7 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { PatentAnnualFeeRoutingModule } from './patent-annual-fee-routing.module';
 import { PatentAnnualFeeComponent } from './patent-annual-fee.component';
@@ -50,6 +51,7 @@ import { EditComponent } from './edit/edit.component';
     NzDividerModule,
     NzInputNumberModule,
     NzUploadModule,
+    NzMessageModule,
     PatentAnnualFeeRoutingModule
   ]
 })

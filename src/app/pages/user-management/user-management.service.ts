@@ -14,7 +14,7 @@ export class UserManagementService {
   ) { 
   }
 
-  getList(queryInfo: object): Observable<any>{
+  getList(queryInfo: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/user/getUser`, queryInfo);
   }
 
@@ -26,7 +26,7 @@ export class UserManagementService {
     return this.httpClient.patch(`${apiUrl}/user/updateUser`, params);
   }
 
-  deleteData(userCode: string): Observable<any>{
+  deleteData(userCode: string): Observable<any> {
     return this.httpClient.delete(`${apiUrl}/user/deleteUser/${userCode}`);
   }
 

@@ -14,12 +14,12 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { ParticipatedProposalRoutingModule } from './participated-proposal-routing.module';
 import { ParticipatedProposalComponent } from './participated-proposal.component';
 import { ReviewComponent } from './review/review.component';
 import { FileListComponent } from './file-list/file-list.component';
-
 
 @NgModule({
   declarations: [
@@ -43,6 +43,7 @@ import { FileListComponent } from './file-list/file-list.component';
     NzTableModule,
     NzUploadModule,
     NzDrawerModule,
+    NzMessageModule,
     ParticipatedProposalRoutingModule
   ]
 })

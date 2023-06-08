@@ -14,19 +14,19 @@ export class SoftwareBonusService {
   ) { 
   }
 
-  getList(queryInfo: object): Observable<any>{
+  getList(queryInfo: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/software/getSoftwareBonusList`, queryInfo)
   }
 
-  newData(Data: object) {
+  newData(Data: object): Observable<any> {
     return this.httpClient.post(`${apiUrl}/software/newBonus`, Data);
   }
   
-  updateData(params: object) {
+  updateData(params: object): Observable<any>{
     return this.httpClient.post(`${apiUrl}/software/updateBonus`, params);
   }
 
-  deleteData(id: string): Observable<any>{
+  deleteData(id: string): Observable<any> {
     return this.httpClient.delete(`${apiUrl}/software/deleteBonus/${id}`);
   }
 }

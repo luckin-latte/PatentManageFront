@@ -130,8 +130,8 @@
       </div>
       <div nz-row [nzGutter]="16">
         <div nz-col [nzSpan]="16" class="save-area">
-          <button nz-button>取消</button>
-          <button nz-button (click)="submit()" [nzType]="'primary'" style="margin-left: 8px;">提交</button>
+          <button nz-button (click)="cancel($event)">取消</button>
+          <button nz-button (click)="submit($event)" [nzType]="'primary'" style="margin-left: 8px;">提交</button>
         </div>
       </div>
     </form>

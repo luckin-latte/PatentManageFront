@@ -16,6 +16,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { MyProposalRoutingModule } from './my-proposal-routing.module';
 import { MyProposalComponent } from './my-proposal.component';
@@ -45,6 +46,7 @@ import { FileListComponent } from './file-list/file-list.component';
     NzEmptyModule,
     NzUploadModule,
     NzDrawerModule,
+    NzMessageModule,
     MyProposalRoutingModule
   ]
 })
